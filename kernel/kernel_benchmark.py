@@ -53,8 +53,8 @@ class Kernel(nn.Module):
         return self.lif(x)
     
 def forward_path(n):
-    model = Kernel(n)
-    input = torch.randn(64)
+    model = Kernel(n).to('cuda')
+    input = torch.randn(16384, requires_grad=True).to('cuda')
     output = model(input)
     return output
 

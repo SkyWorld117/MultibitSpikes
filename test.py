@@ -83,47 +83,47 @@ else:
 
 """
 Used for testing, gives actually better results:
-python -m test --N 2 --R 2 --T 10 --acc 0.60 --model CIFAR10Net --data-path /scratch/zyi/codeSpace/data --dataset CIFAR10 --batch-size 64 --opt adam --lr 1e-3 --lr-scheduler cosa --epochs 6 --lr-warmup-epochs 5 --output-dir /scratch/zyi/codeSpace/AIO
+python -m test --N 2 --R 5 --T 10 10 --acc 0.80 --model CIFAR10Net --data-path /scratch/zyi/codeSpace/data --dataset CIFAR10 --batch-size 64 --opt adam --lr 1e-3 --lr-scheduler cosa --epochs 10 --lr-warmup-epochs 5 --output-dir /scratch/zyi/codeSpace/MultibitSpikes
 
 Used for data generation:
-python -m test --N 8 --R 10 --T 10 --acc 0.80 --model FashionMNISTNet --data-path /scratch/zyi/codeSpace/data --dataset FashionMNIST --batch-size 128 --opt adam --lr 2e-3 --lr-scheduler none --epochs 5 --lr-warmup-epochs 0 --output-dir /scratch/zyi/codeSpace/AIO --mixup-alpha 0.0 --cutmix-alpha 0.0 --label-smoothing 0.0 --disable-amp
-python -m test --N 8 --R 10 --T 10 --acc 0.80 --model MNISTNet --data-path /scratch/zyi/codeSpace/data --dataset MNIST --batch-size 128 --opt adam --lr 2e-3 --lr-scheduler none --epochs 5 --lr-warmup-epochs 0 --output-dir /scratch/zyi/codeSpace/AIO --mixup-alpha 0.0 --cutmix-alpha 0.0 --label-smoothing 0.0 --disable-amp
-python -m test --N 8 --R 10 --T 10 --acc 0.80 --model NMNISTNet --data-path /scratch/zyi/codeSpace/data --dataset NMNIST --batch-size 128 --opt adam --lr 2e-3 --lr-scheduler none --epochs 5 --lr-warmup-epochs 0 --output-dir /scratch/zyi/codeSpace/AIO --mixup-alpha 0.0 --cutmix-alpha 0.0 --label-smoothing 0.0 --disable-amp
-python -m test --N 8 --R 10 --T 10 --acc 0.80 --model DVSGestureNet --data-path /scratch/zyi/codeSpace/data --dataset DVSGesture --batch-size 128 --opt adam --lr 1e-3 --lr-scheduler cosa --epochs 20 --lr-warmup-epochs 0 --output-dir /scratch/zyi/codeSpace/AIO
-python -m test --N 4 --R 5 --T 10 --acc 0.80 --model CIFAR10Net --data-path /scratch/zyi/codeSpace/data --dataset CIFAR10 --batch-size 128 --opt adam --lr 1e-5 --lr-scheduler none --epochs 50 --lr-warmup-epochs 0 --output-dir /scratch/zyi/codeSpace/AIO
+python -m test --N 8 --R 10 --T 10 --acc 0.80 --model FashionMNISTNet --data-path /scratch/zyi/codeSpace/data --dataset FashionMNIST --batch-size 128 --opt adam --lr 2e-3 --lr-scheduler none --epochs 5 --lr-warmup-epochs 0 --output-dir /scratch/zyi/codeSpace/MultibitSpikes --mixup-alpha 0.0 --cutmix-alpha 0.0 --label-smoothing 0.0 --disable-amp
+python -m test --N 8 --R 10 --T 10 --acc 0.80 --model MNISTNet --data-path /scratch/zyi/codeSpace/data --dataset MNIST --batch-size 128 --opt adam --lr 2e-3 --lr-scheduler none --epochs 5 --lr-warmup-epochs 0 --output-dir /scratch/zyi/codeSpace/MultibitSpikes --mixup-alpha 0.0 --cutmix-alpha 0.0 --label-smoothing 0.0 --disable-amp
+python -m test --N 8 --R 10 --T 10 --acc 0.80 --model NMNISTNet --data-path /scratch/zyi/codeSpace/data --dataset NMNIST --batch-size 128 --opt adam --lr 2e-3 --lr-scheduler none --epochs 5 --lr-warmup-epochs 0 --output-dir /scratch/zyi/codeSpace/MultibitSpikes --mixup-alpha 0.0 --cutmix-alpha 0.0 --label-smoothing 0.0 --disable-amp
+python -m test --N 8 --R 10 --T 10 --acc 0.80 --model DVSGestureNet --data-path /scratch/zyi/codeSpace/data --dataset DVSGesture --batch-size 128 --opt adam --lr 1e-3 --lr-scheduler cosa --epochs 20 --lr-warmup-epochs 0 --output-dir /scratch/zyi/codeSpace/MultibitSpikes
+python -m test --N 4 --R 5 --T 10 --acc 0.80 --model CIFAR10Net --data-path /scratch/zyi/codeSpace/data --dataset CIFAR10 --batch-size 128 --opt adam --lr 1e-5 --lr-scheduler none --epochs 50 --lr-warmup-epochs 0 --output-dir /scratch/zyi/codeSpace/MultibitSpikes
 
 Plots:
-python -m test --N 8 --R 10 --T 10 10 10 10 10 10 10 10 --dataset FashionMNIST --output-dir /scratch/zyi/codeSpace/AIO/standard --plot-from-data
-python -m test --N 8 --R 10 --T 10 10 10 10 10 10 10 10 --dataset MNIST --output-dir /scratch/zyi/codeSpace/AIO/standard --plot-from-data
-python -m test --N 8 --R 10 --T 10 10 10 10 10 10 10 10 --dataset NMNIST --output-dir /scratch/zyi/codeSpace/AIO/standard --plot-from-data
-python -m test --N 8 --R 10 --T 10 10 10 10 10 10 10 10 --dataset DVSGesture --output-dir /scratch/zyi/codeSpace/AIO/standard --plot-from-data
-python -m test --N 4 --R 5 --T 10 10 10 10 10 10 10 10 --dataset CIFAR10 --output-dir /scratch/zyi/codeSpace/AIO/standard --plot-from-data
+python -m test --N 8 --R 10 --T 10 10 10 10 10 10 10 10 --dataset FashionMNIST --output-dir /scratch/zyi/codeSpace/MultibitSpikes/standard --plot-from-data
+python -m test --N 8 --R 10 --T 10 10 10 10 10 10 10 10 --dataset MNIST --output-dir /scratch/zyi/codeSpace/MultibitSpikes/standard --plot-from-data
+python -m test --N 8 --R 10 --T 10 10 10 10 10 10 10 10 --dataset NMNIST --output-dir /scratch/zyi/codeSpace/MultibitSpikes/standard --plot-from-data
+python -m test --N 8 --R 10 --T 10 10 10 10 10 10 10 10 --dataset DVSGesture --output-dir /scratch/zyi/codeSpace/MultibitSpikes/standard --plot-from-data
+python -m test --N 4 --R 5 --T 10 10 10 10 10 10 10 10 --dataset CIFAR10 --output-dir /scratch/zyi/codeSpace/MultibitSpikes/standard --plot-from-data
 
 Firerate:
-python -m test --N 2 --R 10 --T 10 10 --acc 0.80 --model FashionMNISTNet --data-path /scratch/zyi/codeSpace/data --dataset FashionMNIST --batch-size 128 --opt adam --lr 2e-3 --lr-scheduler none --epochs 50 --lr-warmup-epochs 0 --output-dir /scratch/zyi/codeSpace/AIO/firerate --mixup-alpha 0.0 --cutmix-alpha 0.0 --label-smoothing 0.0 --disable-amp
-python -m test --N 2 --R 10 --T 10 10 --acc 0.80 --model MNISTNet --data-path /scratch/zyi/codeSpace/data --dataset MNIST --batch-size 128 --opt adam --lr 2e-3 --lr-scheduler none --epochs 50 --lr-warmup-epochs 0 --output-dir /scratch/zyi/codeSpace/AIO/firerate --mixup-alpha 0.0 --cutmix-alpha 0.0 --label-smoothing 0.0 --disable-amp
-python -m test --N 2 --R 10 --T 10 10 --acc 0.80 --model NMNISTNet --data-path /scratch/zyi/codeSpace/data --dataset NMNIST --batch-size 128 --opt adam --lr 2e-3 --lr-scheduler none --epochs 50 --lr-warmup-epochs 0 --output-dir /scratch/zyi/codeSpace/AIO/firerate --mixup-alpha 0.0 --cutmix-alpha 0.0 --label-smoothing 0.0 --disable-amp
-python -m test --N 2 --R 10 --T 10 10 --acc 0.80 --model DVSGestureNet --data-path /scratch/zyi/codeSpace/data --dataset DVSGesture --batch-size 128 --opt adam --lr 1e-3 --lr-scheduler cosa --epochs 200 --lr-warmup-epochs 0 --output-dir /scratch/zyi/codeSpace/AIO/firerate
-?python -m test --N 2 --R 5 --T 10 10 --acc 0.80 --model CIFAR10Net --data-path /scratch/zyi/codeSpace/data --dataset CIFAR10 --batch-size 128 --opt adam --lr 1e-5 --lr-scheduler none --epochs 1000 --lr-warmup-epochs 0 --output-dir /scratch/zyi/codeSpace/AIO/firerate
+python -m test --N 2 --R 10 --T 10 10 --acc 0.80 --model FashionMNISTNet --data-path /scratch/zyi/codeSpace/data --dataset FashionMNIST --batch-size 128 --opt adam --lr 2e-3 --lr-scheduler none --epochs 50 --lr-warmup-epochs 0 --output-dir /scratch/zyi/codeSpace/MultibitSpikes/firerate --mixup-alpha 0.0 --cutmix-alpha 0.0 --label-smoothing 0.0 --disable-amp
+python -m test --N 2 --R 10 --T 10 10 --acc 0.80 --model MNISTNet --data-path /scratch/zyi/codeSpace/data --dataset MNIST --batch-size 128 --opt adam --lr 2e-3 --lr-scheduler none --epochs 50 --lr-warmup-epochs 0 --output-dir /scratch/zyi/codeSpace/MultibitSpikes/firerate --mixup-alpha 0.0 --cutmix-alpha 0.0 --label-smoothing 0.0 --disable-amp
+python -m test --N 2 --R 10 --T 10 10 --acc 0.80 --model NMNISTNet --data-path /scratch/zyi/codeSpace/data --dataset NMNIST --batch-size 128 --opt adam --lr 2e-3 --lr-scheduler none --epochs 50 --lr-warmup-epochs 0 --output-dir /scratch/zyi/codeSpace/MultibitSpikes/firerate --mixup-alpha 0.0 --cutmix-alpha 0.0 --label-smoothing 0.0 --disable-amp
+python -m test --N 2 --R 10 --T 10 10 --acc 0.80 --model DVSGestureNet --data-path /scratch/zyi/codeSpace/data --dataset DVSGesture --batch-size 128 --opt adam --lr 1e-3 --lr-scheduler cosa --epochs 200 --lr-warmup-epochs 0 --output-dir /scratch/zyi/codeSpace/MultibitSpikes/firerate
+?python -m test --N 2 --R 5 --T 10 10 --acc 0.80 --model CIFAR10Net --data-path /scratch/zyi/codeSpace/data --dataset CIFAR10 --batch-size 128 --opt adam --lr 1e-5 --lr-scheduler none --epochs 1000 --lr-warmup-epochs 0 --output-dir /scratch/zyi/codeSpace/MultibitSpikes/firerate
 
 Plots:
-python -m test --N 2 --R 10 --T 10 10 --dataset FashionMNIST --output-dir /scratch/zyi/codeSpace/AIO/firerate --plot-from-data
-python -m test --N 2 --R 10 --T 10 10 --dataset MNIST --output-dir /scratch/zyi/codeSpace/AIO/firerate --plot-from-data
-python -m test --N 2 --R 10 --T 10 10 --dataset NMNIST --output-dir /scratch/zyi/codeSpace/AIO/firerate --plot-from-data
-python -m test --N 2 --R 10 --T 10 10 --dataset DVSGesture --output-dir /scratch/zyi/codeSpace/AIO/firerate --plot-from-data
-python -m test --N 2 --R 5 --T 10 10 --dataset CIFAR10 --output-dir /scratch/zyi/codeSpace/AIO/firerate --plot-from-data
+python -m test --N 2 --R 10 --T 10 10 --dataset FashionMNIST --output-dir /scratch/zyi/codeSpace/MultibitSpikes/firerate --plot-from-data
+python -m test --N 2 --R 10 --T 10 10 --dataset MNIST --output-dir /scratch/zyi/codeSpace/MultibitSpikes/firerate --plot-from-data
+python -m test --N 2 --R 10 --T 10 10 --dataset NMNIST --output-dir /scratch/zyi/codeSpace/MultibitSpikes/firerate --plot-from-data
+python -m test --N 2 --R 10 --T 10 10 --dataset DVSGesture --output-dir /scratch/zyi/codeSpace/MultibitSpikes/firerate --plot-from-data
+python -m test --N 2 --R 5 --T 10 10 --dataset CIFAR10 --output-dir /scratch/zyi/codeSpace/MultibitSpikes/firerate --plot-from-data
 
 Quantization:
-python -m test --N 2 --R 10 --T 10 10 --acc 0.80 --model FashionMNISTNet --data-path /scratch/zyi/codeSpace/data --dataset FashionMNIST --batch-size 128 --opt adam --lr 2e-3 --lr-scheduler none --epochs 5 --lr-warmup-epochs 0 --output-dir /scratch/zyi/codeSpace/AIO/bf16 --mixup-alpha 0.0 --cutmix-alpha 0.0 --label-smoothing 0.0 --disable-amp --bf16
-python -m test --N 2 --R 10 --T 10 10 --acc 0.80 --model FashionMNISTNet --data-path /scratch/zyi/codeSpace/data --dataset FashionMNIST --batch-size 128 --opt adam --lr 2e-3 --lr-scheduler none --epochs 5 --lr-warmup-epochs 0 --output-dir /scratch/zyi/codeSpace/AIO/quantized --mixup-alpha 0.0 --cutmix-alpha 0.0 --label-smoothing 0.0 --disable-amp --quantize
+python -m test --N 2 --R 10 --T 10 10 --acc 0.80 --model FashionMNISTNet --data-path /scratch/zyi/codeSpace/data --dataset FashionMNIST --batch-size 128 --opt adam --lr 2e-3 --lr-scheduler none --epochs 5 --lr-warmup-epochs 0 --output-dir /scratch/zyi/codeSpace/MultibitSpikes/bf16 --mixup-alpha 0.0 --cutmix-alpha 0.0 --label-smoothing 0.0 --disable-amp --bf16
+python -m test --N 2 --R 10 --T 10 10 --acc 0.80 --model FashionMNISTNet --data-path /scratch/zyi/codeSpace/data --dataset FashionMNIST --batch-size 128 --opt adam --lr 2e-3 --lr-scheduler none --epochs 5 --lr-warmup-epochs 0 --output-dir /scratch/zyi/codeSpace/MultibitSpikes/quantized --mixup-alpha 0.0 --cutmix-alpha 0.0 --label-smoothing 0.0 --disable-amp --quantize
 
 Plots:
-python -m test --N 2 --R 10 --T 10 10 --dataset FashionMNIST --output-dir /scratch/zyi/codeSpace/AIO/bf16 --bf16 --plot-from-data
-python -m test --N 2 --R 10 --T 10 10 --dataset FashionMNIST --output-dir /scratch/zyi/codeSpace/AIO/quantized --quantize --plot-from-data
+python -m test --N 2 --R 10 --T 10 10 --dataset FashionMNIST --output-dir /scratch/zyi/codeSpace/MultibitSpikes/bf16 --bf16 --plot-from-data
+python -m test --N 2 --R 10 --T 10 10 --dataset FashionMNIST --output-dir /scratch/zyi/codeSpace/MultibitSpikes/quantized --quantize --plot-from-data
 
 Reduced time steps:
-python -m test --N 2 --R 10 --T 10 4 --acc 0.80 --model FashionMNISTNet --data-path /scratch/zyi/codeSpace/data --dataset FashionMNIST --batch-size 128 --opt adam --lr 2e-3 --lr-scheduler none --epochs 5 --lr-warmup-epochs 0 --output-dir /scratch/zyi/codeSpace/AIO/timesteps --mixup-alpha 0.0 --cutmix-alpha 0.0 --label-smoothing 0.0 --disable-amp
+python -m test --N 2 --R 10 --T 10 4 --acc 0.80 --model FashionMNISTNet --data-path /scratch/zyi/codeSpace/data --dataset FashionMNIST --batch-size 128 --opt adam --lr 2e-3 --lr-scheduler none --epochs 5 --lr-warmup-epochs 0 --output-dir /scratch/zyi/codeSpace/MultibitSpikes/timesteps --mixup-alpha 0.0 --cutmix-alpha 0.0 --label-smoothing 0.0 --disable-amp
 
 Plots:
-python -m test --N 2 --R 10 --T 10 4 --dataset FashionMNIST --output-dir /scratch/zyi/codeSpace/AIO/timesteps --plot-from-data
+python -m test --N 2 --R 10 --T 10 4 --dataset FashionMNIST --output-dir /scratch/zyi/codeSpace/MultibitSpikes/timesteps --plot-from-data
 """

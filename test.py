@@ -21,13 +21,13 @@ def train_and_plot():
     test_accs = [ [ trainer.test_acc1 for trainer in trainer_b ] for trainer_b in trainers ]
     plots.plot_accs_test(test_accs, args)
 
-    plots.plot_accs_final(test_accs, args)
+    plots.plot_accs_final(test_accs, args, horizontal=True)
 
     train_iters = [ [ trainer.train_iters for trainer in trainer_b ] for trainer_b in trainers ]
-    plots.plot_iters_train(train_iters, args)
+    plots.plot_iters_train(train_iters, args, horizontal=True)
 
     test_iters = [ [ trainer.test_iters for trainer in trainer_b ] for trainer_b in trainers ]
-    plots.plot_iters_test(test_iters, args)
+    plots.plot_iters_test(test_iters, args, horizontal=True)
 
     num_spiking = trainers[0][0].model.num_spiking
 
@@ -37,15 +37,15 @@ def train_and_plot():
     test_firerate = [ [ [ trainer.test_nnz[i] for trainer in trainer_b ] for i in range(num_spiking + 1) ] for trainer_b in trainers ]
     plots.plot_firerate_test(test_firerate, args)
 
-    plots.plot_firerate_final(test_firerate, args)
+    plots.plot_firerate_final(test_firerate, args, horizontal=True)
 
-    plots.plot_energy_train_gpu(train_iters, args)
+    plots.plot_energy_train_gpu(train_iters, args, horizontal=True)
 
-    plots.plot_energy_test_nh(test_firerate, args)
+    plots.plot_energy_test_nh(test_firerate, args, horizontal=True)
 
     if args.quantize:
         quant_accs = [ [ trainer.quant_acc1 for trainer in trainer_b ] for trainer_b in trainers ]
-        plots.plot_accs_quant(quant_accs, args)
+        plots.plot_accs_quant(quant_accs, args, horizontal=True)
 
 def just_plot():
     plots.plot_accs_train(None, args)
@@ -82,9 +82,6 @@ else:
 # trainer.main(args)
 
 """
-Used for testing, gives actually better results:
-python -m test --N 2 --R 5 --T 10 10 --acc 0.80 --model CIFAR10Net --data-path /scratch/zyi/codeSpace/data --dataset CIFAR10 --batch-size 64 --opt adam --lr 1e-3 --lr-scheduler cosa --epochs 10 --lr-warmup-epochs 5 --output-dir /scratch/zyi/codeSpace/MultibitSpikes
-
 Used for data generation:
 python -m test --N 8 --R 10 --T 10 --acc 0.80 --model FashionMNISTNet --data-path /scratch/zyi/codeSpace/data --dataset FashionMNIST --batch-size 128 --opt adam --lr 2e-3 --lr-scheduler none --epochs 5 --lr-warmup-epochs 0 --output-dir /scratch/zyi/codeSpace/MultibitSpikes --mixup-alpha 0.0 --cutmix-alpha 0.0 --label-smoothing 0.0 --disable-amp
 python -m test --N 8 --R 10 --T 10 --acc 0.80 --model MNISTNet --data-path /scratch/zyi/codeSpace/data --dataset MNIST --batch-size 128 --opt adam --lr 2e-3 --lr-scheduler none --epochs 5 --lr-warmup-epochs 0 --output-dir /scratch/zyi/codeSpace/MultibitSpikes --mixup-alpha 0.0 --cutmix-alpha 0.0 --label-smoothing 0.0 --disable-amp

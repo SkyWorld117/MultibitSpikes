@@ -1,0 +1,3 @@
+# Working in progress...
+
+Documentation can be found in `thesis/thesis.pdf`.

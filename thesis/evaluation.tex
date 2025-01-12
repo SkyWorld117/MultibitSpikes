@@ -3,10 +3,9 @@
 
 \section{Energy Consumption}
 \label{sec:energy-consumption}
-    One of the main motivations for SNNs is their energy efficiency compared to ANNs on specialized hardware. Products like Loihi from Intel and TrueNorth from IBM have proved the potential of SNNs by utilizing the asynchronous communication via spikes. In the real-world scenario, one often uses accelerators like GPUs to train SNNs and deploy them on specialized hardware to achieve fast training and energy efficent inference. 
+    One of the main motivations for SNNs is their energy efficiency compared to ANNs on specialized hardware. Products like Loihi from Intel \cite{8259423} and TrueNorth from IBM \cite{7229264} have proved the potential of SNNs by utilizing the asynchronous communication via spikes. In the real-world scenario, one often uses accelerators like GPUs to train SNNs and deploy them on specialized hardware to achieve fast training and energy efficent inference. 
 
     Here we present an energy consumption model for the multi-bit spike train model and compare it with the 1-bit spike train model. We consider the unique properties of various hardware implementations and give the energy consumption of the multi-bit spike train model relative to the 1-bit spike train model. 
-    % TODO: Cite the Loihi and TrueNorth products
 
     \subsection{Training Energy Consumption on GPUs}
     \label{subsec:training_energy}
@@ -37,6 +36,8 @@
             \caption{Training Energy Consumption Estimation on GPUs for Fashion MNIST Dataset}
             \label{fig:training_energy_gpu}
         \end{figure}
+
+        See more in Appendix \ref{appendix:energy_gpu}.
 
     \subsection{Inference Energy Consumption on Neuromorphic Chips}
     \label{subsec:inference_energy}
@@ -73,7 +74,8 @@
             \caption{Inference Energy Consumption Estimation on Intel Loihi 2 for Fashion MNIST Dataset}
             \label{fig:inference_energy_nh}
         \end{figure}
-        %TODO: Add more figures in appendix
+
+        See more in Appendix \ref{appendix:energy_neuromorphic}.
         %TODO: Add references to the analysis model
 
     \subsection{Tradeoffs}
@@ -118,16 +120,13 @@
             \caption{Inference Energy Consumption Estimation on Intel Loihi 2 and Test Accuracy for Fashion MNIST Dataset with 10 Time Steps for 1-bit Spike Train Model and 4 Time Steps for 2-bit Spike Train Model}
             \label{fig:inference_energy_nh_timesteps}
         \end{figure}
-        %TODO: Add more figures in appendix
+        
+        See more in Appendix \ref{appendix:energy_tradeoff}.
 
-        This can lead to a significant reduction in the energy consumption. It may not be reflected as a direct advantage in the energy consumption model mentioned above \ref{subsec:inference_energy}, but in practice, it should bring significant benefits, as most of the neuromorphic chips are designed to utilize the asynchronous communication via spikes, so they do not have a central clock system to synchronize the time steps very efficiently, and the cost for the synchronization barrier is very high. As reference, the latency per tile hop on Intel Loihi is at most around 6.5 ns where as the latency for the synchronization barrier is from 113-465 ns.
-        %TODO: Add numbers from Intel Loihi.
-
+        This can lead to a significant reduction in the energy consumption. It may not be reflected as a direct advantage in the energy consumption model mentioned above \ref{subsec:inference_energy}, but in practice, it should bring significant benefits, as most of the neuromorphic chips are designed to utilize the asynchronous communication via spikes, so they do not have a central clock system to synchronize the time steps very efficiently, and the cost for the synchronization barrier is very high. As reference, the latency per tile hop on Intel Loihi is at most around 6.5 ns where as the latency for the synchronization barrier is from 113-465 ns. 
 
 \section{Performance}
 \label{sec:performance}
     In the section \ref{subsec:training_energy}, we claim that the energy consumption on the GPUs are not affected by the firing rate and the bit width of the spike train in theory. However, in practice, with the increase of the bit width of the spike train, the training process slows down. This can be caused by the inefficient implementation of the multi-bit spike train model and the low level optimization on operations of sparse matrix multiplication. 
-    % TODO: Measure the time consumption of multi-bit spike train model and 1-bit spike train model
-    % TODO: Try JIT compilation? 
+
     There is sufficient room for improvement, e.g. by utilizing the sparsity of the spike trains or completely switching to the vectorized model instead of the temporal model instead, which is shown to be more efficient with learning algorithms like SLAYER and EXODUS. 
-    % TODO: Cite the SLAYER and EXODUS papers

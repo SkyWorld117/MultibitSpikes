@@ -120,6 +120,7 @@ python -m test --N 2 --R 10 --T 10 10 --dataset FashionMNIST --output-dir /scrat
 
 Reduced time steps:
 python -m test --N 2 --R 10 --T 10 4 --acc 0.80 --model FashionMNISTNet --data-path /scratch/zyi/codeSpace/data --dataset FashionMNIST --batch-size 128 --opt adam --lr 2e-3 --lr-scheduler none --epochs 5 --lr-warmup-epochs 0 --output-dir /scratch/zyi/codeSpace/MultibitSpikes/timesteps --mixup-alpha 0.0 --cutmix-alpha 0.0 --label-smoothing 0.0 --disable-amp
+python -m test --N 2 --R 5 --T 10 4 --acc 0.80 --model CIFAR10Net --data-path /scratch/zyi/codeSpace/data --dataset CIFAR10 --batch-size 128 --opt adam --lr 1e-5 --lr-scheduler none --epochs 50 --lr-warmup-epochs 0 --output-dir /scratch/zyi/codeSpace/MultibitSpikes/timesteps
 
 Plots:
 python -m test --N 2 --R 10 --T 10 4 --dataset FashionMNIST --output-dir /scratch/zyi/codeSpace/MultibitSpikes/timesteps --plot-from-data

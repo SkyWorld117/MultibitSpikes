@@ -1,0 +1,17 @@
+\chapter{Concluding Remarks}
+\label{chap:concluding_remarks}
+
+    \section{Conclusion}
+    \label{sec:conclusion}
+        In this thesis we have developed a noval spike train model for spiking neural networks (SNNs) that uses multi-bit spikes to encode the information. We implement such model using an SNN framework, SpikingJelly, based on PyTorch. And we have shown that the multi-bit spike train model can significantly improve the convergence speed and accuracy of the network compared to the traditional 1-bit spike train model while preserving other characteristics of the 1-bit spike train model such as high quantizability and low energy consumption. We consider the tradeoffs the multi-bit spike train model can bring in terms of energy consumption and performance important for maximizing the efficiency of SNNs on various hardware platforms.
+
+    \section{Future Work}
+    \label{sec:future_work}
+        The multi-bit spike train model is a promising direction for the development of SNNs. However, there are still many open questions and challenges that need to be addressed in the future. Here we list some of the possible future work:
+        \begin{itemize}
+            \item \textbf{Optimization of the multi-bit spike train model:} The current implementation of the multi-bit spike train model is not optimized for performance. One can consider using just-in-time (JIT) compilation to improve the performance of the model. 
+            \item \textbf{Investigation of the overfitting problem:} The multi-bit spike train model is more complicated than the 1-bit spike train model, which can lead to overfitting. One can investigate the overfitting problem and propose solutions to mitigate it.
+            \item \textbf{Extension to other tasks and datasets:} The experiments in this thesis are mainly focused on image classification tasks. One can extend the multi-bit spike train model to other tasks and datasets to evaluate its performance.
+            \item \textbf{Implementation on neuromorphic chips:} The multi-bit spike train model is designed to be hardware-friendly in theory. It would be more convincing if one can implement the model on neuromorphic chips like Intel Loihi 2 to evaluate its performance on specialized hardware.
+            \item \textbf{Investigation of the energy consumption model:} The energy consumption model presented in this thesis is a simple estimation. One can investigate the energy consumption of the multi-bit spike train model more thoroughly and propose a more accurate model. Ideally, one can also measure the energy consumption of the multi-bit spike train model after implementing it on neuromorphic chips.
+        \end{itemize}

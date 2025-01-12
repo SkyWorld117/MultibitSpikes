@@ -1,0 +1,50 @@
+This is BibTeX, Version 0.99d (TeX Live 2023)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: thesis.aux
+The style file: plain.bst
+Database file #1: refs.bib
+Warning--entry type for "xiao2017/online" isn't style-file defined
+--line 42 of file refs.bib
+Warning--empty institution in Krizhevsky2009
+You've used 9 entries,
+            2118 wiz_defined-function locations,
+            553 strings with 6017 characters,
+and the built_in function-call counts, 3770 in all, are:
+= -- 344
+> -- 254
+< -- 2
++ -- 101
+- -- 90
+* -- 292
+:= -- 645
+add.period$ -- 27
+call.type$ -- 9
+change.case$ -- 70
+chr.to.int$ -- 0
+cite$ -- 10
+duplicate$ -- 119
+empty$ -- 242
+format.name$ -- 90
+if$ -- 762
+int.to.chr$ -- 0
+int.to.str$ -- 9
+missing$ -- 7
+newline$ -- 47
+num.names$ -- 20
+pop$ -- 72
+preamble$ -- 1
+purify$ -- 60
+quote$ -- 0
+skip$ -- 94
+stack$ -- 0
+substring$ -- 197
+swap$ -- 31
+text.length$ -- 2
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 36
+warning$ -- 1
+while$ -- 29
+width$ -- 10
+write$ -- 97
+(There were 2 warnings)

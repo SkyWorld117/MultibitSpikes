@@ -52,12 +52,3 @@ clean:
 	rm -rf build/
 	rm -f *.aux
 	rm -f thesis.dvi thesis.idx thesis.ind thesis.ilg thesis.out thesis.toc thesis.pdf thesis.log
-
-archive: thesis-template.zip
-
-thesis-template.zip: *.tex Makefile ETHlogo.* refs.bib
-	mkdir -p thesis
-	cp `git ls-files "*.tex" Makefile "ETHlogo.*" refs.bib` thesis/
-	perl -i -pe 's/\$$VERSION\$$/'"$$(git describe)/" thesis/*.tex
-	rm -f thesis-template.zip
-	zip -r thesis-template.zip thesis/

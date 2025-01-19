@@ -6,45 +6,45 @@ Database file #1: refs.bib
 Warning--entry type for "xiao2017/online" isn't style-file defined
 --line 42 of file refs.bib
 Warning--empty institution in Krizhevsky2009
-You've used 11 entries,
+You've used 20 entries,
             2118 wiz_defined-function locations,
-            566 strings with 7073 characters,
-and the built_in function-call counts, 5565 in all, are:
-= -- 482
-> -- 465
+            624 strings with 8648 characters,
+and the built_in function-call counts, 8716 in all, are:
+= -- 780
+> -- 635
 < -- 2
-+ -- 185
-- -- 172
-* -- 492
-:= -- 977
-add.period$ -- 33
-call.type$ -- 11
-change.case$ -- 117
++ -- 255
+- -- 230
+* -- 746
+:= -- 1514
+add.period$ -- 59
+call.type$ -- 20
+change.case$ -- 173
 chr.to.int$ -- 0
-cite$ -- 12
-duplicate$ -- 141
-empty$ -- 296
-format.name$ -- 172
-if$ -- 1083
+cite$ -- 21
+duplicate$ -- 235
+empty$ -- 531
+format.name$ -- 230
+if$ -- 1722
 int.to.chr$ -- 0
-int.to.str$ -- 11
-missing$ -- 9
-newline$ -- 57
-num.names$ -- 24
-pop$ -- 115
+int.to.str$ -- 20
+missing$ -- 17
+newline$ -- 101
+num.names$ -- 42
+pop$ -- 160
 preamble$ -- 1
-purify$ -- 105
+purify$ -- 152
 quote$ -- 0
-skip$ -- 107
+skip$ -- 175
 stack$ -- 0
-substring$ -- 249
-swap$ -- 33
+substring$ -- 472
+swap$ -- 42
 text.length$ -- 2
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 44
+type$ -- 80
 warning$ -- 1
-while$ -- 35
-width$ -- 13
-write$ -- 119
+while$ -- 61
+width$ -- 22
+write$ -- 215
 (There were 2 warnings)

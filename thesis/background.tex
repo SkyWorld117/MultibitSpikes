@@ -32,14 +32,15 @@
 
     \subsection{Spiking Mechanism}
     \label{subsec:lif_spiking}
-        Usually the firing model of a neuron is very simple: 
+        The firing model, as defined by Lapique in 1907, is modeled by the following equation:
         \begin{equation}
             S_{\text{out}}[t] = \begin{cases}
                 1 & \text{if } U[t] \geq \theta \\
                 0 & \text{otherwise}
             \end{cases}
         \end{equation}
-        This is a heaviside step function, which is not differentiable. \\
+        This is a heaviside step function, which is not differentiable. 
+
         For the simplicity of analysis, one often considers $x := U[t] - \theta$ and $y := S_{\text{out}}[t]$.
         \begin{figure}[!htpb]
             \centering
@@ -55,23 +56,18 @@
             \caption{Comparison of the Heaviside Step Function and the Sigmoid Function}
             \label{fig:heaviside_sigmoid}
         \end{figure}
-        At each time step, the membrane potential $U[t]$ is evaluated through the Heaviside step function, and
-        the output is a binary value of 0 or 1, illustrated in Figure \ref{fig:heaviside_sigmoid}. The array of these binary values in the time domain is called the
-        spike train of the neuron. \\
-        After the neuron fires a spike, the membrane potential is reset to the reset potential. There are two ways
-        to reset the membrane potential: hard reset and soft reset. In the hard reset, the membrane potential is
-        immediately reset to the reset potential. In the soft reset, the membrane potential is subtracted by the
-        threshold when the neuron fires a spike. Although the hard reset is more biologically plausible and more 
-        efficient in terms of computation, the soft reset is more popular in practice because it often delivers 
-        better performance in training.
+        At each time step, the membrane potential $U[t]$ is evaluated through the Heaviside step function, and the output is a binary value of 0 or 1, illustrated in Figure \ref{fig:heaviside_sigmoid}. The array of these binary values in the time domain is called the spike train of the neuron. 
+
+        After the neuron fires a spike, the membrane potential is reset to the resting potential. There are two ways to reset the membrane potential: hard reset and soft reset. In the hard reset, the membrane potential is immediately set to the resting potential. In the soft reset, the membrane potential is subtracted by the threshold when the neuron fires a spike. Although the hard reset is more biologically plausible and more efficient in terms of computation, the soft reset is more popular in practice because it often delivers better performance in training \cite{10242251}. Here we focus on the soft reset.
 
 \section{Training of Spiking Neural Networks}
 \label{sec:snn_training}
 
     \subsection{Constructing Spiking Neural Networks}
     \label{subsec:snn_construct}
-        There is in principle no ground-level limitation to the construction of spiking neural networks than the construction of traditional artificial neural networks. One of the most popular methods to construct a spiking neural network is to use the leaky integrate-and-fire (LIF) neuron node to replace the ReLU activation function in the ANNs. \\
-        There are also other techniques to replace some components of the ANNs with certain tweaks for the SNNs (e.g. variants of batch normalization and attention mechanisms), but we will not discuss them in this thesis.
+        The construction of spiking neural networks is similar with the construction of traditional artificial neural networks. One of the most popular methods to construct a spiking neural network is to use the leaky integrate-and-fire (LIF) neuron node to replace the ReLU activation function in the ANNs. 
+
+        There are also other techniques to replace some components of the ANNs with certain tweaks for the SNNs, e.g. variants of batch normalization (such as Spike-Norm \cite{10.3389/fnins.2019.00095}) and attention mechanisms (such as Spiking RWKV \cite{zhu2024spikegptgenerativepretrainedlanguage}), but they are outside of the scope of the thesis. 
 
     \subsection{Backpropagation through Time}
     \label{subsec:snn_bptt}
@@ -83,8 +79,8 @@
 
     \subsection{Surrogate Gradient}
     \label{subsec:lif_surrogate}
-        Gradient-based optimization requires the activation function to be differentiable. However, the heaviside step function is not. Therefore, one often uses another differentiable function to approximate the heaviside step function in the backpropagation algorithm, e.g. the sigmoid function (see Figure \ref{fig:heaviside_sigmoid}): 
+        Gradient-based optimization requires the activation function to be differentiable. However, the heaviside step function is not. Therefore, one often uses another differentiable function to approximate the Heaviside step function in the backpropagation algorithm \cite{8891809}, e.g. the sigmoid function (see Figure \ref{fig:heaviside_sigmoid}): 
         \begin{equation}
             S_{\text{out}}'[t] = \frac{1}{1 + e^{-\alpha \cdot x}}
         \end{equation}
-        It turns out that SNNs can tolerate such approximations, and the performance is quite reasonable. 
+        It turns out that SNNs can tolerate such approximations, and it has become the state-of-the-art method to train high-performant SNNs.

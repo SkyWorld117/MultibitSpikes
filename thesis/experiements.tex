@@ -1,6 +1,12 @@
 \chapter{Experiments}
 \label{chap:experiments}
-We implement the multi-bit spike train model with SpikingJelly \cite{doi:10.1126/sciadv.adi1480} using its PyTorch backend, and compare it with the traditional 1-bit spike train model on various tasks and datasets. We investigate the convergence, accuracy, firing rate, and quantizability of the multi-bit spike train model. 
+We implement the multi-bit spike train model with SpikingJelly \cite{doi:10.1126/sciadv.adi1480} (version 0.0.0.0.15) using its PyTorch \cite{NEURIPS2019_9015} (version 2.5.0) backend. All experiments are conducted in the NVIDIA PyTorch container (nvcr.io/nvidia/pytorch:24.08-py3) on an NVIDIA GH200 super chip. 
+
+We compare the multi-bit spike train model with the traditional 1-bit spike train model on various tasks and datasets. The regular static datasets are imported from Torchvision \cite{10.1145/1873951.1874254} while the neuromorphic datasets are imported from Tonic \cite{lenz_2021_5079802}. 
+
+We measure the training accuracy (per batch), test accuracy (per epoch) and firing rate at certain points in the networks of the 1-bit to 8-bit spike train models. We then investigate the convergence, accuracy, firing rate, and quantizability of the multi-bit spike train model. 
+
+%TODO: Maybe add the process time of the kernel
 
 We mainly use the Fashion MNIST dataset \cite{xiao2017/online} and a convolutional neural network (CNN) to set up the experiments of an image classification task. We will also show the results also hold on more complex datasets like CIFAR-10 \cite{Krizhevsky2009}. 
 
@@ -12,6 +18,8 @@ In the following sections, the input images from Fashion MNIST are first convert
     \caption{The CNN structure used in the experiments with Fashion MNIST dataset}
     \label{fig:scnn_structure}
 \end{figure}
+
+%TODO: Fix the figure: too small and background color should be white
 
     \section{Convergence \& Accuracy}
     \label{sec:convergence_accuracy}
@@ -33,7 +41,7 @@ In the following sections, the input images from Fashion MNIST are first convert
             \label{fig:convergence_speed}
         \end{figure}
 
-        It may not seem to be much graphically, but the improvement in convergence speed can lead to significant reduction in the training time if considering a fixed target accuracy, especially considering the diminishing return of the training time with respect to the target accuracy. 
+        The improvement in convergence speed can lead to significant reduction in the training time if considering a fixed target accuracy, especially considering the diminishing return of the training time with respect to the target accuracy. 
 
         Here we set the target accuracy to be 80\%. The training time of the multi-bit spike train model is reduced by around 50\%, shown in Figure \ref{fig:iterations_fixed_accuracy}. 
         \begin{figure}[!htpb]
@@ -53,10 +61,10 @@ In the following sections, the input images from Fashion MNIST are first convert
             \label{fig:iterations_fixed_accuracy}
         \end{figure}
 
-        Such great improvement however also comes at certain cost:
+        Such improvement however also comes at certain cost:
         \begin{itemize}
-            \item The improvement in convergence speed diminishes as the bit width of the spike train increases. The improvement from 2-bit to 3-bit or even higher bit width is not as significant as the improvement from 1-bit to 2-bit.
-            \item The more complicated the model is, the harder is it to train the multi-bit spike train model. One can easily run into the problem of overfitting, for example in the case of DVS gesture recognition task.
+            \item The improvement in convergence speed diminishes as the bit width of the spike train increases. The improvement from 2-bit to 3-bit ($\sim 15.4\%$) or even higher bit width (at most $\sim 59.2\%$ reduction in iterations compared to the 1-bit baseline) is not as significant as the improvement from 1-bit to 2-bit ($\sim 50\%$ reduction in iterations).
+            \item The more complicated the model is, the harder is it to train the multi-bit spike train model. One can easily run into the problem of overfitting, for example in the case of DVS gesture recognition task \ref{appendix:accuracy_curves_dvs_gesture}.
         \end{itemize}
 
         Due to the faster convergence speed, the multi-bit spike train model can achieve better accuracy than the 1-bit spike train model given a fixed number of iterations or epochs for the most cases (see Figure \ref{fig:final_accuracy}).
@@ -119,7 +127,7 @@ In the following sections, the input images from Fashion MNIST are first convert
 
     \section{Quantizability}
     \label{sec:quantizability}
-        It is well known that SNNs are easy to quantize. There are studies showing that the weights and activations of SNNs can be quantized to 1-bit or 2-bit without significant loss in accuracy. Here we show that both the multi-bit spike train model and the 1-bit spike train model can be trained with \verb|bf16| and quantized to \verb|int8| without significant loss in accuracy.
+        A common technique to reduce the memory footprint of SNNs without having significant impact on accuracy is quantization \cite{9534087}. There are studies showing that the weights and activations of SNNs can be quantized to 1-bit or 2-bit without significant loss in accuracy \cite{10.1145/3664647.3681186}. Here we show that both the multi-bit spike train model and the 1-bit spike train model can be trained with \verb|bf16| and quantized to \verb|int8| without significant loss in accuracy.
         % TODO: Add references to the studies showing the quantizability of SNNs
         \begin{figure}[!htpb]
             \centering

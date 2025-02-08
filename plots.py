@@ -700,3 +700,70 @@ def plot_energy_test_nh(firerate_test, args, horizontal=False):
     plt.tight_layout()
     fig.savefig(os.path.join(plots_dir, f'{dataset_name.lower()}_test_relative_energy_nh.pdf'))
     
+def plot_energy_nh_ann_snn(firerate_test, args, horizontal=False):
+    bits_limit = args.N
+    dataset_name = args.dataset
+
+    if dataset_name != 'FashionMNIST':
+        raise ValueError('This plot is only available for FashionMNIST dataset')
+
+    plots_dir = os.path.join(args.output_dir, args.dataset, 'plots')
+    data_dir = os.path.join(args.output_dir, args.dataset, 'data')
+
+    if not args.plot_from_data:
+        raise ValueError('This plot requires data to be loaded from file')
+    firerate_test = np.load(os.path.join(data_dir, 'firerate_test.npy'))
+
+    num_spiking = firerate_test.shape[1] - 1
+
+    dataset_len = firerate_test.shape[-1] // args.epochs
+
+    E_mac = 4.5 * 1e-12
+    E_ac = 0.9 * 1e-12
+
+    mean_energy_test_nh = np.empty((bits_limit, num_spiking+1))
+    std_energy_test_nh = np.empty((bits_limit, num_spiking+1))
+    for i in range(bits_limit):
+        for j in range(num_spiking+1):
+            tmp = firerate_test[i][j][:,-dataset_len:].flatten() * args.T[i] * E_ac
+            mean_energy_test_nh[i][j] = np.mean(tmp)
+            std_energy_test_nh[i][j] = np.std(tmp)
+
+    M = 4 * 16 * 16
+    N = 10
+
+    energy_ann = M * N * E_mac
+    mean_energy_test_nh = mean_energy_test_nh + E_mac * N
+
+    if not horizontal:
+        fig_test, ax_test = plt.subplots(num_spiking+1,1, figsize=(2*args.N, 10*(num_spiking+1)))
+    else:
+        fig_test, ax_test = plt.subplots(1, num_spiking+1, figsize=(2*args.N*(num_spiking+1), 10))
+
+    x = np.arange(0, bits_limit+1)
+    labels = ["ANN"] + [f'{i+1} bit' for i in range(bits_limit)]
+
+    for j in range(num_spiking+1):
+        ax_test[j].bar(0, energy_ann, label='ANN')
+    for i in range(bits_limit):
+        for j in range(num_spiking+1):
+            ax_test[j].bar(i+1, mean_energy_test_nh[i][j], yerr=std_energy_test_nh[i][j], capsize=5, label=f'{i+1} bit: {mean_energy_test_nh[i][j]:.2f}±{std_energy_test_nh[i][j]:.2f}')
+
+    for j in range(num_spiking+1):
+        ax_test[j].set_title(f'nnz{j+1}')
+        ax_test[j].set_xticks(x)
+        ax_test[j].set_xticklabels(labels)
+        ax_test[j].set_xlabel('Bitwidth')
+        ax_test[j].set_ylabel('Energy (NH)')
+        ax_test[j].grid()
+
+        ax_test[j].text(0, energy_ann, f'{energy_ann*1e12:.2f}e-12', ha='center', va='bottom')
+        for i, v in enumerate(mean_energy_test_nh[:,j]):
+            ax_test[j].text(i+1, v + std_energy_test_nh[i][j], f'{v*1e12:.2f}e-12±{std_energy_test_nh[i][j]*1e12:.2f}e-12', ha='center', va='bottom')
+
+    fig_test.suptitle('Energy Consumption Estimation for Inference on Neuromorphic Hardware')
+
+    os.makedirs(plots_dir, exist_ok=True)
+    plt.tight_layout()
+    fig_test.savefig(os.path.join(plots_dir, f'{dataset_name.lower()}_energy_ann_vs_snn.pdf'))
+    

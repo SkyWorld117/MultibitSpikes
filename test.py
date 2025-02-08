@@ -72,6 +72,8 @@ def just_plot():
 
     if args.quantize:
         plots.plot_accs_quant(None, args, horizontal=True)
+    
+    plots.plot_energy_nh_ann_snn(None, args, horizontal=True)
 
 if args.plot_from_data:
     just_plot()

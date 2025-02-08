@@ -8,13 +8,13 @@ We measure the training accuracy (per batch), test accuracy (per epoch) and firi
 
 %TODO: Maybe add the process time of the kernel
 
-We mainly use the Fashion MNIST dataset \cite{xiao2017/online} and a convolutional neural network (CNN) to set up the experiments of an image classification task. We will also show the results also hold on more complex datasets like CIFAR-10 \cite{Krizhevsky2009}. 
+We mainly use the Fashion MNIST dataset \cite{xiao2017/online} and a convolutional neural network (CNN) \cite{726791} to set up the experiments of an image classification task. We will also show the results also hold on more complex datasets like CIFAR-10 \cite{Krizhevsky2009}. 
 
 In the following sections, the input images from Fashion MNIST are first converted to spike trains using the Poisson encoding method. The CNN has a structure of $28\times 28 - 8c5 - 2a - 16c5 - 2a - 10o$, visually illustrated in Figure \ref{fig:scnn_structure}. 
 
 \begin{figure}[!htpb]
     \centering
-    \includegraphics[width=\textwidth]{assets/standard/FashionMNIST/snn.pdf}
+    \includegraphics[width=\textwidth]{assets/standard/FashionMNIST/snn2.pdf}
     \caption{The CNN structure used in the experiments with Fashion MNIST dataset}
     \label{fig:scnn_structure}
 \end{figure}

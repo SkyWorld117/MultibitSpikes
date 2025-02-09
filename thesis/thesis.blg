@@ -8,45 +8,45 @@ Warning--entry type for "xiao2017/online" isn't style-file defined
 Warning--entry type for "lenz_2021_5079802" isn't style-file defined
 --line 260 of file refs.bib
 Warning--empty institution in Krizhevsky2009
-You've used 28 entries,
+You've used 31 entries,
             2118 wiz_defined-function locations,
-            674 strings with 10579 characters,
-and the built_in function-call counts, 12875 in all, are:
-= -- 1183
-> -- 899
-< -- 6
-+ -- 359
-- -- 326
-* -- 1053
-:= -- 2160
-add.period$ -- 85
-call.type$ -- 28
-change.case$ -- 245
+            686 strings with 11127 characters,
+and the built_in function-call counts, 13894 in all, are:
+= -- 1271
+> -- 962
+< -- 7
++ -- 384
+- -- 348
+* -- 1116
+:= -- 2323
+add.period$ -- 92
+call.type$ -- 31
+change.case$ -- 265
 chr.to.int$ -- 0
-cite$ -- 29
-duplicate$ -- 394
-empty$ -- 793
-format.name$ -- 326
-if$ -- 2623
+cite$ -- 32
+duplicate$ -- 429
+empty$ -- 875
+format.name$ -- 348
+if$ -- 2842
 int.to.chr$ -- 0
-int.to.str$ -- 28
-missing$ -- 24
-newline$ -- 140
-num.names$ -- 58
-pop$ -- 239
+int.to.str$ -- 31
+missing$ -- 25
+newline$ -- 153
+num.names$ -- 64
+pop$ -- 272
 preamble$ -- 1
-purify$ -- 216
+purify$ -- 233
 quote$ -- 0
-skip$ -- 321
+skip$ -- 354
 stack$ -- 0
-substring$ -- 683
-swap$ -- 113
-text.length$ -- 6
+substring$ -- 718
+swap$ -- 124
+text.length$ -- 7
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 112
+type$ -- 124
 warning$ -- 1
-while$ -- 87
-width$ -- 30
-write$ -- 307
+while$ -- 95
+width$ -- 33
+write$ -- 334
 (There were 3 warnings)

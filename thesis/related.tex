@@ -1,4 +1,6 @@
 \chapter{Related Work}
 \label{chap:related}
 
-%TODO: Mention https://arxiv.org/html/2407.05739v1#A1.E14 and explain the difference
+There exists work that shows the potential of using multi-bit spike trains in SNNs. In \cite{xiao2024multibitmechanismnovelinformation} the authors propose to use two integer number of bits to describe the ratio of the membrane potential to the threshold. They were able to show that the multi-bit spike train model can achieve better accuracy. 
+
+Our work differs from \cite{xiao2024multibitmechanismnovelinformation} in that we divide the range of the membrane potential into $2^n-1$ intervals and center the sigmoid function accordingly. This allows us to show the improvement in the convergence speed and the performance of the network.

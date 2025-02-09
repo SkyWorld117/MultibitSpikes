@@ -52,11 +52,11 @@ def just_plot():
 
     plots.plot_accs_test(None, args)
 
-    plots.plot_accs_final(None, args, horizontal=True)
+    plots.plot_accs_final(None, args, horizontal=False)
 
-    plots.plot_iters_train(None, args, horizontal=True)
+    plots.plot_iters_train(None, args, horizontal=False)
 
-    plots.plot_iters_test(None, args, horizontal=True)
+    plots.plot_iters_test(None, args, horizontal=False)
 
     # tools.averaging(args)
 

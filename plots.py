@@ -162,7 +162,7 @@ def plot_accs_final(accs_test, args, ann=False, horizontal=False):
         std_accs = [np.std(accs_test[i]) for i in range(bits_limit)]
         
         x = np.arange(0, bits_limit)
-        labels = [f'{i+1} bit' for i in range(bits_limit)]
+        labels = [f'{i+1}' for i in range(bits_limit)]
 
     if not horizontal:
         ax.set_xticks(x)
@@ -174,7 +174,7 @@ def plot_accs_final(accs_test, args, ann=False, horizontal=False):
         ax.set_ylabel('Test Accuracy')        
 
         for i, v in enumerate(mean_accs):
-            ax.text(i, v + std_accs[i], f'{v*100:.2f}±{std_accs[i]*100:.2f}', ha='center', va='bottom')
+            ax.text(i, v - std_accs[i], f'{v*100:.2f}±{std_accs[i]*100:.2f}', ha='right', va='center', rotation=90, rotation_mode='anchor')
     else:
         ax.set_yticks(x)
         ax.set_yticklabels(labels)
@@ -289,7 +289,7 @@ def plot_iters_train(iters, args, ann=False, horizontal=False):
         mean_iters = [np.mean(iters[i]) for i in range(bits_limit)]
         std_iters = [np.std(iters[i]) for i in range(bits_limit)]
         x = np.arange(0, bits_limit)
-        labels = [f'{i+1} bit' for i in range(bits_limit)]
+        labels = [f'{i+1}' for i in range(bits_limit)]
 
     if not horizontal:
         ax.bar(x, mean_iters, yerr=std_iters, capsize=5)
@@ -299,7 +299,10 @@ def plot_iters_train(iters, args, ann=False, horizontal=False):
         ax.set_xticklabels(labels)
 
         for i, v in enumerate(mean_iters):
-            ax.text(i, v + std_iters[i], f'{v:.2f}±{std_iters[i]:.2f}', ha='center', va='bottom')
+            if ax.get_ylim()[1] - v - std_iters[i] < v - std_iters[i]:
+                ax.text(i, v - std_iters[i], f'{v:.2f}±{std_iters[i]:.2f}', ha='right', va='center', rotation=90, rotation_mode='anchor')
+            else:
+                ax.text(i, v + std_iters[i], f'{v:.2f}±{std_iters[i]:.2f}', ha='left', va='center', rotation=90, rotation_mode='anchor')
     else:
         ax.barh(x, mean_iters, xerr=std_iters, capsize=5)
         ax.set_ylabel('Bitwidth')
@@ -350,7 +353,7 @@ def plot_iters_test(iters, args, ann=False, horizontal=False):
         mean_iters = [np.mean(iters[i]) for i in range(bits_limit)]
         std_iters = [np.std(iters[i]) for i in range(bits_limit)]
         x = np.arange(0, bits_limit)
-        labels = [f'{i+1} bit' for i in range(bits_limit)]
+        labels = [f'{i+1}' for i in range(bits_limit)]
 
     if not horizontal:
         ax.bar(x, mean_iters, yerr=std_iters, capsize=5)
@@ -360,7 +363,10 @@ def plot_iters_test(iters, args, ann=False, horizontal=False):
         ax.set_xticklabels(labels)
 
         for i, v in enumerate(mean_iters):
-            ax.text(i, v + std_iters[i], f'{v:.2f}±{std_iters[i]:.2f}', ha='center', va='bottom')
+            if ax.get_ylim()[1] - v - std_iters[i] < v - std_iters[i]:
+                ax.text(i, v - std_iters[i], f'{v:.2f}±{std_iters[i]:.2f}', ha='right', va='center', rotation=90, rotation_mode='anchor')
+            else:
+                ax.text(i, v + std_iters[i], f'{v:.2f}±{std_iters[i]:.2f}', ha='left', va='center', rotation=90, rotation_mode='anchor')
     else:
         ax.barh(x, mean_iters, xerr=std_iters, capsize=5)
         ax.set_ylabel('Bitwidth')
@@ -703,7 +709,7 @@ def plot_energy_test_nh(firerate_test, args, horizontal=False):
             ax[j].set_yticklabels(labels)
             ax[j].set_ylabel('Bitwidth')
             ax[j].set_xlabel('Relative Energy (NH)')
-            ax[j].yaxis.set_major_formatter(mtick.PercentFormatter(1.0))
+            ax[j].xaxis.set_major_formatter(mtick.PercentFormatter(1.0))
             ax[j].grid()
 
             for i, v in enumerate(mean_relative_energy_test_nh[:,j]):

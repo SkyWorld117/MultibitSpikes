@@ -62,12 +62,12 @@
         We can estimate the energy consumption of the 2-bit spike train model relative to the 1-bit spike train model by comparing the firing rate of the neurons. As expected, the energy consumption of the multi-bit spike train model is higher than the 1-bit spike train model, as the firing rate of the neurons is higher (see Figure \ref{fig:inference_energy_nh}).
         \begin{figure}[!htpb]
             \centering
-            \begin{subfigure}[H]{\textwidth}
+            \begin{subfigure}[H]{0.48\textwidth}
                 \includegraphics[width=\textwidth]{../standard/FashionMNIST/plots/fashionmnist_test_energy_nh.pdf}
                 \caption{Energy Consumption Estimation, Unit in Parameters $F\cdot E_{\text{MAC}}$}
             \end{subfigure}
             \hfill
-            \begin{subfigure}[H]{\textwidth}
+            \begin{subfigure}[H]{0.48\textwidth}
                 \includegraphics[width=\textwidth]{../standard/FashionMNIST/plots/fashionmnist_test_relative_energy_nh.pdf}
                 \caption{Normalized Energy Consumption Estimation Relative to 1-bit Spike Train Model}
             \end{subfigure}

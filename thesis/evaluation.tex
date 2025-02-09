@@ -24,12 +24,12 @@
         Based on the results in Section \ref{fig:iterations_fixed_accuracy}, we can estimate the energy consumption of the 2-bit spike train model relative to the 1-bit spike train model directly by comparing the number of iterations required to reach a certain accuracy which is around $50.00\pm10.84\%$ in this case (see Figure \ref{fig:training_energy_gpu}). 
         \begin{figure}[!htpb]
             \centering
-            \begin{subfigure}[H]{0.48\textwidth}
+            \begin{subfigure}[H]{0.8\textwidth}
                 \includegraphics[width=\textwidth]{../standard/FashionMNIST/plots/fashionmnist_train_energy_gpu.pdf}
                 \caption{Energy Consumption Estimation, Unit in Constant $c$}
             \end{subfigure}
             \hfill
-            \begin{subfigure}[H]{0.48\textwidth}
+            \begin{subfigure}[H]{0.8\textwidth}
                 \includegraphics[width=\textwidth]{../standard/FashionMNIST/plots/fashionmnist_train_relative_energy_gpu.pdf}
                 \caption{Normalized Energy Consumption Estimation Relative to 1-bit Spike Train Model}
             \end{subfigure}

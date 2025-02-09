@@ -587,7 +587,7 @@ def plot_energy_train_gpu(train_iters, args, horizontal=False):
     std_relative_energy_train_gpu = np.std(relative_energy_train_gpu, axis=1)
 
     if not horizontal:
-        fig, ax = plt.subplots(figsize=(0.5*args.N, 5))
+        fig, ax = plt.subplots(figsize=(0.4*args.N, 5))
     else:
         fig, ax = plt.subplots(figsize=(5, 0.5*args.N))
 

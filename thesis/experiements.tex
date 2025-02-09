@@ -46,13 +46,13 @@ In the following sections, the input images from Fashion MNIST are first convert
         Here we set the target accuracy to be 80\%. The training time of the multi-bit spike train model is reduced by around 50\%, shown in Figure \ref{fig:iterations_fixed_accuracy}. 
         \begin{figure}[!htpb]
             \centering
-            \begin{subfigure}[H]{0.8\textwidth}
+            \begin{subfigure}[H]{0.45\textwidth}
                 \centering
                 \includegraphics[width=\textwidth]{../standard/FashionMNIST/plots/fashionmnist_train_iters.pdf}
                 \caption{Iterations to reach 80\% training accuracy}
             \end{subfigure}
             \hfill
-            \begin{subfigure}[H]{0.8\textwidth}
+            \begin{subfigure}[H]{0.45\textwidth}
                 \centering
                 \includegraphics[width=\textwidth]{../standard/FashionMNIST/plots/fashionmnist_test_iters.pdf}
                 \caption{Epochs to reach 80\% testing accuracy}
@@ -70,7 +70,7 @@ In the following sections, the input images from Fashion MNIST are first convert
         Due to the faster convergence speed, the multi-bit spike train model can achieve better accuracy than the 1-bit spike train model given a fixed number of iterations or epochs for the most cases (see Figure \ref{fig:final_accuracy}).
         \begin{figure}[!htpb]
             \centering
-            \includegraphics[width=0.8\textwidth]{../standard/FashionMNIST/plots/fashionmnist_final_acc.pdf}
+            \includegraphics[width=0.8\textwidth]{../standard/FashionMNIST/plots/fashionmnist_final_acc_horizontal.pdf}
             \caption{Comparison of the Final Accuracy of 1-bit to 8-bit Spike Train Model after 5 epochs, repetition of the experiment 10 times}
             \label{fig:final_accuracy}
         \end{figure}

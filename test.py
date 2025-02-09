@@ -67,7 +67,7 @@ def just_plot():
 
     plots.plot_firerate_final(None, args, horizontal=True)
 
-    plots.plot_energy_train_gpu(None, args, horizontal=True)
+    plots.plot_energy_train_gpu(None, args, horizontal=False)
 
     plots.plot_energy_test_nh(None, args, horizontal=False)
 

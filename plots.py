@@ -548,7 +548,7 @@ def plot_energy_train_gpu(train_iters, args, horizontal=False):
         fig, ax = plt.subplots(figsize=(5, 0.5*args.N))
 
     x = np.arange(0, bits_limit)
-    labels = [f'{i+1} bit' for i in range(bits_limit)]
+    labels = [f'{i+1}' for i in range(bits_limit)]
 
     if not horizontal:
         ax.bar(x, mean_energy_train_gpu, yerr=std_energy_train_gpu, capsize=5)
@@ -558,7 +558,10 @@ def plot_energy_train_gpu(train_iters, args, horizontal=False):
         ax.set_ylabel('Energy (GPU)')
 
         for i, v in enumerate(mean_energy_train_gpu):
-            ax.text(i, v + std_energy_train_gpu[i], f'{v:.2f}±{std_energy_train_gpu[i]:.2f}', ha='center', va='bottom')
+            if ax.get_ylim()[1] - v - std_energy_train_gpu[i] < v - std_energy_train_gpu[i]:
+                ax.text(i, v - std_energy_train_gpu[i], f'{v:.2f}±{std_energy_train_gpu[i]:.2f}', ha='right', va='center', rotation=90, rotation_mode='anchor')
+            else:
+                ax.text(i, v + std_energy_train_gpu[i], f'{v:.2f}±{std_energy_train_gpu[i]:.2f}', ha='left', va='center', rotation=90, rotation_mode='anchor')
     else:
         ax.barh(x, mean_energy_train_gpu, xerr=std_energy_train_gpu, capsize=5)
         ax.set_yticks(x)
@@ -597,7 +600,10 @@ def plot_energy_train_gpu(train_iters, args, horizontal=False):
         ax.yaxis.set_major_formatter(mtick.PercentFormatter(1.0))
 
         for i, v in enumerate(mean_relative_energy_train_gpu):
-            ax.text(i, v + std_relative_energy_train_gpu[i], f'{v*100:.2f}±{std_relative_energy_train_gpu[i]*100:.2f}', ha='center', va='bottom')
+            if ax.get_ylim()[1] - v - std_relative_energy_train_gpu[i] < v - std_relative_energy_train_gpu[i]:
+                ax.text(i, v - std_relative_energy_train_gpu[i], f'{v*100:.2f}±{std_relative_energy_train_gpu[i]*100:.2f}', ha='right', va='center', rotation=90, rotation_mode='anchor')
+            else:
+                ax.text(i, v + std_relative_energy_train_gpu[i], f'{v*100:.2f}±{std_relative_energy_train_gpu[i]*100:.2f}', ha='left', va='center', rotation=90, rotation_mode='anchor')
     else:
         ax.barh(x, mean_relative_energy_train_gpu, xerr=std_relative_energy_train_gpu, capsize=5)
         ax.set_yticks(x)

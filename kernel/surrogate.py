@@ -54,7 +54,7 @@ def multi_level_parallelized(x: torch.Tensor, n: int, threshold: float):
     # Sum contributions and add the initial term
     r = (x >= 0).float() + contributions.sum(dim=0)
 
-    return r.to(x)
+    return r.to(x).to_sparse()
 
 @torch.jit.script
 def sigmoid_backward(grad_output: torch.Tensor, x: torch.Tensor, alpha: float, n: int, threshold: float):
@@ -70,7 +70,7 @@ class sigmoid(torch.autograd.Function):
             ctx.alpha = alpha
             ctx.n = n
             ctx.threshold = threshold
-        return multi_level(x, n, threshold)
+        return multi_level_parallelized(x, n, threshold)
 
     @staticmethod
     def backward(ctx, grad_output):

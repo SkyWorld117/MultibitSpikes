@@ -191,7 +191,14 @@ def plot_accs_final(accs_test, args, ann=False, horizontal=False):
     
     os.makedirs(plots_dir, exist_ok=True)
     plt.tight_layout()
-    fig.savefig(os.path.join(plots_dir, f'{dataset_name.lower()}_final_acc.pdf'))
+    if horizontal:
+        fig.savefig(os.path.join(plots_dir, f'{dataset_name.lower()}_final_acc_horizontal.pdf'))
+    else:
+        fig.savefig(os.path.join(plots_dir, f'{dataset_name.lower()}_final_acc.pdf'))
+
+def plot_acc_final_dual(accs_test, args, ann=False):
+    plot_accs_final(accs_test, args, ann, horizontal=True)
+    plot_accs_final(accs_test, args, ann, horizontal=False)
 
 def plot_accs_quant(accs_test, args, ann=False, horizontal=False):
     bits_limit = args.N

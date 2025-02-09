@@ -52,7 +52,8 @@ def just_plot():
 
     plots.plot_accs_test(None, args)
 
-    plots.plot_accs_final(None, args, horizontal=False)
+    #plots.plot_accs_final(None, args, horizontal=False)
+    plots.plot_acc_final_dual(None, args)
 
     plots.plot_iters_train(None, args, horizontal=False)
 

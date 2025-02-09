@@ -68,12 +68,12 @@ def just_plot():
 
     plots.plot_energy_train_gpu(None, args, horizontal=True)
 
-    plots.plot_energy_test_nh(None, args, horizontal=True)
+    plots.plot_energy_test_nh(None, args, horizontal=False)
 
     if args.quantize:
         plots.plot_accs_quant(None, args, horizontal=True)
     
-    plots.plot_energy_nh_ann_snn(None, args, horizontal=True)
+    plots.plot_energy_nh_ann_snn(None, args, horizontal=False)
 
 if args.plot_from_data:
     just_plot()

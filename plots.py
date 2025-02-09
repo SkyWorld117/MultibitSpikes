@@ -51,7 +51,7 @@ def plot_accs_train(accs_train, args, ann=False, ExponentialMovingAverage=True):
     if ExponentialMovingAverage:
         accs_train = np.array([ [numpy_ewma_vectorized_v2(accs_train[i][j], 100) for j in range(accs_train.shape[1])] for i in range(accs_train.shape[0]) ])
 
-    fig, ax = plt.subplots(figsize=(10, 5))
+    fig, ax = plt.subplots(figsize=(8, 4))
 
     if ann:
         mean_accs = [np.mean(accs_train[i], axis=0) for i in range(bits_limit+1)]
@@ -95,7 +95,7 @@ def plot_accs_test(accs_test, args, ann=False):
         accs_test = np.array(accs_test)
         np.save(os.path.join(data_dir, 'accs_test.npy'), accs_test)
 
-    fig, ax = plt.subplots(figsize=(10, 5))
+    fig, ax = plt.subplots(figsize=(8, 4))
 
     if ann:
         mean_accs = [np.mean(accs_test[i], axis=0) for i in range(bits_limit+1)]
@@ -631,27 +631,45 @@ def plot_energy_test_nh(firerate_test, args, horizontal=False):
             std_energy_test_nh[i][j] = np.std(tmp)
 
     if not horizontal:
-        fig_test, ax_test = plt.subplots(num_spiking+1,1, figsize=(0.5*args.N, 5*(num_spiking+1)))
+        fig_test, ax_test = plt.subplots(num_spiking+1,1, figsize=(4, 0.3*args.N*(num_spiking+1)))
     else:
         fig_test, ax_test = plt.subplots(1, num_spiking+1, figsize=(0.5*args.N*(num_spiking+1), 5))
 
     x = np.arange(0, bits_limit)
     labels = [f'{i+1} bit' for i in range(bits_limit)]
 
-    for i in range(bits_limit):
+    if not horizontal:
+        for i in range(bits_limit):
+            for j in range(num_spiking+1):
+                ax_test[j].barh(i, mean_energy_test_nh[i][j], xerr=std_energy_test_nh[i][j], capsize=5, label=f'{i+1} bit: {mean_energy_test_nh[i][j]:.2f}±{std_energy_test_nh[i][j]:.2f}')
+
         for j in range(num_spiking+1):
-            ax_test[j].bar(i, mean_energy_test_nh[i][j], yerr=std_energy_test_nh[i][j], capsize=5, label=f'{i+1} bit: {mean_energy_test_nh[i][j]:.2f}±{std_energy_test_nh[i][j]:.2f}')
+            ax_test[j].set_yticks(x)
+            ax_test[j].set_yticklabels(labels)
+            ax_test[j].set_ylabel('Bitwidth')
+            ax_test[j].set_xlabel('Energy (NH)')
+            ax_test[j].grid()
 
-    for j in range(num_spiking+1):
-        ax_test[j].set_title(f'nnz{j+1}')
-        ax_test[j].set_xticks(x)
-        ax_test[j].set_xticklabels(labels)
-        ax_test[j].set_xlabel('Bitwidth')
-        ax_test[j].set_ylabel('Energy (NH)')
-        ax_test[j].grid()
+            for i, v in enumerate(mean_energy_test_nh[:,j]):
+                if ax_test[j].get_xlim()[1] - v - std_energy_test_nh[i][j] < v - std_energy_test_nh[i][j]:
+                    ax_test[j].text(v - std_energy_test_nh[i][j], i, f'{v:.2f}±{std_energy_test_nh[i][j]:.2f}', ha='right', va='center')
+                else:
+                    ax_test[j].text(v + std_energy_test_nh[i][j], i, f'{v:.2f}±{std_energy_test_nh[i][j]:.2f}', ha='left', va='center')
+    else:
+        for i in range(bits_limit):
+            for j in range(num_spiking+1):
+                ax_test[j].bar(i, mean_energy_test_nh[i][j], yerr=std_energy_test_nh[i][j], capsize=5, label=f'{i+1} bit: {mean_energy_test_nh[i][j]:.2f}±{std_energy_test_nh[i][j]:.2f}')
 
-        for i, v in enumerate(mean_energy_test_nh[:,j]):
-            ax_test[j].text(i, v - std_energy_test_nh[i][j], f'{v:.2f}±{std_energy_test_nh[i][j]:.2f}', ha='right', va='center', rotation=90, rotation_mode='anchor')
+        for j in range(num_spiking+1):
+            ax_test[j].set_title(f'nnz{j+1}')
+            ax_test[j].set_xticks(x)
+            ax_test[j].set_xticklabels(labels)
+            ax_test[j].set_xlabel('Bitwidth')
+            ax_test[j].set_ylabel('Energy (NH)')
+            ax_test[j].grid()
+
+            for i, v in enumerate(mean_energy_test_nh[:,j]):
+                ax_test[j].text(i, v - std_energy_test_nh[i][j], f'{v:.2f}±{std_energy_test_nh[i][j]:.2f}', ha='right', va='center', rotation=90, rotation_mode='anchor')
 
     os.makedirs(plots_dir, exist_ok=True)
     plt.tight_layout()
@@ -668,28 +686,48 @@ def plot_energy_test_nh(firerate_test, args, horizontal=False):
             std_relative_energy_test_nh[i][j] = np.std(relative_tmp)
 
     if not horizontal:
-        fig, ax = plt.subplots(num_spiking+1, 1, figsize=(0.5*args.N, 5*(num_spiking+1)))
+        fig, ax = plt.subplots(num_spiking+1, 1, figsize=(4, 0.3*args.N*(num_spiking+1)))
     else:
         fig, ax = plt.subplots(1, num_spiking+1, figsize=(0.5*args.N*(num_spiking+1), 5))
 
     x = np.arange(0, bits_limit)
     labels = [f'{i+1} bit' for i in range(bits_limit)]
 
-    for i in range(bits_limit):
+    if not horizontal:
+        for i in range(bits_limit):
+            for j in range(num_spiking+1):
+                ax[j].barh(i, mean_relative_energy_test_nh[i][j], xerr=std_relative_energy_test_nh[i][j], capsize=5, label=f'{i+1} bit: {mean_relative_energy_test_nh[i][j]:.2f}±{std_relative_energy_test_nh[i][j]:.2f}')
+
         for j in range(num_spiking+1):
-            ax[j].bar(i, mean_relative_energy_test_nh[i][j], yerr=std_relative_energy_test_nh[i][j], capsize=5, label=f'{i+1} bit: {mean_relative_energy_test_nh[i][j]:.2f}±{std_relative_energy_test_nh[i][j]:.2f}')
+            ax[j].set_yticks(x)
+            ax[j].set_yticklabels(labels)
+            ax[j].set_ylabel('Bitwidth')
+            ax[j].set_xlabel('Relative Energy (NH)')
+            ax[j].yaxis.set_major_formatter(mtick.PercentFormatter(1.0))
+            ax[j].grid()
 
-    for j in range(num_spiking+1):
-        ax[j].set_xticks(x)
-        ax[j].set_xticklabels(labels)
-        ax[j].set_xlabel('Bitwidth')
-        ax[j].set_ylabel('Relative Energy (NH)')
-        ax[j].yaxis.set_major_formatter(mtick.PercentFormatter(1.0))
-        ax[j].set_title(f'nnz{j+1}')
-        ax[j].grid()
+            for i, v in enumerate(mean_relative_energy_test_nh[:,j]):
+                if ax[j].get_xlim()[1] - v - std_relative_energy_test_nh[i][j] < v - std_relative_energy_test_nh[i][j]:
+                    ax[j].text(v - std_relative_energy_test_nh[i][j], i, f'{v*100:.2f}±{std_relative_energy_test_nh[i][j]*100:.2f}', ha='right', va='center')
+                else:
+                    ax[j].text(v + std_relative_energy_test_nh[i][j], i, f'{v*100:.2f}±{std_relative_energy_test_nh[i][j]*100:.2f}', ha='left', va='center')
 
-        for i, v in enumerate(mean_relative_energy_test_nh[:,j]):
-            ax[j].text(i, v - std_relative_energy_test_nh[i][j], f'{v*100:.2f}±{std_relative_energy_test_nh[i][j]*100:.2f}', ha='right', va='center', rotation=90, rotation_mode='anchor')
+    else:
+        for i in range(bits_limit):
+            for j in range(num_spiking+1):
+                ax[j].bar(i, mean_relative_energy_test_nh[i][j], yerr=std_relative_energy_test_nh[i][j], capsize=5, label=f'{i+1} bit: {mean_relative_energy_test_nh[i][j]:.2f}±{std_relative_energy_test_nh[i][j]:.2f}')
+
+        for j in range(num_spiking+1):
+            ax[j].set_xticks(x)
+            ax[j].set_xticklabels(labels)
+            ax[j].set_xlabel('Bitwidth')
+            ax[j].set_ylabel('Relative Energy (NH)')
+            ax[j].yaxis.set_major_formatter(mtick.PercentFormatter(1.0))
+            ax[j].set_title(f'nnz{j+1}')
+            ax[j].grid()
+
+            for i, v in enumerate(mean_relative_energy_test_nh[:,j]):
+                ax[j].text(i, v - std_relative_energy_test_nh[i][j], f'{v*100:.2f}±{std_relative_energy_test_nh[i][j]*100:.2f}', ha='right', va='center', rotation=90, rotation_mode='anchor')
 
     os.makedirs(plots_dir, exist_ok=True)
     plt.tight_layout()
@@ -718,45 +756,73 @@ def plot_energy_nh_ann_snn(firerate_test, args, horizontal=False):
     E_mac = 4.5 * 1e-12
     E_ac = 0.9 * 1e-12
 
-    mean_energy_test_nh = np.empty((bits_limit, num_spiking+1))
-    std_energy_test_nh = np.empty((bits_limit, num_spiking+1))
+    ops = [
+        5*5 * 1 * 8 * 24 * 24,
+        5*5 * 8 * 16 * 8 * 8,
+        16 * 4 * 4 * 10,
+    ]
+    N = [
+        8 * 12 * 12,
+        16 * 4 * 4,
+        10,
+    ]
+
+    mean_energy_test_nh = np.empty((bits_limit, num_spiking))
+    std_energy_test_nh = np.empty((bits_limit, num_spiking))
     for i in range(bits_limit):
-        for j in range(num_spiking+1):
-            tmp = firerate_test[i][j][:,-dataset_len:].flatten() * args.T[i] * E_ac
+        for j in range(num_spiking):
+            tmp = firerate_test[i][j][:,-dataset_len:].flatten() * args.T[i] * E_ac * ops[j] + E_mac * N[j]
             mean_energy_test_nh[i][j] = np.mean(tmp)
             std_energy_test_nh[i][j] = np.std(tmp)
 
-    M = 4 * 16 * 16
-    N = 10
-
-    energy_ann = M * N * E_mac
-    mean_energy_test_nh = mean_energy_test_nh + E_mac * N
+    energy_ann = np.array(ops) * E_mac
 
     if not horizontal:
-        fig_test, ax_test = plt.subplots(num_spiking+1,1, figsize=(0.5*args.N, 5*(num_spiking+1)))
+        fig_test, ax_test = plt.subplots(num_spiking,1, figsize=(5, 0.3*args.N*(num_spiking)))
     else:
-        fig_test, ax_test = plt.subplots(1, num_spiking+1, figsize=(0.5*args.N*(num_spiking+1), 5))
+        fig_test, ax_test = plt.subplots(1, num_spiking, figsize=(0.5*args.N*(num_spiking), 5))
 
     x = np.arange(0, bits_limit+1)
     labels = ["ANN"] + [f'{i+1} bit' for i in range(bits_limit)]
 
-    for j in range(num_spiking+1):
-        ax_test[j].bar(0, energy_ann, label='ANN')
-    for i in range(bits_limit):
-        for j in range(num_spiking+1):
-            ax_test[j].bar(i+1, mean_energy_test_nh[i][j], yerr=std_energy_test_nh[i][j], capsize=5, label=f'{i+1} bit: {mean_energy_test_nh[i][j]:.2f}±{std_energy_test_nh[i][j]:.2f}')
+    if not horizontal:
+        for j in range(num_spiking):
+            ax_test[j].barh(0, energy_ann[j], label='ANN')
+        for i in range(bits_limit):
+            for j in range(num_spiking):
+                ax_test[j].barh(i+1, mean_energy_test_nh[i][j], xerr=std_energy_test_nh[i][j], capsize=5, label=f'{i+1} bit: {mean_energy_test_nh[i][j]:.2f}±{std_energy_test_nh[i][j]:.2f}')
 
-    for j in range(num_spiking+1):
-        ax_test[j].set_title(f'nnz{j+1}')
-        ax_test[j].set_xticks(x)
-        ax_test[j].set_xticklabels(labels)
-        ax_test[j].set_xlabel('Bitwidth')
-        ax_test[j].set_ylabel('Energy (J)')
-        ax_test[j].grid()
+        for j in range(num_spiking):
+            ax_test[j].set_yticks(x)
+            ax_test[j].set_yticklabels(labels)
+            ax_test[j].set_ylabel('Bitwidth')
+            ax_test[j].set_xlabel('Energy (J)')
+            ax_test[j].grid()
 
-        ax_test[j].text(0, energy_ann, f'{energy_ann*1e12:.2f}e-12', ha='right', va='center', rotation=90, rotation_mode='anchor')
-        for i, v in enumerate(mean_energy_test_nh[:,j]):
-            ax_test[j].text(i+1, v + std_energy_test_nh[i][j], f'{v*1e12:.2f}e-12±{std_energy_test_nh[i][j]*1e12:.2f}e-12', ha='left', va='center', rotation=90, rotation_mode='anchor')
+            ax_test[j].text(energy_ann[j], 0, f'{energy_ann[j]*1e8:.2f}'+r'$\cdot 10^{-8}$', ha='right', va='center')
+            for i, v in enumerate(mean_energy_test_nh[:,j]):
+                if ax_test[j].get_xlim()[1] - v - std_energy_test_nh[i][j] < v - std_energy_test_nh[i][j]:
+                    ax_test[j].text(v - std_energy_test_nh[i][j], i+1, f'({v*1e8:.2f}±{std_energy_test_nh[i][j]*1e8:.2f})'+r'$\cdot 10^{-8}$', ha='right', va='center')
+                else:
+                    ax_test[j].text(v + std_energy_test_nh[i][j], i+1, f'({v*1e8:.2f}±{std_energy_test_nh[i][j]*1e8:.2f})'+r'$\cdot 10^{-8}$', ha='left', va='center')
+    else:
+        for j in range(num_spiking):
+            ax_test[j].bar(0, energy_ann[j], label='ANN')
+        for i in range(bits_limit):
+            for j in range(num_spiking):
+                ax_test[j].bar(i+1, mean_energy_test_nh[i][j], yerr=std_energy_test_nh[i][j], capsize=5, label=f'{i+1} bit: {mean_energy_test_nh[i][j]:.2f}±{std_energy_test_nh[i][j]:.2f}')
+
+        for j in range(num_spiking):
+            ax_test[j].set_title(f'nnz{j+1}')
+            ax_test[j].set_xticks(x)
+            ax_test[j].set_xticklabels(labels)
+            ax_test[j].set_xlabel('Bitwidth')
+            ax_test[j].set_ylabel('Energy (J)')
+            ax_test[j].grid()
+
+            ax_test[j].text(0, energy_ann[j], f'{energy_ann[j]*1e12:.2f}e-12', ha='right', va='center', rotation=90, rotation_mode='anchor')
+            for i, v in enumerate(mean_energy_test_nh[:,j]):
+                ax_test[j].text(i+1, v + std_energy_test_nh[i][j], f'{v*1e12:.2f}e-12±{std_energy_test_nh[i][j]*1e12:.2f}e-12', ha='left', va='center', rotation=90, rotation_mode='anchor')
 
     os.makedirs(plots_dir, exist_ok=True)
     plt.tight_layout()

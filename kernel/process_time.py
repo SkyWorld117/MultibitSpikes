@@ -69,9 +69,9 @@ def plot(forwards, backwards):
     x = np.arange(1, N+1)
 
     plt.plot(x, mean_forward, label='forward')
-    plt.fill_between(x, mean_forward - std_forward, mean_forward + std_forward, alpha=0.3)
+    plt.fill_between(x, np.max(mean_forward - std_forward, 0), mean_forward + std_forward, alpha=0.3)
     plt.plot(x, mean_backward, label='backward')
-    plt.fill_between(x, mean_backward - std_backward, mean_backward + std_backward, alpha=0.3)
+    plt.fill_between(x, np.max(mean_backward - std_backward, 0), mean_backward + std_backward, alpha=0.3)
 
     plt.legend()
     plt.xlabel('n')
@@ -81,4 +81,4 @@ def plot(forwards, backwards):
 
 forwards, backwards = run(8, 10)
 plot(forwards, backwards)
-plt.savefig('process_time.pdf')
+plt.savefig('process_time_vanilla_A100.pdf')

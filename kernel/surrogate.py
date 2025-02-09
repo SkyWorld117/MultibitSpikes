@@ -70,7 +70,7 @@ class sigmoid(torch.autograd.Function):
             ctx.alpha = alpha
             ctx.n = n
             ctx.threshold = threshold
-        return multi_level_parallelized(x, n, threshold)
+        return multi_level(x, n, threshold)
 
     @staticmethod
     def backward(ctx, grad_output):

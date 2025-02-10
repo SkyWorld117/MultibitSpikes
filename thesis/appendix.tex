@@ -692,13 +692,13 @@ python -m test --N 2 --R 10 --T 10 4 --acc 0.80 --model FashionMNISTNet --data-p
 
         \begin{figure}[H]
             \centering
-            \begin{subfigure}[H]{0.48\textwidth}
-                \includegraphics[width=\textwidth]{../timesteps/FashionMNIST/plots/fashionmnist_train_energy_gpu.pdf}
+            \begin{subfigure}[H]{\textwidth}
+                \includegraphics[width=\textwidth]{../timesteps/FashionMNIST/plots/fashionmnist_train_energy_gpu_horizontal.pdf}
                 \caption{Energy Consumption Estimation, Unit in Constant $c$}
             \end{subfigure}
             \hfill
-            \begin{subfigure}[H]{0.48\textwidth}
-                \includegraphics[width=\textwidth]{../timesteps/FashionMNIST/plots/fashionmnist_train_relative_energy_gpu.pdf}
+            \begin{subfigure}[H]{\textwidth}
+                \includegraphics[width=\textwidth]{../timesteps/FashionMNIST/plots/fashionmnist_train_relative_energy_gpu_horizontal.pdf}
                 \caption{Normalized Energy Consumption Estimation Relative to 1-bit Spike Train Model}
             \end{subfigure}
             \caption{Training Energy Consumption Estimation on GPUs for Fashion MNIST Dataset}
@@ -749,13 +749,13 @@ python -m test --N 2 --R 5 --T 10 4 --acc 0.80 --model CIFAR10Net --data-path /s
 
         \begin{figure}[H]
             \centering
-            \begin{subfigure}[H]{0.48\textwidth}
-                \includegraphics[width=\textwidth]{../timesteps/CIFAR10/plots/cifar10_train_energy_gpu.pdf}
+            \begin{subfigure}[H]{\textwidth}
+                \includegraphics[width=\textwidth]{../timesteps/CIFAR10/plots/cifar10_train_energy_gpu_horizontal.pdf}
                 \caption{Energy Consumption Estimation, Unit in Constant $c$}
             \end{subfigure}
             \hfill
-            \begin{subfigure}[H]{0.48\textwidth}
-                \includegraphics[width=\textwidth]{../timesteps/CIFAR10/plots/cifar10_train_relative_energy_gpu.pdf}
+            \begin{subfigure}[H]{\textwidth}
+                \includegraphics[width=\textwidth]{../timesteps/CIFAR10/plots/cifar10_train_relative_energy_gpu_horizontal.pdf}
                 \caption{Normalized Energy Consumption Estimation Relative to 1-bit Spike Train Model}
             \end{subfigure}
             \caption{Training Energy Consumption Estimation on GPUs for CIFAR-10 Dataset}

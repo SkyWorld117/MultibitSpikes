@@ -174,7 +174,7 @@ def plot_accs_final(accs_test, args, ann=False, horizontal=False):
         ax.set_ylabel('Test Accuracy')        
 
         for i, v in enumerate(mean_accs):
-            ax.text(i, v - std_accs[i], f'{v*100:.2f}±{std_accs[i]*100:.2f}', ha='right', va='center', rotation=90, rotation_mode='anchor')
+            ax.text(i, v - std_accs[i] - 0.05, f'{v*100:.2f}±{std_accs[i]*100:.2f}', ha='right', va='center', rotation=90, rotation_mode='anchor')
     else:
         ax.set_yticks(x)
         ax.set_yticklabels(labels)
@@ -305,11 +305,12 @@ def plot_iters_train(iters, args, ann=False, horizontal=False):
         ax.set_xticks(x)
         ax.set_xticklabels(labels)
 
+        padding = 0.01 * (ax.get_ylim()[1] - ax.get_ylim()[0])
         for i, v in enumerate(mean_iters):
             if ax.get_ylim()[1] - v - std_iters[i] < v - std_iters[i]:
-                ax.text(i, v - std_iters[i], f'{v:.2f}±{std_iters[i]:.2f}', ha='right', va='center', rotation=90, rotation_mode='anchor')
+                ax.text(i, v - std_iters[i] - padding, f'{v:.2f}±{std_iters[i]:.2f}', ha='right', va='center', rotation=90, rotation_mode='anchor')
             else:
-                ax.text(i, v + std_iters[i], f'{v:.2f}±{std_iters[i]:.2f}', ha='left', va='center', rotation=90, rotation_mode='anchor')
+                ax.text(i, v + std_iters[i] + padding, f'{v:.2f}±{std_iters[i]:.2f}', ha='left', va='center', rotation=90, rotation_mode='anchor')
     else:
         ax.barh(x, mean_iters, xerr=std_iters, capsize=5)
         ax.set_ylabel('Bitwidth')
@@ -317,17 +318,25 @@ def plot_iters_train(iters, args, ann=False, horizontal=False):
         ax.set_yticks(x)
         ax.set_yticklabels(labels)
 
+        padding = 0.01 * (ax.get_xlim()[1] - ax.get_xlim()[0])
         for i, v in enumerate(mean_iters):
             if ax.get_xlim()[1] - v - std_iters[i] < v - std_iters[i]:
-                ax.text(v - std_iters[i], i, f'{v:.2f}±{std_iters[i]:.2f}', ha='right', va='center')
+                ax.text(v - std_iters[i] - padding, i, f'{v:.2f}±{std_iters[i]:.2f}', ha='right', va='center')
             else:
-                ax.text(v + std_iters[i], i, f'{v:.2f}±{std_iters[i]:.2f}', ha='left', va='center')
+                ax.text(v + std_iters[i] + padding, i, f'{v:.2f}±{std_iters[i]:.2f}', ha='left', va='center')
 
     ax.grid()
 
     os.makedirs(plots_dir, exist_ok=True)
     plt.tight_layout()
-    fig.savefig(os.path.join(plots_dir, f'{dataset_name.lower()}_train_iters.pdf'))
+    if horizontal:
+        fig.savefig(os.path.join(plots_dir, f'{dataset_name.lower()}_train_iters_horizontal.pdf'))
+    else:
+        fig.savefig(os.path.join(plots_dir, f'{dataset_name.lower()}_train_iters.pdf'))
+
+def plot_iters_train_dual(iters, args):
+    plot_iters_train(iters, args, ann=False, horizontal=True)
+    plot_iters_train(iters, args, ann=False, horizontal=False)
 
 def plot_iters_test(iters, args, ann=False, horizontal=False):
     bits_limit = args.N
@@ -369,11 +378,12 @@ def plot_iters_test(iters, args, ann=False, horizontal=False):
         ax.set_xticks(x)
         ax.set_xticklabels(labels)
 
+        padding = 0.01 * (ax.get_ylim()[1] - ax.get_ylim()[0])
         for i, v in enumerate(mean_iters):
             if ax.get_ylim()[1] - v - std_iters[i] < v - std_iters[i]:
-                ax.text(i, v - std_iters[i], f'{v:.2f}±{std_iters[i]:.2f}', ha='right', va='center', rotation=90, rotation_mode='anchor')
+                ax.text(i, v - std_iters[i] - padding, f'{v:.2f}±{std_iters[i]:.2f}', ha='right', va='center', rotation=90, rotation_mode='anchor')
             else:
-                ax.text(i, v + std_iters[i], f'{v:.2f}±{std_iters[i]:.2f}', ha='left', va='center', rotation=90, rotation_mode='anchor')
+                ax.text(i, v + std_iters[i] + padding, f'{v:.2f}±{std_iters[i]:.2f}', ha='left', va='center', rotation=90, rotation_mode='anchor')
     else:
         ax.barh(x, mean_iters, xerr=std_iters, capsize=5)
         ax.set_ylabel('Bitwidth')
@@ -381,17 +391,25 @@ def plot_iters_test(iters, args, ann=False, horizontal=False):
         ax.set_yticks(x)
         ax.set_yticklabels(labels)
 
+        padding = 0.01 * (ax.get_xlim()[1] - ax.get_xlim()[0])
         for i, v in enumerate(mean_iters):
             if ax.get_xlim()[1] - v - std_iters[i] < v - std_iters[i]:
-                ax.text(v - std_iters[i], i, f'{v:.2f}±{std_iters[i]:.2f}', ha='right', va='center')
+                ax.text(v - std_iters[i] - padding, i, f'{v:.2f}±{std_iters[i]:.2f}', ha='right', va='center')
             else:
-                ax.text(v + std_iters[i], i, f'{v:.2f}±{std_iters[i]:.2f}', ha='left', va='center')
+                ax.text(v + std_iters[i] + padding, i, f'{v:.2f}±{std_iters[i]:.2f}', ha='left', va='center')
 
     ax.grid()
 
     os.makedirs(plots_dir, exist_ok=True)
     plt.tight_layout()
-    fig.savefig(os.path.join(plots_dir, f'{dataset_name.lower()}_test_iters.pdf'))
+    if horizontal:
+        fig.savefig(os.path.join(plots_dir, f'{dataset_name.lower()}_test_iters_horizontal.pdf'))
+    else:
+        fig.savefig(os.path.join(plots_dir, f'{dataset_name.lower()}_test_iters.pdf'))
+
+def plot_iters_test_dual(iters, args):
+    plot_iters_test(iters, args, ann=False, horizontal=True)
+    plot_iters_test(iters, args, ann=False, horizontal=False)
 
 def plot_firerate_train(firerate_train, args):
     bits_limit = args.N
@@ -545,7 +563,7 @@ def plot_energy_train_gpu(train_iters, args, horizontal=False):
     if not horizontal:
         fig, ax = plt.subplots(figsize=(0.4*args.N, 5))
     else:
-        fig, ax = plt.subplots(figsize=(5, 0.5*args.N))
+        fig, ax = plt.subplots(figsize=(5, 0.4*args.N))
 
     x = np.arange(0, bits_limit)
     labels = [f'{i+1}' for i in range(bits_limit)]
@@ -579,7 +597,10 @@ def plot_energy_train_gpu(train_iters, args, horizontal=False):
 
     os.makedirs(plots_dir, exist_ok=True)
     plt.tight_layout()
-    fig.savefig(os.path.join(plots_dir, f'{dataset_name.lower()}_train_energy_gpu.pdf'))
+    if horizontal:
+        fig.savefig(os.path.join(plots_dir, f'{dataset_name.lower()}_train_energy_gpu_horizontal.pdf'))
+    else:
+        fig.savefig(os.path.join(plots_dir, f'{dataset_name.lower()}_train_energy_gpu.pdf'))
 
     relative_energy_train_gpu = energy_train_gpu / mean_energy_train_gpu[0]
 
@@ -589,7 +610,7 @@ def plot_energy_train_gpu(train_iters, args, horizontal=False):
     if not horizontal:
         fig, ax = plt.subplots(figsize=(0.4*args.N, 5))
     else:
-        fig, ax = plt.subplots(figsize=(5, 0.5*args.N))
+        fig, ax = plt.subplots(figsize=(5, 0.4*args.N))
 
     if not horizontal:
         ax.bar(x, mean_relative_energy_train_gpu, yerr=std_relative_energy_train_gpu, capsize=5)
@@ -623,7 +644,14 @@ def plot_energy_train_gpu(train_iters, args, horizontal=False):
 
     os.makedirs(plots_dir, exist_ok=True)
     plt.tight_layout()
-    fig.savefig(os.path.join(plots_dir, f'{dataset_name.lower()}_train_relative_energy_gpu.pdf'))
+    if horizontal:
+        fig.savefig(os.path.join(plots_dir, f'{dataset_name.lower()}_train_relative_energy_gpu_horizontal.pdf'))
+    else:
+        fig.savefig(os.path.join(plots_dir, f'{dataset_name.lower()}_train_relative_energy_gpu.pdf'))
+
+def plot_energy_train_gpu_dual(train_iters, args):
+    plot_energy_train_gpu(train_iters, args, horizontal=True)
+    plot_energy_train_gpu(train_iters, args, horizontal=False)
 
 def plot_energy_test_nh(firerate_test, args, horizontal=False):
     bits_limit = args.N

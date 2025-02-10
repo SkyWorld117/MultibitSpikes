@@ -55,9 +55,11 @@ def just_plot():
     #plots.plot_accs_final(None, args, horizontal=False)
     plots.plot_acc_final_dual(None, args)
 
-    plots.plot_iters_train(None, args, horizontal=False)
+    #plots.plot_iters_train(None, args, horizontal=False)
+    plots.plot_iters_train_dual(None, args)
 
-    plots.plot_iters_test(None, args, horizontal=False)
+    #plots.plot_iters_test(None, args, horizontal=False)
+    plots.plot_iters_test_dual(None, args)
 
     # tools.averaging(args)
 
@@ -67,7 +69,8 @@ def just_plot():
 
     plots.plot_firerate_final(None, args, horizontal=True)
 
-    plots.plot_energy_train_gpu(None, args, horizontal=False)
+    #plots.plot_energy_train_gpu(None, args, horizontal=False)
+    plots.plot_energy_train_gpu_dual(None, args)
 
     plots.plot_energy_test_nh(None, args, horizontal=False)
 

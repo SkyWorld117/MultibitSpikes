@@ -9,7 +9,7 @@
     \begin{equation}
         S_{\text{out}}[t] = \begin{cases}
             0               & \text{if } U[t] < \frac{1}{2^n-1}\cdot\theta \\
-            \frac{i}{1^n-1} & \text{if } \frac{i}{2^n-1}\cdot\theta \leq U[t] < \frac{i+1}{2^n-1}\cdot\theta, i\in [1, 2^n-2]\\
+            \frac{i}{1^n-1} & \text{if } \frac{i}{2^n-1}\cdot\theta \leq U[t] < \frac{i+1}{2^n-1}\cdot\theta,\ i\in [1, 2^n-2]\\
             1               & \text{if } U[t] \geq \theta
         \end{cases}
     \end{equation}
@@ -90,7 +90,7 @@
     We use the SNN framework SpikingJelly which is based on PyTorch to implement the multi-bit spike train model. The firing mechanism is implemented as a forward path of the surrogate function in SpikingJelly. One just needs to override the Heaviside step function with the multi-bit spike train model. The core implementation is shown in Figure \ref{listing:multi-bit-spike}.
     \begin{figure}[!htpb]
         \centering
-        \begin{lstlisting}[language=Python, basicstyle=\small, breaklines=true]
+        \begin{lstlisting}[language=Python, basicstyle=\small, breaklines=true, numbers=left, stepnumber=1]
 @torch.jit.script
 def multi_level(x: torch.Tensor, n: int, threshold: float):
     l = int(2**n)-1

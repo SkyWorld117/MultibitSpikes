@@ -47,9 +47,10 @@
             \begin{tikzpicture}
                 \draw[->] (-5,0) -- (5,0) node[right] {x};
                 \draw[->] (0,-1) -- (0,3) node[above] {y};
-                \draw[color=teal] (-5,0) -- (0,0) -- (0,1) -- (5,1) node[above] {Heaviside Step Function};
+                \draw[color=magenta] (-5,0) -- (0,0) -- (0,1) -- (5,1);
                 \draw[color=blue] plot[domain=-4:4, samples=100] (\x, {1/(1 + exp(-2*\x))});
                 \matrix [draw=none, below left] at (current bounding box.north east) {
+                    \node [magenta]{Heaviside Step Function}; \\
                     \node [blue]{Sigmoid $\alpha=2$}; \\
                 };
             \end{tikzpicture}

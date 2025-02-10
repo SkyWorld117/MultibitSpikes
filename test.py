@@ -130,4 +130,5 @@ python -m test --N 2 --R 5 --T 10 4 --acc 0.80 --model CIFAR10Net --data-path /s
 
 Plots:
 python -m test --N 2 --R 10 --T 10 4 --dataset FashionMNIST --output-dir /scratch/zyi/codeSpace/MultibitSpikes/timesteps --plot-from-data
+python -m test --N 2 --R 5 --T 10 4 --dataset CIFAR10 --output-dir /scratch/zyi/codeSpace/MultibitSpikes/timesteps --plot-from-data
 """

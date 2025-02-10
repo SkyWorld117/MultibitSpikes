@@ -13,32 +13,19 @@ python -m test --N 8 --R 10 --T 10 --acc 0.80 --model FashionMNISTNet --data-pat
 
         \begin{figure}[H]
             \centering
-            \includegraphics[width=\textwidth]{../standard/FashionMNIST/plots/fashionmnist_train_acc.pdf}
-            \caption{Training Accuracy (smoothed with a window size of 100)}
-        \end{figure}
-        \begin{figure}[H]
-            \centering
-            \includegraphics[width=\textwidth]{../standard/FashionMNIST/plots/fashionmnist_test_acc.pdf}
-            \caption{Test Accuracy}
-        \end{figure}
-        \begin{figure}[H]
-            \centering
-            \includegraphics[width=\textwidth]{../standard/FashionMNIST/plots/fashionmnist_final_acc.pdf}
-            \caption{Final Test Accuracy}
-        \end{figure}
-
-        \begin{figure}[H]
-            \centering
-            \begin{subfigure}[H]{0.65\textwidth}
+            \begin{subfigure}[H]{0.69\textwidth}
                 \centering
-                \includegraphics[width=\textwidth]{../standard/FashionMNIST/plots/fashionmnist_train_acc.pdf}
-                \caption{Train Accuracy (smoothed with a window size of 100)}
-            \end{subfigure}
-            \hfill
-            \begin{subfigure}[H]{0.65\textwidth}
-                \centering
-                \includegraphics[width=\textwidth]{../standard/FashionMNIST/plots/fashionmnist_test_acc.pdf}
-                \caption{Test Accuracy}
+                \begin{subfigure}[H]{\textwidth}
+                    \centering
+                    \includegraphics[width=\textwidth]{../standard/FashionMNIST/plots/fashionmnist_train_acc.pdf}
+                    \caption{Train Accuracy (smoothed with a window size of 100)}
+                \end{subfigure}
+                \hfill
+                \begin{subfigure}[H]{\textwidth}
+                    \centering
+                    \includegraphics[width=\textwidth]{../standard/FashionMNIST/plots/fashionmnist_test_acc.pdf}
+                    \caption{Test Accuracy}
+                \end{subfigure}
             \end{subfigure}
             \hfill
             \begin{subfigure}[H]{0.3\textwidth}
@@ -149,15 +136,15 @@ python -m test --N 4 --R 5 --T 10 --acc 0.80 --model CIFAR10Net --data-path /scr
         Launch command: Same as in Appendix \ref{appendix:accuracy_curves_fashion_mnist}
         \begin{figure}[H]
             \centering
-            \begin{subfigure}[H]{0.48\textwidth}
+            \begin{subfigure}[H]{0.495\textwidth}
                 \centering
-                \includegraphics[width=\textwidth]{../standard/FashionMNIST/plots/fashionmnist_train_iters.pdf}
+                \includegraphics[width=\textwidth]{../standard/FashionMNIST/plots/fashionmnist_train_iters_horizontal.pdf}
                 \caption{Iterations to Reach the Training Accuracy}
             \end{subfigure}
             \hfill
-            \begin{subfigure}[H]{0.48\textwidth}
+            \begin{subfigure}[H]{0.495\textwidth}
                 \centering
-                \includegraphics[width=\textwidth]{../standard/FashionMNIST/plots/fashionmnist_test_iters.pdf}
+                \includegraphics[width=\textwidth]{../standard/FashionMNIST/plots/fashionmnist_test_iters_horizontal.pdf}
                 \caption{Iterations to Reach the Test Accuracy}
             \end{subfigure}
             \caption{Iterations to Reach the Target Accuracy of 80\%}
@@ -412,13 +399,13 @@ python -m test --N 2 --R 5 --T 10 10 --acc 0.80 --model CIFAR10Net --data-path /
 
         \begin{figure}[H]
             \centering
-            \begin{subfigure}[H]{0.48\textwidth}
-                \includegraphics[width=\textwidth]{../standard/FashionMNIST/plots/fashionmnist_train_energy_gpu.pdf}
+            \begin{subfigure}[H]{0.495\textwidth}
+                \includegraphics[width=\textwidth]{../standard/FashionMNIST/plots/fashionmnist_train_energy_gpu_horizontal.pdf}
                 \caption{Energy Consumption Estimation, Unit in Constant $c$}
             \end{subfigure}
             \hfill
-            \begin{subfigure}[H]{0.48\textwidth}
-                \includegraphics[width=\textwidth]{../standard/FashionMNIST/plots/fashionmnist_train_relative_energy_gpu.pdf}
+            \begin{subfigure}[H]{0.495\textwidth}
+                \includegraphics[width=\textwidth]{../standard/FashionMNIST/plots/fashionmnist_train_relative_energy_gpu_horizontal.pdf}
                 \caption{Normalized Energy Consumption Estimation Relative to 1-bit Spike Train Model}
             \end{subfigure}
             \caption{Training Energy Consumption Estimation on GPUs for Fashion MNIST Dataset}

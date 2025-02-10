@@ -45,18 +45,27 @@ python -m test --N 8 --R 10 --T 10 --acc 0.80 --model MNISTNet --data-path /scra
 
         \begin{figure}[H]
             \centering
-            \includegraphics[width=\textwidth]{../standard/MNIST/plots/mnist_train_acc.pdf}
-            \caption{Training Accuracy (smoothed with a window size of 100)}
-        \end{figure}
-        \begin{figure}[H]
-            \centering
-            \includegraphics[width=\textwidth]{../standard/MNIST/plots/mnist_test_acc.pdf}
-            \caption{Test Accuracy}
-        \end{figure}
-        \begin{figure}[H]
-            \centering
-            \includegraphics[width=\textwidth]{../standard/MNIST/plots/mnist_final_acc.pdf}
-            \caption{Final Test Accuracy}
+            \begin{subfigure}[H]{0.69\textwidth}
+                \centering
+                \begin{subfigure}[H]{\textwidth}
+                    \centering
+                    \includegraphics[width=\textwidth]{../standard/MNIST/plots/mnist_train_acc.pdf}
+                    \caption{Train Accuracy (smoothed with a window size of 100)}
+                \end{subfigure}
+                \hfill
+                \begin{subfigure}[H]{\textwidth}
+                    \centering
+                    \includegraphics[width=\textwidth]{../standard/MNIST/plots/mnist_test_acc.pdf}
+                    \caption{Test Accuracy}
+                \end{subfigure}
+            \end{subfigure}
+            \hfill
+            \begin{subfigure}[H]{0.3\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{../standard/MNIST/plots/mnist_final_acc.pdf}
+                \caption{Final Test Accuracy}
+            \end{subfigure}
+            \caption{Accuracy Curves of the MNIST Model}
         \end{figure}
     
     \subsection{NMNIST}
@@ -68,18 +77,27 @@ python -m test --N 8 --R 10 --T 10 --acc 0.80 --model NMNISTNet --data-path /scr
 
         \begin{figure}[H]
             \centering
-            \includegraphics[width=\textwidth]{../standard/NMNIST/plots/nmnist_train_acc.pdf}
-            \caption{Training Accuracy (smoothed with a window size of 100)}            
-        \end{figure}
-        \begin{figure}[H]
-            \centering
-            \includegraphics[width=\textwidth]{../standard/NMNIST/plots/nmnist_test_acc.pdf}
-            \caption{Test Accuracy}
-        \end{figure}
-        \begin{figure}[H]
-            \centering
-            \includegraphics[width=\textwidth]{../standard/NMNIST/plots/nmnist_final_acc.pdf}
-            \caption{Final Test Accuracy}
+            \begin{subfigure}[H]{0.69\textwidth}
+                \centering
+                \begin{subfigure}[H]{\textwidth}
+                    \centering
+                    \includegraphics[width=\textwidth]{../standard/NMNIST/plots/nmnist_train_acc.pdf}
+                    \caption{Train Accuracy (smoothed with a window size of 100)}
+                \end{subfigure}
+                \hfill
+                \begin{subfigure}[H]{\textwidth}
+                    \centering
+                    \includegraphics[width=\textwidth]{../standard/NMNIST/plots/nmnist_test_acc.pdf}
+                    \caption{Test Accuracy}
+                \end{subfigure}
+            \end{subfigure}
+            \hfill
+            \begin{subfigure}[H]{0.3\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{../standard/NMNIST/plots/nmnist_final_acc.pdf}
+                \caption{Final Test Accuracy}
+            \end{subfigure}
+            \caption{Accuracy Curves of the NMNIST Model}
         \end{figure}
 
     \subsection{DVS Gesture}
@@ -91,18 +109,27 @@ python -m test --N 8 --R 10 --T 10 --acc 0.80 --model DVSGestureNet --data-path 
 
         \begin{figure}[H]
             \centering
-            \includegraphics[width=\textwidth]{../standard/DVSGesture/plots/dvsgesture_train_acc.pdf}
-            \caption{Training Accuracy (smoothed with a window size of 100)}
-        \end{figure}
-        \begin{figure}[H]
-            \centering
-            \includegraphics[width=\textwidth]{../standard/DVSGesture/plots/dvsgesture_test_acc.pdf}
-            \caption{Test Accuracy}
-        \end{figure}
-        \begin{figure}[H]
-            \centering
-            \includegraphics[width=\textwidth]{../standard/DVSGesture/plots/dvsgesture_final_acc.pdf}
-            \caption{Final Test Accuracy}
+            \begin{subfigure}[H]{0.69\textwidth}
+                \centering
+                \begin{subfigure}[H]{\textwidth}
+                    \centering
+                    \includegraphics[width=\textwidth]{../standard/DVSGesture/plots/dvsgesture_train_acc.pdf}
+                    \caption{Train Accuracy (smoothed with a window size of 100)}
+                \end{subfigure}
+                \hfill
+                \begin{subfigure}[H]{\textwidth}
+                    \centering
+                    \includegraphics[width=\textwidth]{../standard/DVSGesture/plots/dvsgesture_test_acc.pdf}
+                    \caption{Test Accuracy}
+                \end{subfigure}
+            \end{subfigure}
+            \hfill
+            \begin{subfigure}[H]{0.3\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{../standard/DVSGesture/plots/dvsgesture_final_acc.pdf}
+                \caption{Final Test Accuracy}
+            \end{subfigure}
+            \caption{Accuracy Curves of the DVS Gesture Model}
         \end{figure}
 
     \subsection{CIFAR-10}
@@ -112,20 +139,44 @@ python -m test --N 8 --R 10 --T 10 --acc 0.80 --model DVSGestureNet --data-path 
 python -m test --N 4 --R 5 --T 10 --acc 0.80 --model CIFAR10Net --data-path /scratch/zyi/codeSpace/data --dataset CIFAR10 --batch-size 128 --opt adam --lr 1e-5 --lr-scheduler none --epochs 50 --lr-warmup-epochs 0 --output-dir /scratch/zyi/codeSpace/MultibitSpikes
         \end{lstlisting}
 
+        % \begin{figure}[H]
+        %     \centering
+        %     \includegraphics[width=\textwidth]{../standard/CIFAR10/plots/cifar10_train_acc.pdf}
+        %     \caption{Training Accuracy (smoothed with a window size of 100)}
+        % \end{figure}
+        % \begin{figure}[H]
+        %     \centering
+        %     \includegraphics[width=\textwidth]{../standard/CIFAR10/plots/cifar10_test_acc.pdf}
+        %     \caption{Test Accuracy}
+        % \end{figure}
+        % \begin{figure}[H]
+        %     \centering
+        %     \includegraphics[width=\textwidth]{../standard/CIFAR10/plots/cifar10_final_acc.pdf}
+        %     \caption{Final Test Accuracy}
+        % \end{figure}
         \begin{figure}[H]
             \centering
-            \includegraphics[width=\textwidth]{../standard/CIFAR10/plots/cifar10_train_acc.pdf}
-            \caption{Training Accuracy (smoothed with a window size of 100)}
-        \end{figure}
-        \begin{figure}[H]
-            \centering
-            \includegraphics[width=\textwidth]{../standard/CIFAR10/plots/cifar10_test_acc.pdf}
-            \caption{Test Accuracy}
-        \end{figure}
-        \begin{figure}[H]
-            \centering
-            \includegraphics[width=\textwidth]{../standard/CIFAR10/plots/cifar10_final_acc.pdf}
-            \caption{Final Test Accuracy}
+            \begin{subfigure}[H]{0.69\textwidth}
+                \centering
+                \begin{subfigure}[H]{\textwidth}
+                    \centering
+                    \includegraphics[width=\textwidth]{../standard/CIFAR10/plots/cifar10_train_acc.pdf}
+                    \caption{Train Accuracy (smoothed with a window size of 100)}
+                \end{subfigure}
+                \hfill
+                \begin{subfigure}[H]{\textwidth}
+                    \centering
+                    \includegraphics[width=\textwidth]{../standard/CIFAR10/plots/cifar10_test_acc.pdf}
+                    \caption{Test Accuracy}
+                \end{subfigure}
+            \end{subfigure}
+            \hfill
+            \begin{subfigure}[H]{0.3\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{../standard/CIFAR10/plots/cifar10_final_acc.pdf}
+                \caption{Final Test Accuracy}
+            \end{subfigure}
+            \caption{Accuracy Curves of the CIFAR-10 Model}
         \end{figure}
 
 \section{Iterations to Reach the Target Accuracy of 80\%}
@@ -136,13 +187,13 @@ python -m test --N 4 --R 5 --T 10 --acc 0.80 --model CIFAR10Net --data-path /scr
         Launch command: Same as in Appendix \ref{appendix:accuracy_curves_fashion_mnist}
         \begin{figure}[H]
             \centering
-            \begin{subfigure}[H]{0.495\textwidth}
+            \begin{subfigure}[H]{0.6\textwidth}
                 \centering
                 \includegraphics[width=\textwidth]{../standard/FashionMNIST/plots/fashionmnist_train_iters_horizontal.pdf}
                 \caption{Iterations to Reach the Training Accuracy}
             \end{subfigure}
             \hfill
-            \begin{subfigure}[H]{0.495\textwidth}
+            \begin{subfigure}[H]{0.6\textwidth}
                 \centering
                 \includegraphics[width=\textwidth]{../standard/FashionMNIST/plots/fashionmnist_test_iters_horizontal.pdf}
                 \caption{Iterations to Reach the Test Accuracy}
@@ -155,15 +206,15 @@ python -m test --N 4 --R 5 --T 10 --acc 0.80 --model CIFAR10Net --data-path /scr
         Launch command: Same as in Appendix \ref{appendix:accuracy_curves_mnist}
         \begin{figure}[H]
             \centering
-            \begin{subfigure}[H]{0.48\textwidth}
+            \begin{subfigure}[H]{0.6\textwidth}
                 \centering
-                \includegraphics[width=\textwidth]{../standard/MNIST/plots/mnist_train_iters.pdf}
+                \includegraphics[width=\textwidth]{../standard/MNIST/plots/mnist_train_iters_horizontal.pdf}
                 \caption{Iterations to Reach the Training Accuracy}
             \end{subfigure}
             \hfill
-            \begin{subfigure}[H]{0.48\textwidth}
+            \begin{subfigure}[H]{0.6\textwidth}
                 \centering
-                \includegraphics[width=\textwidth]{../standard/MNIST/plots/mnist_test_iters.pdf}
+                \includegraphics[width=\textwidth]{../standard/MNIST/plots/mnist_test_iters_horizontal.pdf}
                 \caption{Iterations to Reach the Test Accuracy}
             \end{subfigure}
             \caption{Iterations to Reach the Target Accuracy of 80\%}
@@ -174,15 +225,15 @@ python -m test --N 4 --R 5 --T 10 --acc 0.80 --model CIFAR10Net --data-path /scr
         Launch command: Same as in Appendix \ref{appendix:accuracy_curves_nmnist}
         \begin{figure}[H]
             \centering
-            \begin{subfigure}[H]{0.48\textwidth}
+            \begin{subfigure}[H]{0.6\textwidth}
                 \centering
-                \includegraphics[width=\textwidth]{../standard/NMNIST/plots/nmnist_train_iters.pdf}
+                \includegraphics[width=\textwidth]{../standard/NMNIST/plots/nmnist_train_iters_horizontal.pdf}
                 \caption{Iterations to Reach the Training Accuracy}
             \end{subfigure}
             \hfill
-            \begin{subfigure}[H]{0.48\textwidth}
+            \begin{subfigure}[H]{0.6\textwidth}
                 \centering
-                \includegraphics[width=\textwidth]{../standard/NMNIST/plots/nmnist_test_iters.pdf}
+                \includegraphics[width=\textwidth]{../standard/NMNIST/plots/nmnist_test_iters_horizontal.pdf}
                 \caption{Iterations to Reach the Test Accuracy}
             \end{subfigure}
             \caption{Iterations to Reach the Target Accuracy of 80\%}
@@ -193,15 +244,15 @@ python -m test --N 4 --R 5 --T 10 --acc 0.80 --model CIFAR10Net --data-path /scr
         Launch command: Same as in Appendix \ref{appendix:accuracy_curves_dvs_gesture}
         \begin{figure}[H]
             \centering
-            \begin{subfigure}[H]{0.48\textwidth}
+            \begin{subfigure}[H]{0.6\textwidth}
                 \centering
-                \includegraphics[width=\textwidth]{../standard/DVSGesture/plots/dvsgesture_train_iters.pdf}
+                \includegraphics[width=\textwidth]{../standard/DVSGesture/plots/dvsgesture_train_iters_horizontal.pdf}
                 \caption{Iterations to Reach the Training Accuracy}
             \end{subfigure}
             \hfill
-            \begin{subfigure}[H]{0.48\textwidth}
+            \begin{subfigure}[H]{0.6\textwidth}
                 \centering
-                \includegraphics[width=\textwidth]{../standard/DVSGesture/plots/dvsgesture_test_iters.pdf}
+                \includegraphics[width=\textwidth]{../standard/DVSGesture/plots/dvsgesture_test_iters_horizontal.pdf}
                 \caption{Iterations to Reach the Test Accuracy}
             \end{subfigure}
             \caption{Iterations to Reach the Target Accuracy of 80\%}
@@ -214,15 +265,15 @@ python -m test --N 4 --R 5 --T 10 --acc 0.80 --model CIFAR10Net --data-path /scr
         Launch command: Same as in Appendix \ref{appendix:accuracy_curves_cifar10}
         \begin{figure}[H]
             \centering
-            \begin{subfigure}[H]{0.48\textwidth}
+            \begin{subfigure}[H]{0.6\textwidth}
                 \centering
-                \includegraphics[width=\textwidth]{../standard/CIFAR10/plots/cifar10_train_iters.pdf}
+                \includegraphics[width=\textwidth]{../standard/CIFAR10/plots/cifar10_train_iters_horizontal.pdf}
                 \caption{Iterations to Reach the Training Accuracy}
             \end{subfigure}
             \hfill
-            \begin{subfigure}[H]{0.48\textwidth}
+            \begin{subfigure}[H]{0.6\textwidth}
                 \centering
-                \includegraphics[width=\textwidth]{../standard/CIFAR10/plots/cifar10_test_iters.pdf}
+                \includegraphics[width=\textwidth]{../standard/CIFAR10/plots/cifar10_test_iters_horizontal.pdf}
                 \caption{Iterations to Reach the Test Accuracy}
             \end{subfigure}
             \caption{Iterations to Reach the Target Accuracy of 80\%}
@@ -246,18 +297,24 @@ python -m test --N 2 --R 10 --T 10 10 --acc 0.80 --model FashionMNISTNet --data-
 
         \begin{figure}[H]
             \centering
-            \begin{subfigure}[H]{0.48\textwidth}
+            \begin{subfigure}[H]{0.8\textwidth}
                 \centering
                 \includegraphics[width=\textwidth]{../firerate/FashionMNIST/plots/fashionmnist_train_firerate.pdf}
                 \caption{Firing Rate in Different Positions (Training)}
             \end{subfigure}
-            \hfill
-            \begin{subfigure}[H]{0.48\textwidth}
+        \end{figure}
+        \begin{figure}[H]
+            \centering
+            \ContinuedFloat
+            \begin{subfigure}[H]{0.8\textwidth}
                 \centering
                 \includegraphics[width=\textwidth]{../firerate/FashionMNIST/plots/fashionmnist_test_firerate.pdf}
                 \caption{Firing Rate in Different Positions (Test)}
             \end{subfigure}
-            \hfill
+        \end{figure}
+        \begin{figure}[H]
+            \centering
+            \ContinuedFloat
             \begin{subfigure}[H]{\textwidth}
                 \centering
                 \includegraphics[width=\textwidth]{../firerate/FashionMNIST/plots/fashionmnist_final_firerate.pdf}
@@ -275,18 +332,24 @@ python -m test --N 2 --R 10 --T 10 10 --acc 0.80 --model MNISTNet --data-path /s
 
         \begin{figure}[H]
             \centering
-            \begin{subfigure}[H]{0.48\textwidth}
+            \begin{subfigure}[H]{0.8\textwidth}
                 \centering
                 \includegraphics[width=\textwidth]{../firerate/MNIST/plots/mnist_train_firerate.pdf}
                 \caption{Firing Rate in Different Positions (Training)}
             \end{subfigure}
-            \hfill
-            \begin{subfigure}[H]{0.48\textwidth}
+        \end{figure}
+        \begin{figure}[H]
+            \centering
+            \ContinuedFloat
+            \begin{subfigure}[H]{0.8\textwidth}
                 \centering
                 \includegraphics[width=\textwidth]{../firerate/MNIST/plots/mnist_test_firerate.pdf}
                 \caption{Firing Rate in Different Positions (Test)}
             \end{subfigure}
-            \hfill
+        \end{figure}
+        \begin{figure}[H]
+            \centering
+            \ContinuedFloat
             \begin{subfigure}[H]{\textwidth}
                 \centering
                 \includegraphics[width=\textwidth]{../firerate/MNIST/plots/mnist_final_firerate.pdf}
@@ -304,18 +367,24 @@ python -m test --N 2 --R 10 --T 10 10 --acc 0.80 --model NMNISTNet --data-path /
 
         \begin{figure}[H]
             \centering
-            \begin{subfigure}[H]{0.48\textwidth}
+            \begin{subfigure}[H]{0.8\textwidth}
                 \centering
                 \includegraphics[width=\textwidth]{../firerate/NMNIST/plots/nmnist_train_firerate.pdf}
                 \caption{Firing Rate in Different Positions (Training)}
             \end{subfigure}
-            \hfill
-            \begin{subfigure}[H]{0.48\textwidth}
+        \end{figure}
+        \begin{figure}[H]
+            \centering
+            \ContinuedFloat
+            \begin{subfigure}[H]{0.8\textwidth}
                 \centering
                 \includegraphics[width=\textwidth]{../firerate/NMNIST/plots/nmnist_test_firerate.pdf}
                 \caption{Firing Rate in Different Positions (Test)}
             \end{subfigure}
-            \hfill
+        \end{figure}
+        \begin{figure}[H]
+            \centering
+            \ContinuedFloat
             \begin{subfigure}[H]{\textwidth}
                 \centering
                 \includegraphics[width=\textwidth]{../firerate/NMNIST/plots/nmnist_final_firerate.pdf}
@@ -335,18 +404,24 @@ python -m test --N 2 --R 10 --T 10 10 --acc 0.80 --model DVSGestureNet --data-pa
 
         \begin{figure}[H]
             \centering
-            \begin{subfigure}[H]{0.48\textwidth}
+            \begin{subfigure}[H]{0.8\textwidth}
                 \centering
                 \includegraphics[width=\textwidth]{../firerate/DVSGesture/plots/dvsgesture_train_firerate.pdf}
                 \caption{Firing Rate in Different Positions (Training)}
             \end{subfigure}
-            \hfill
-            \begin{subfigure}[H]{0.48\textwidth}
+        \end{figure}
+        \begin{figure}[H]
+            \centering
+            \ContinuedFloat
+            \begin{subfigure}[H]{0.8\textwidth}
                 \centering
                 \includegraphics[width=\textwidth]{../firerate/DVSGesture/plots/dvsgesture_test_firerate.pdf}
                 \caption{Firing Rate in Different Positions (Test)}
             \end{subfigure}
-            \hfill
+        \end{figure}
+        \begin{figure}[H]
+            \centering
+            \ContinuedFloat
             \begin{subfigure}[H]{\textwidth}
                 \centering
                 \includegraphics[width=\textwidth]{../firerate/DVSGesture/plots/dvsgesture_final_firerate.pdf}
@@ -366,18 +441,24 @@ python -m test --N 2 --R 5 --T 10 10 --acc 0.80 --model CIFAR10Net --data-path /
 
         \begin{figure}[H]
             \centering
-            \begin{subfigure}[H]{0.48\textwidth}
+            \begin{subfigure}[H]{0.8\textwidth}
                 \centering
                 \includegraphics[width=\textwidth]{../firerate/CIFAR10/plots/cifar10_train_firerate.pdf}
                 \caption{Firing Rate in Different Positions (Training)}
             \end{subfigure}
-            \hfill
-            \begin{subfigure}[H]{0.48\textwidth}
+        \end{figure}
+        \begin{figure}[H]
+            \centering
+            \ContinuedFloat
+            \begin{subfigure}[H]{0.8\textwidth}
                 \centering
                 \includegraphics[width=\textwidth]{../firerate/CIFAR10/plots/cifar10_test_firerate.pdf}
                 \caption{Firing Rate in Different Positions (Test)}
             \end{subfigure}
-            \hfill
+        \end{figure}
+        \begin{figure}[H]
+            \centering
+            \ContinuedFloat
             \begin{subfigure}[H]{\textwidth}
                 \centering
                 \includegraphics[width=\textwidth]{../firerate/CIFAR10/plots/cifar10_final_firerate.pdf}
@@ -385,7 +466,6 @@ python -m test --N 2 --R 5 --T 10 10 --acc 0.80 --model CIFAR10Net --data-path /
             \end{subfigure}
             \caption{Firing Rate in Different Positions of the CIFAR-10 Model}
         \end{figure}
-
 
 \chapter{Energy Consumption Estimation}
 \label{appendix:energy}
@@ -399,12 +479,12 @@ python -m test --N 2 --R 5 --T 10 10 --acc 0.80 --model CIFAR10Net --data-path /
 
         \begin{figure}[H]
             \centering
-            \begin{subfigure}[H]{0.495\textwidth}
+            \begin{subfigure}[H]{0.6\textwidth}
                 \includegraphics[width=\textwidth]{../standard/FashionMNIST/plots/fashionmnist_train_energy_gpu_horizontal.pdf}
                 \caption{Energy Consumption Estimation, Unit in Constant $c$}
             \end{subfigure}
             \hfill
-            \begin{subfigure}[H]{0.495\textwidth}
+            \begin{subfigure}[H]{0.6\textwidth}
                 \includegraphics[width=\textwidth]{../standard/FashionMNIST/plots/fashionmnist_train_relative_energy_gpu_horizontal.pdf}
                 \caption{Normalized Energy Consumption Estimation Relative to 1-bit Spike Train Model}
             \end{subfigure}
@@ -417,13 +497,13 @@ python -m test --N 2 --R 5 --T 10 10 --acc 0.80 --model CIFAR10Net --data-path /
 
         \begin{figure}[H]
             \centering
-            \begin{subfigure}[H]{0.48\textwidth}
-                \includegraphics[width=\textwidth]{../standard/MNIST/plots/mnist_train_energy_gpu.pdf}
+            \begin{subfigure}[H]{0.6\textwidth}
+                \includegraphics[width=\textwidth]{../standard/MNIST/plots/mnist_train_energy_gpu_horizontal.pdf}
                 \caption{Energy Consumption Estimation, Unit in Constant $c$}
             \end{subfigure}
             \hfill
-            \begin{subfigure}[H]{0.48\textwidth}
-                \includegraphics[width=\textwidth]{../standard/MNIST/plots/mnist_train_relative_energy_gpu.pdf}
+            \begin{subfigure}[H]{0.6\textwidth}
+                \includegraphics[width=\textwidth]{../standard/MNIST/plots/mnist_train_relative_energy_gpu_horizontal.pdf}
                 \caption{Normalized Energy Consumption Estimation Relative to 1-bit Spike Train Model}
             \end{subfigure}
             \caption{Training Energy Consumption Estimation on GPUs for MNIST Dataset}
@@ -435,13 +515,13 @@ python -m test --N 2 --R 5 --T 10 10 --acc 0.80 --model CIFAR10Net --data-path /
 
         \begin{figure}[H]
             \centering
-            \begin{subfigure}[H]{0.48\textwidth}
-                \includegraphics[width=\textwidth]{../standard/NMNIST/plots/nmnist_train_energy_gpu.pdf}
+            \begin{subfigure}[H]{0.6\textwidth}
+                \includegraphics[width=\textwidth]{../standard/NMNIST/plots/nmnist_train_energy_gpu_horizontal.pdf}
                 \caption{Energy Consumption Estimation, Unit in Constant $c$}
             \end{subfigure}
             \hfill
-            \begin{subfigure}[H]{0.48\textwidth}
-                \includegraphics[width=\textwidth]{../standard/NMNIST/plots/nmnist_train_relative_energy_gpu.pdf}
+            \begin{subfigure}[H]{0.6\textwidth}
+                \includegraphics[width=\textwidth]{../standard/NMNIST/plots/nmnist_train_relative_energy_gpu_horizontal.pdf}
                 \caption{Normalized Energy Consumption Estimation Relative to 1-bit Spike Train Model}
             \end{subfigure}
             \caption{Training Energy Consumption Estimation on GPUs for NMNIST Dataset}
@@ -453,13 +533,13 @@ python -m test --N 2 --R 5 --T 10 10 --acc 0.80 --model CIFAR10Net --data-path /
 
         \begin{figure}[H]
             \centering
-            \begin{subfigure}[H]{0.48\textwidth}
-                \includegraphics[width=\textwidth]{../standard/DVSGesture/plots/dvsgesture_train_energy_gpu.pdf}
+            \begin{subfigure}[H]{0.6\textwidth}
+                \includegraphics[width=\textwidth]{../standard/DVSGesture/plots/dvsgesture_train_energy_gpu_horizontal.pdf}
                 \caption{Energy Consumption Estimation, Unit in Constant $c$}
             \end{subfigure}
             \hfill
-            \begin{subfigure}[H]{0.48\textwidth}
-                \includegraphics[width=\textwidth]{../standard/DVSGesture/plots/dvsgesture_train_relative_energy_gpu.pdf}
+            \begin{subfigure}[H]{0.6\textwidth}
+                \includegraphics[width=\textwidth]{../standard/DVSGesture/plots/dvsgesture_train_relative_energy_gpu_horizontal.pdf}
                 \caption{Normalized Energy Consumption Estimation Relative to 1-bit Spike Train Model}
             \end{subfigure}
             \caption{Training Energy Consumption Estimation on GPUs for DVS Gesture Dataset}
@@ -471,13 +551,13 @@ python -m test --N 2 --R 5 --T 10 10 --acc 0.80 --model CIFAR10Net --data-path /
 
         \begin{figure}[H]
             \centering
-            \begin{subfigure}[H]{0.48\textwidth}
-                \includegraphics[width=\textwidth]{../standard/CIFAR10/plots/cifar10_train_energy_gpu.pdf}
+            \begin{subfigure}[H]{0.6\textwidth}
+                \includegraphics[width=\textwidth]{../standard/CIFAR10/plots/cifar10_train_energy_gpu_horizontal.pdf}
                 \caption{Energy Consumption Estimation, Unit in Constant $c$}
             \end{subfigure}
             \hfill
-            \begin{subfigure}[H]{0.48\textwidth}
-                \includegraphics[width=\textwidth]{../standard/CIFAR10/plots/cifar10_train_relative_energy_gpu.pdf}
+            \begin{subfigure}[H]{0.6\textwidth}
+                \includegraphics[width=\textwidth]{../standard/CIFAR10/plots/cifar10_train_relative_energy_gpu_horizontal.pdf}
                 \caption{Normalized Energy Consumption Estimation Relative to 1-bit Spike Train Model}
             \end{subfigure}
             \caption{Training Energy Consumption Estimation on GPUs for CIFAR-10 Dataset}
@@ -512,12 +592,12 @@ python -m test --N 2 --R 5 --T 10 10 --acc 0.80 --model CIFAR10Net --data-path /
 
         \begin{figure}[H]
             \centering
-            \begin{subfigure}[H]{\textwidth}
+            \begin{subfigure}[H]{0.495\textwidth}
                 \includegraphics[width=\textwidth]{../standard/MNIST/plots/mnist_test_energy_nh.pdf}
                 \caption{Energy Consumption Estimation, Unit in Parameters $F\cdot E_{\text{MAC}}$}
             \end{subfigure}
             \hfill
-            \begin{subfigure}[H]{\textwidth}
+            \begin{subfigure}[H]{0.495\textwidth}
                 \includegraphics[width=\textwidth]{../standard/MNIST/plots/mnist_test_relative_energy_nh.pdf}
                 \caption{Normalized Energy Consumption Estimation Relative to 1-bit Spike Train Model}
             \end{subfigure}
@@ -530,12 +610,12 @@ python -m test --N 2 --R 5 --T 10 10 --acc 0.80 --model CIFAR10Net --data-path /
 
         \begin{figure}[H]
             \centering
-            \begin{subfigure}[H]{\textwidth}
+            \begin{subfigure}[H]{0.495\textwidth}
                 \includegraphics[width=\textwidth]{../standard/NMNIST/plots/nmnist_test_energy_nh.pdf}
                 \caption{Energy Consumption Estimation, Unit in Parameters $F\cdot E_{\text{MAC}}$}
             \end{subfigure}
             \hfill
-            \begin{subfigure}[H]{\textwidth}
+            \begin{subfigure}[H]{0.495\textwidth}
                 \includegraphics[width=\textwidth]{../standard/NMNIST/plots/nmnist_test_relative_energy_nh.pdf}
                 \caption{Normalized Energy Consumption Estimation Relative to 1-bit Spike Train Model}
             \end{subfigure}
@@ -548,12 +628,12 @@ python -m test --N 2 --R 5 --T 10 10 --acc 0.80 --model CIFAR10Net --data-path /
 
         \begin{figure}[H]
             \centering
-            \begin{subfigure}[H]{\textwidth}
+            \begin{subfigure}[H]{0.495\textwidth}
                 \includegraphics[width=\textwidth]{../standard/DVSGesture/plots/dvsgesture_test_energy_nh.pdf}
                 \caption{Energy Consumption Estimation, Unit in Parameters $F\cdot E_{\text{MAC}}$}
             \end{subfigure}
             \hfill
-            \begin{subfigure}[H]{\textwidth}
+            \begin{subfigure}[H]{0.495\textwidth}
                 \includegraphics[width=\textwidth]{../standard/DVSGesture/plots/dvsgesture_test_relative_energy_nh.pdf}
                 \caption{Normalized Energy Consumption Estimation Relative to 1-bit Spike Train Model}
             \end{subfigure}
@@ -566,12 +646,12 @@ python -m test --N 2 --R 5 --T 10 10 --acc 0.80 --model CIFAR10Net --data-path /
 
         \begin{figure}[H]
             \centering
-            \begin{subfigure}[H]{\textwidth}
+            \begin{subfigure}[H]{0.495\textwidth}
                 \includegraphics[width=\textwidth]{../standard/CIFAR10/plots/cifar10_test_energy_nh.pdf}
                 \caption{Energy Consumption Estimation, Unit in Parameters $F\cdot E_{\text{MAC}}$}
             \end{subfigure}
             \hfill
-            \begin{subfigure}[H]{\textwidth}
+            \begin{subfigure}[H]{0.495\textwidth}
                 \includegraphics[width=\textwidth]{../standard/CIFAR10/plots/cifar10_test_relative_energy_nh.pdf}
                 \caption{Normalized Energy Consumption Estimation Relative to 1-bit Spike Train Model}
             \end{subfigure}
@@ -590,17 +670,20 @@ python -m test --N 2 --R 10 --T 10 4 --acc 0.80 --model FashionMNISTNet --data-p
 
         \begin{figure}[H]
             \centering
-            \begin{subfigure}[H]{0.48\textwidth}
-                \includegraphics[width=\textwidth]{../timesteps/FashionMNIST/plots/fashionmnist_train_acc.pdf}
-                \caption{Training Accuracy (smoothed with a window size of 100)}
+            \begin{subfigure}[H]{0.89\textwidth}
+                \centering
+                \begin{subfigure}[H]{\textwidth}
+                    \includegraphics[width=\textwidth]{../timesteps/FashionMNIST/plots/fashionmnist_train_acc.pdf}
+                    \caption{Training Accuracy (smoothed with a window size of 100)}
+                \end{subfigure}
+                \hfill
+                \begin{subfigure}[H]{\textwidth}
+                    \includegraphics[width=\textwidth]{../timesteps/FashionMNIST/plots/fashionmnist_test_acc.pdf}
+                    \caption{Test Accuracy}
+                \end{subfigure}
             \end{subfigure}
             \hfill
-            \begin{subfigure}[H]{0.48\textwidth}
-                \includegraphics[width=\textwidth]{../timesteps/FashionMNIST/plots/fashionmnist_test_acc.pdf}
-                \caption{Test Accuracy}
-            \end{subfigure}
-            \hfill
-            \begin{subfigure}[H]{\textwidth}
+            \begin{subfigure}[H]{0.1\textwidth}
                 \includegraphics[width=\textwidth]{../timesteps/FashionMNIST/plots/fashionmnist_final_acc.pdf}
                 \caption{Final Test Accuracy}
             \end{subfigure}
@@ -644,17 +727,20 @@ python -m test --N 2 --R 5 --T 10 4 --acc 0.80 --model CIFAR10Net --data-path /s
 
         \begin{figure}[H]
             \centering
-            \begin{subfigure}[H]{0.48\textwidth}
-                \includegraphics[width=\textwidth]{../timesteps/CIFAR10/plots/cifar10_train_acc.pdf}
-                \caption{Training Accuracy (smoothed with a window size of 100)}
+            \begin{subfigure}[H]{0.89\textwidth}
+                \centering
+                \begin{subfigure}[H]{\textwidth}
+                    \includegraphics[width=\textwidth]{../timesteps/CIFAR10/plots/cifar10_train_acc.pdf}
+                    \caption{Training Accuracy (smoothed with a window size of 100)}
+                \end{subfigure}
+                \hfill
+                \begin{subfigure}[H]{\textwidth}
+                    \includegraphics[width=\textwidth]{../timesteps/CIFAR10/plots/cifar10_test_acc.pdf}
+                    \caption{Test Accuracy}
+                \end{subfigure}
             \end{subfigure}
             \hfill
-            \begin{subfigure}[H]{0.48\textwidth}
-                \includegraphics[width=\textwidth]{../timesteps/CIFAR10/plots/cifar10_test_acc.pdf}
-                \caption{Test Accuracy}
-            \end{subfigure}
-            \hfill
-            \begin{subfigure}[H]{\textwidth}
+            \begin{subfigure}[H]{0.1\textwidth}
                 \includegraphics[width=\textwidth]{../timesteps/CIFAR10/plots/cifar10_final_acc.pdf}
                 \caption{Final Test Accuracy}
             \end{subfigure}

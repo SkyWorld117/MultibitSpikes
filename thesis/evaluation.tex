@@ -114,13 +114,15 @@
     One can notice that the firing rate of the multi-bit spike train model peaks at the very beginning of the training session, when the model converges rapidly. The firing rate then decreases as the training progresses. If we extend the training session, the firing rate of the multi-bit spike train model tends to converge to the firing rate of the 1-bit spike train model. Such process takes however a long time (see Figure \ref{fig:long_firing_rate}). 
     \begin{figure}[!htpb]
         \centering
-        \begin{subfigure}[H]{0.48\textwidth}
+        \begin{subfigure}[H]{0.9\textwidth}
             \centering
             \includegraphics[width=\textwidth]{../firerate/FashionMNIST/plots/fashionmnist_train_firerate.pdf}
             \caption{Training Firing Rate}
         \end{subfigure}
-        \hfill
-        \begin{subfigure}[H]{0.48\textwidth}
+    \end{figure}
+    \begin{figure}[!htpb]
+        \ContinuedFloat
+        \begin{subfigure}[H]{0.9\textwidth}
             \centering
             \includegraphics[width=\textwidth]{../firerate/FashionMNIST/plots/fashionmnist_test_firerate.pdf}
             \caption{Test Firing Rate}
@@ -145,19 +147,22 @@
     % TODO: Add references to the studies showing the quantizability of SNNs
     \begin{figure}[!htpb]
         \centering
-        \begin{subfigure}[H]{0.48\textwidth}
+        \begin{subfigure}[H]{0.89\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{../quantized/FashionMNIST/plots/fashionmnist_train_acc.pdf}
-            \caption{Training Accuracy with half precision (smoothed with a window size of 100)}
+            \begin{subfigure}[H]{\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{../quantized/FashionMNIST/plots/fashionmnist_train_acc.pdf}
+                \caption{Training Accuracy with half precision (smoothed with a window size of 100)}
+            \end{subfigure}
+            \hfill
+            \begin{subfigure}[H]{\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{../bf16/FashionMNIST/plots/fashionmnist_test_acc.pdf}
+                \caption{Test Accuracy with half precision}
+            \end{subfigure}
         \end{subfigure}
         \hfill
-        \begin{subfigure}[H]{0.48\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{../bf16/FashionMNIST/plots/fashionmnist_test_acc.pdf}
-            \caption{Test Accuracy with half precision}
-        \end{subfigure}
-        \hfill
-        \begin{subfigure}[H]{\textwidth}
+        \begin{subfigure}[H]{0.1\textwidth}
             \centering
             \includegraphics[width=\textwidth]{../bf16/FashionMNIST/plots/fashionmnist_final_acc.pdf}
             \caption{Final Accuracy with half precision after 5 epochs}
@@ -171,19 +176,22 @@
     Before quantizing the models to \verb|int8|, we first apply quantization-aware training to both SNN models. While regular ANNs may encounter various problems, both SNN models here converge well. We also see that the multi-bit spike train model has a faster convergence speed and better accuracy than the 1-bit spike train model (Figure \ref{fig:quantization_aware}). 
     \begin{figure}[!htpb]
         \centering
-        \begin{subfigure}[H]{0.48\textwidth}
+        \begin{subfigure}[H]{0.89\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{../quantized/FashionMNIST/plots/fashionmnist_train_acc.pdf}
-            \caption{Training Accuracy with quantization-aware training (smoothed with a window size of 100)}
+            \begin{subfigure}[H]{\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{../quantized/FashionMNIST/plots/fashionmnist_train_acc.pdf}
+                \caption{Training Accuracy with quantization-aware training (smoothed with a window size of 100)}
+            \end{subfigure}
+            \hfill
+            \begin{subfigure}[H]{\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{../quantized/FashionMNIST/plots/fashionmnist_test_acc.pdf}
+                \caption{Test Accuracy with quantization-aware training}
+            \end{subfigure}
         \end{subfigure}
         \hfill
-        \begin{subfigure}[H]{0.48\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{../quantized/FashionMNIST/plots/fashionmnist_test_acc.pdf}
-            \caption{Test Accuracy with quantization-aware training}
-        \end{subfigure}
-        \hfill
-        \begin{subfigure}[H]{\textwidth}
+        \begin{subfigure}[H]{0.1\textwidth}
             \centering
             \includegraphics[width=\textwidth]{../quantized/FashionMNIST/plots/fashionmnist_final_acc.pdf}
             \caption{Final Accuracy with quantization-aware training after 5 epochs}
@@ -275,7 +283,7 @@
         We consider $E_{\text{AC}}=0.9\text{pJ}$, $E_{\text{MAC}}=4.5\text{pJ}$ \cite{6757323} to estimate the precise energy consumption of the multi-bit spike train model and the ANN for Fashion MNIST dataset (see Figure \ref{fig:energy_ann_vs_snn}). Due to the small network size and the high firing rate, the energy consumption of the multi-bit spike train model is higher than the ANN in some cases.
         \begin{figure}[!htpb]
             \centering
-            \includegraphics[width=\textwidth]{../standard/FashionMNIST/plots/fashionmnist_energy_ann_vs_snn.pdf}
+            \includegraphics[width=0.6\textwidth]{../standard/FashionMNIST/plots/fashionmnist_energy_ann_vs_snn.pdf}
             \caption{Comparison of the Energy Consumption of ANN and Multi-Bit Spike Train Model on Intel Loihi 2 for Fashion MNIST Dataset, from top to bottom: first convolution block, second convolution block, output layer}
             \label{fig:energy_ann_vs_snn}
         \end{figure}
@@ -304,19 +312,22 @@
         We take again the example of Fashion MNIST dataset, while $T=10$ is a good choice for both the 1-bit and 2-bit spike train model, we can reduce the time steps to $T=4$ for the 2-bit spike train model and still achieve a comparable accuracy (see \ref{fig:inference_energy_nh_timesteps}). 
         \begin{figure}[!htpb]
             \centering
-            \begin{subfigure}[H]{0.48\textwidth}
-                \includegraphics[width=\textwidth]{../timesteps/FashionMNIST/plots/fashionmnist_test_energy_nh.pdf}
-                \caption{Energy Consumption Estimation, Unit in Parameters $F\cdot E_{\text{AC}}$}
-            \end{subfigure}
-            \hfill
-            \begin{subfigure}[H]{0.48\textwidth}
-                \includegraphics[width=\textwidth]{../timesteps/FashionMNIST/plots/fashionmnist_test_relative_energy_nh.pdf}
-                \caption{Normalized Energy Consumption Estimation Relative to 1-bit Spike Train Model}
+            \begin{subfigure}[H]{\textwidth}
+                \centering
+                \begin{subfigure}[H]{0.49\textwidth}
+                    \includegraphics[width=\textwidth]{../timesteps/FashionMNIST/plots/fashionmnist_test_energy_nh.pdf}
+                    \caption{Energy Consumption Estimation, Unit in Parameters $F\cdot E_{\text{AC}}$}
+                \end{subfigure}
+                \hfill
+                \begin{subfigure}[H]{0.49\textwidth}
+                    \includegraphics[width=\textwidth]{../timesteps/FashionMNIST/plots/fashionmnist_test_relative_energy_nh.pdf}
+                    \caption{Normalized Energy Consumption Estimation Relative to 1-bit Spike Train Model}
+                \end{subfigure}
             \end{subfigure}
             \hfill
             \begin{subfigure}[H]{\textwidth}
                 \centering
-                \includegraphics[width=\textwidth]{../timesteps/FashionMNIST/plots/fashionmnist_final_acc.pdf}
+                \includegraphics[width=\textwidth]{../timesteps/FashionMNIST/plots/fashionmnist_final_acc_horizontal.pdf}
                 \caption{Accuracy Comparison}
             \end{subfigure}
             \caption{Inference Energy Consumption Estimation on Intel Loihi 2 and Test Accuracy for Fashion MNIST Dataset with 10 Time Steps for 1-bit Spike Train Model and 4 Time Steps for 2-bit Spike Train Model}
@@ -328,7 +339,7 @@
         The same tradeoffs allow the multi-bit spike train model to be more energy efficient than the ANN also for the Fashion MNIST dataset (see Figure \ref{fig:energy_ann_vs_snn_timesteps}).
         \begin{figure}[H]
             \centering
-            \includegraphics[width=\textwidth]{../timesteps/FashionMNIST/plots/fashionmnist_energy_ann_vs_snn.pdf}
+            \includegraphics[width=0.6\textwidth]{../timesteps/FashionMNIST/plots/fashionmnist_energy_ann_vs_snn.pdf}
             \caption{Comparison of the Energy Consumption of ANN and Multi-Bit Spike Train Model on Intel Loihi 2 for Fashion MNIST Dataset with 10 Time Steps for 1-bit Spike Train Model and 4 Time Steps for 2-bit Spike Train Model, from top to bottom: first convolution block, second convolution block, output layer}
             \label{fig:energy_ann_vs_snn_timesteps}
         \end{figure}

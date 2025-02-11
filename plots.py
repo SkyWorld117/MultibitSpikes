@@ -143,9 +143,9 @@ def plot_accs_final(accs_test, args, ann=False, horizontal=False):
 
     fig, ax = None, None
     if not horizontal:
-        fig, ax = plt.subplots(figsize=(0.3*args.N, 5))
+        fig, ax = plt.subplots(figsize=(0.2*args.N+1, 5))
     else:
-        fig, ax = plt.subplots(figsize=(5, 0.3*args.N))
+        fig, ax = plt.subplots(figsize=(5, 0.2*args.N+1))
 
     x, labels = None, None
     mean_accs, std_accs = None, None
@@ -280,9 +280,9 @@ def plot_iters_train(iters, args, ann=False, horizontal=False):
         np.save(os.path.join(data_dir, 'iters_train.npy'), iters)
 
     if not horizontal:
-        fig, ax = plt.subplots(figsize=(0.3*args.N, 5))
+        fig, ax = plt.subplots(figsize=(0.2*args.N+1, 5))
     else:
-        fig, ax = plt.subplots(figsize=(5, 0.3*args.N))
+        fig, ax = plt.subplots(figsize=(5, 0.2*args.N+1))
 
     x, labels = None, None
     mean_iters, std_iters = None, None
@@ -353,9 +353,9 @@ def plot_iters_test(iters, args, ann=False, horizontal=False):
         np.save(os.path.join(data_dir, 'iters_test.npy'), iters)
 
     if not horizontal:
-        fig, ax = plt.subplots(figsize=(0.3*args.N, 5))
+        fig, ax = plt.subplots(figsize=(0.2*args.N+1, 5))
     else:
-        fig, ax = plt.subplots(figsize=(5, 0.3*args.N))
+        fig, ax = plt.subplots(figsize=(5, 0.2*args.N+1))
 
     x, labels = None, None
     mean_iters, std_iters = None, None
@@ -533,7 +533,10 @@ def plot_firerate_final(firerate_test, args, horizontal=False):
         ax_test[j].grid()
 
         for i, v in enumerate(mean_firerate_test_final[:,j]):
-            ax_test[j].text(i, v + std_firerate_test_final[i][j]+0.01, f'{v:.2f}±{std_firerate_test_final[i][j]:.2f}', ha='left', va='center', rotation=90, rotation_mode='anchor')
+            if ax_test[j].get_ylim()[1] - v - std_firerate_test_final[i][j] < v - std_firerate_test_final[i][j]:
+                ax_test[j].text(i, v - std_firerate_test_final[i][j]-0.01, f'{v:.2f}±{std_firerate_test_final[i][j]:.2f}', ha='right', va='center', rotation=90, rotation_mode='anchor')
+            else:
+                ax_test[j].text(i, v + std_firerate_test_final[i][j]+0.01, f'{v:.2f}±{std_firerate_test_final[i][j]:.2f}', ha='left', va='center', rotation=90, rotation_mode='anchor')
 
     os.makedirs(plots_dir, exist_ok=True)
     plt.tight_layout()

@@ -6,11 +6,11 @@
 
     \subsection{Dynamics of the Membrane Potential}
     \label{subsec:lif_dynamics}
-        A leaky integrate-and-fire (LIF) neuron is a simple model of a neuron that captures the essential dynamics of a neuron. The LIF model is described by the differential equation:
+        A leaky integrate-and-fire (LIF) neuron is a simple model of that captures the essential dynamics of a neuron. The LIF model is described by the differential equation:
         \begin{equation}
             \tau \frac{\mathrm{d}U(t)}{\mathrm{d}t} = -U(t) + I_{\text{in}}(t)
         \end{equation}
-        where $U(t)$ is the membrane potential of the neuron, $\tau$ is the time constant of the neuron, and $I_{\text{in}}(t)$ is the input current to the neuron. The neuron fires a spike when the membrane potential reaches a threshold $U_{\text{th}}$. The membrane potential is then reset to a reset potential $U_{\text{reset}}$. 
+        where $U(t)$ is the neuron's membrane potential, $\tau$ is its time constant, and $I_{\text{in}}(t)$ is the input current to the neuron. The neuron fires a spike when the membrane potential reaches a threshold $U_{\text{th}}$. The membrane potential is then reset to a resting potential $U_{\text{rest}}$. 
 
         The equation above has an approximate solution given by:
         \begin{equation}
@@ -22,8 +22,7 @@
         \end{equation}
         where $X[t]$ is the input spike train at time $t$, and $W$ is the weight matrix. 
 
-        Since the weights $W$ are learnable parameters, one often merges the weights with the coefficient $(1 - \beta)$. 
-        In the end, one obtains the following equation:
+        Since the weights $W$ are learnable parameters, one often merges the weights with the coefficient $(1 - \beta)$, thus obtaining the following equation:
         \begin{equation}
             U[t] = \beta U[t-1] + W\cdot X[t] - S_{\text{out}}[t]\cdot\theta
         \end{equation}
@@ -57,9 +56,9 @@
             \caption{Comparison of the Heaviside Step Function and the Sigmoid Function}
             \label{fig:heaviside_sigmoid}
         \end{figure}
-        At each time step, the membrane potential $U[t]$ is evaluated through the Heaviside step function, and the output is a binary value of 0 or 1, illustrated in Figure \ref{fig:heaviside_sigmoid}. The array of these binary values in the time domain is called the spike train of the neuron. 
+        At each time step, the membrane potential $U[t]$ is evaluated through the Heaviside step function, and the output is a binary value of 0 or 1, as illustrated in Figure \ref{fig:heaviside_sigmoid}. The array of these binary values in the time domain is called the spike train of the neuron. 
 
-        After the neuron fires a spike, the membrane potential is reset to the resting potential. There are two ways to reset the membrane potential: hard reset and soft reset. In the hard reset, the membrane potential is immediately set to the resting potential. In the soft reset, the membrane potential is subtracted by the threshold when the neuron fires a spike. Although the hard reset is more biologically plausible and more efficient in terms of computation, the soft reset is more popular in practice because it often delivers better performance in training \cite{10242251}. Here we focus on the soft reset.
+        After the neuron fires a spike, the membrane potential is reset to the resting potential. There are two ways to reset the membrane potential: hard reset and soft reset. In the hard reset, the membrane potential is immediately set to the resting potential. In the soft reset, the membrane potential is subtracted by the threshold when the neuron fires a spike. Although the hard reset is more biologically plausible and more efficient in terms of computation, the soft reset is more popular in practice because it often delivers better performance in training \cite{10242251}. In this thesis we focus on the soft reset.
 
 \section{Training of Spiking Neural Networks}
 \label{sec:snn_training}
@@ -68,20 +67,20 @@
     \label{subsec:snn_construct}
         The construction of spiking neural networks is similar with the construction of traditional artificial neural networks. One of the most popular methods to construct a spiking neural network is to use the leaky integrate-and-fire (LIF) neuron node to replace the ReLU activation function in the ANNs. 
 
-        There are also other techniques to replace some components of the ANNs with certain tweaks for the SNNs, e.g. variants of batch normalization (such as Spike-Norm \cite{10.3389/fnins.2019.00095}) and attention mechanisms (such as Spiking RWKV \cite{zhu2024spikegptgenerativepretrainedlanguage}), but they are outside of the scope of the thesis. 
+        There are also other techniques to replace some components of the ANNs with certain tweaks for the SNNs, e.g. variants of batch normalization (such as Spike-Norm \cite{10.3389/fnins.2019.00095}) and attention mechanisms (such as Spiking RWKV \cite{zhu2024spikegptgenerativepretrainedlanguage}), but they are outside of the scope of this thesis. 
 
     \subsection{Backpropagation through Time}
     \label{subsec:snn_bptt}
         Although our brains are likely not trained by backpropagation, the gradient-based optimization is still the most popular and reliable method to train the neural networks. 
 
-        Backpropagation through time (BPTT) is a method used to train recurrent neural networks (RNNs) by unfolding the network in time and applying backpropagation. The same method can be applied to train SNNs, as they are very similar to RNNs. 
+        Backpropagation through time (BPTT) is a method used to train recurrent neural networks (RNNs) \cite{6302929} by unfolding the network in time and applying backpropagation. The same method can be applied to train SNNs, as they are very similar to RNNs. 
 
         There are also other methods to train SNNs, like SLAYER \cite{Shrestha2018} and EXODUS \cite{bauer2022exodus} which utilize the vectorized model of the SNNs. However, we will focus on the temporal model of the SNNs in this thesis.
 
     \subsection{Surrogate Gradient}
     \label{subsec:lif_surrogate}
-        Gradient-based optimization requires the activation function to be differentiable. However, the heaviside step function is not. Therefore, one often uses another differentiable function to approximate the Heaviside step function in the backpropagation algorithm \cite{8891809}, e.g. the sigmoid function (see Figure \ref{fig:heaviside_sigmoid}): 
+        Gradient-based optimization requires the activation function to be differentiable, which the Heaviside step function is not. Therefore, one often uses another differentiable function to approximate the Heaviside step function in the backpropagation algorithm \cite{8891809}, e.g. the sigmoid function (see Figure \ref{fig:heaviside_sigmoid}): 
         \begin{equation}
             S_{\text{out}}'[t] = \frac{1}{1 + e^{-\alpha \cdot x}}
         \end{equation}
-        It turns out that SNNs can tolerate such approximations, and it has become the state-of-the-art method to train high-performant SNNs.
+        It turns out that SNNs can tolerate such approximations, and it has become the state-of-the-art method to train performant SNNs.

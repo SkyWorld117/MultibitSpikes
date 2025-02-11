@@ -5,26 +5,24 @@
 \label{sec:evaluation-aspects}
     In this chapter, we evaluate the multi-bit spike train model on various aspects: 
     \begin{itemize}
-        \item Accuracy: We compare the convergence speed and final accuracy of the multi-bit spike train model with the traditional 1-bit spike train model on various tasks and datasets.
-        \item Firing Rate: We investigate how the increase of the bit width of the spike train affects the firing rate of the neurons in the network.
-        \item Quantizability: We show that the multi-bit spike train model can be quantized to lower precision without significant loss in accuracy.
-        \item Energy Consumption: We evaluate the energy consumption of the multi-bit spike train model in practical scenarios.
-        \item Performance: We present the performance data of the multi-bit spike train model on GPUs. 
+        \item \textbf{Accuracy}: We compare the convergence speed and final accuracy of the multi-bit spike train model with the traditional 1-bit spike train model on various tasks and datasets.
+        \item \textbf{Firing Rate}: We investigate how the increase of the bit width of the spike train affects the firing rate of the neurons in the network.
+        \item \textbf{Quantizability}: We evaluate the accuracy of the multi-bit spike train model when quantized to lower precision.
+        \item \textbf{Energy Consumption}: We evaluate the energy consumption of the multi-bit spike train model in practical scenarios.
+        \item \textbf{Performance}: We present the performance data of the multi-bit spike train model on GPUs. 
     \end{itemize}
 
 \section{Experimental Setup}
 \label{sec:experimental-setup}
     We implement the multi-bit spike train model with SpikingJelly \cite{doi:10.1126/sciadv.adi1480} (version 0.0.0.0.15) using its PyTorch \cite{NEURIPS2019_9015} (version 2.5.0) backend. All experiments are conducted in the NVIDIA PyTorch container (nvcr.io/nvidia/pytorch:24.08-py3) on an NVIDIA GH200 super chip unless otherwise stated. 
 
-    We compare the multi-bit spike train model with the traditional 1-bit spike train model on various tasks and datasets. The regular static datasets are imported from Torchvision \cite{10.1145/1873951.1874254} while the neuromorphic datasets are imported from Tonic \cite{lenz_2021_5079802}. 
+    The multi-bit spike train model and the traditional 1-bit spike train model are tested on various tasks and datasets. The regular static datasets are imported from Torchvision \cite{10.1145/1873951.1874254} while the neuromorphic datasets are imported from Tonic \cite{lenz_2021_5079802}. 
 
     We measure the training accuracy (per batch), test accuracy (per epoch) and firing rate at certain points in the networks of the 1-bit to 8-bit spike train models. We then investigate the convergence, accuracy, firing rate, and quantizability of the multi-bit spike train model. 
 
-    %TODO: Maybe add the process time of the kernel
-
     We mainly use the Fashion MNIST dataset \cite{xiao2017/online} and a convolutional neural network (CNN) \cite{726791} to set up the experiments of an image classification task. We will also show the results also hold on more complex datasets like CIFAR-10 \cite{Krizhevsky2009}. 
 
-    In the following sections, the input images from Fashion MNIST are first converted to spike trains using the Poisson encoding method. The CNN has a structure of $28\times 28 - 8c5 - 2a - 16c5 - 2a - 10o$, visually illustrated in Figure \ref{fig:scnn_structure}. 
+    In the following sections, the input images from Fashion MNIST are converted to spike trains using the Poisson encoding method. The CNN has a structure of $28\times 28 - 8c5 - 2a - 16c5 - 2a - 10o$, visually illustrated in Figure \ref{fig:scnn_structure}. 
 
     \begin{figure}[!htpb]
         \centering
@@ -53,7 +51,7 @@
         \label{fig:convergence_speed}
     \end{figure}
 
-    The improvement in convergence speed can lead to significant reduction in the training time if considering a fixed target accuracy, especially considering the diminishing return of the training time with respect to the target accuracy. 
+    The improvement in convergence speed can lead to a significant reduction in training time when considering a fixed target accuracy. This is especially noteworthy when considering diminishing returns of accuracy in regards to training time. 
 
     Here we set the target accuracy to be 80\%. The training time of the multi-bit spike train model is reduced by around 50\%, shown in Figure \ref{fig:iterations_fixed_accuracy}. 
     \begin{figure}[!htpb]
@@ -73,7 +71,7 @@
         \label{fig:iterations_fixed_accuracy}
     \end{figure}
 
-    Such improvement however also comes at certain cost:
+    This improvement however also comes at certain cost:
     \begin{itemize}
         \item The improvement in convergence speed diminishes as the bit width of the spike train increases. The improvement from 2-bit to 3-bit ($\sim 15.4\%$) or even higher bit width (at most $\sim 59.2\%$ reduction in iterations compared to the 1-bit baseline) is not as significant as the improvement from 1-bit to 2-bit ($\sim 50\%$ reduction in iterations).
         \item The more complicated the model is, the harder is it to train the multi-bit spike train model. One can easily run into the problem of overfitting, for example in the case of DVS gesture recognition task \ref{appendix:accuracy_curves_dvs_gesture}.
@@ -111,7 +109,7 @@
         \label{fig:firing_rate}
     \end{figure}
 
-    One can notice that the firing rate of the multi-bit spike train model peaks at the very beginning of the training session, when the model converges rapidly. The firing rate then decreases as the training progresses. If we extend the training session, the firing rate of the multi-bit spike train model tends to converge to the firing rate of the 1-bit spike train model. Such process takes however a long time (see Figure \ref{fig:long_firing_rate}). 
+    One can notice that the firing rate of the multi-bit spike train model peaks at the very beginning of the training session, when the model converges rapidly. The firing rate then decreases as the training progresses. If we extend the training session, the firing rate of the multi-bit spike train model tends to converge to the firing rate of the 1-bit spike train model. However, such process takes however a long time (see Figure \ref{fig:long_firing_rate}). 
     \begin{figure}[!htpb]
         \centering
         \begin{subfigure}[H]{0.9\textwidth}
@@ -131,7 +129,7 @@
         \label{fig:long_firing_rate}
     \end{figure}
 
-    In the end, the firing rate of the multi-bit spike train model is comparable to the 1-bit spike train model (see Figure \ref{fig:final_firing_rate}).
+    Towards the end of the training time, the firing rate of the multi-bit spike train model is comparable to the 1-bit spike train model (see Figure \ref{fig:final_firing_rate}).
     \begin{figure}[!htpb]
         \centering
         \includegraphics[width=\textwidth]{../firerate/FashionMNIST/plots/fashionmnist_final_firerate.pdf}
@@ -173,7 +171,7 @@
 
     As shown in Figure \ref{fig:half_precision}, both SNN models converge well as if they were trained with \verb|float32|. Meanwhile the multi-bit spike train model has its advantage in the convergence speed and accuracy preserved. 
     
-    Before quantizing the models to \verb|int8|, we first apply quantization-aware training to both SNN models. While regular ANNs may encounter various problems, both SNN models here converge well. We also see that the multi-bit spike train model has a faster convergence speed and better accuracy than the 1-bit spike train model (Figure \ref{fig:quantization_aware}). 
+    Before quantizing the models to \verb|int8|, we first apply quantization-aware training to both SNN models. While regular ANNs may encounter various problems due to the high sensitivity in inputs and parameters, both SNN models here converge well. We also see that the multi-bit spike train model has a faster convergence speed and better accuracy than the 1-bit spike train model (Figure \ref{fig:quantization_aware}). 
     \begin{figure}[!htpb]
         \centering
         \begin{subfigure}[H]{0.89\textwidth}
@@ -205,13 +203,13 @@
 
 \section{Energy Consumption}
 \label{sec:energy-consumption}
-    One of the main motivations for SNNs is their energy efficiency compared to ANNs on specialized hardware. Products like Loihi from Intel \cite{8259423} and TrueNorth from IBM \cite{7229264} have proved the potential of SNNs by utilizing the asynchronous communication via spikes. In the real-world scenario, one often uses accelerators like GPUs to train SNNs and deploy them on specialized hardware to achieve fast training and energy efficent inference. 
+    One of the main motivations for SNNs is their energy efficiency compared to ANNs on specialized hardware like neuromorphic chips. Products like Loihi from Intel \cite{8259423} and TrueNorth from IBM \cite{7229264} have proved the potential of SNNs by utilizing the asynchronous communication via spikes. In the real-world scenario, one often uses accelerators like GPUs to train SNNs and deploy them on specialized hardware to achieve fast training and energy efficent inference. 
 
     Here we present an energy consumption model for the multi-bit spike train model and compare it with the 1-bit spike train model. We consider the unique properties of various hardware implementations and give the energy consumption of the multi-bit spike train model relative to the 1-bit spike train model. 
 
     \subsection{Training Energy Consumption on GPUs}
     \label{subsec:training_energy}
-        On GPUs, low precision spikes are generally not very meaningful, as the hardware is not designed for such level mixed precision operations. Often the spikes are represented as 32-bit floating point numbers, which can be computed with the weights with the same precision. And the popular SNN frameworks like snnTorch and SpikingJelly do not utilize the sparsity of the spike trains. So here, the firing rate and the bit width of the spike train do not affect the energy consumption of the training phase. 
+        On GPUs, low precision spikes are generally not very meaningful, as the hardware is not designed for such level mixed precision operations. Often the spikes are represented as 32-bit floating point numbers, which can be computed with the weights with the same precision. Popular SNN frameworks like snnTorch and SpikingJelly do not utilize the sparsity of spike trains. So in this case, the firing rate and the bit width of the spike train do not affect the energy consumption of the training phase. 
     
         The only factors that matter are the number of iterations required to reach a certain accuracy and the number of time steps that the network is simulated, assuming fixed network topology and batch size. 
     
@@ -219,7 +217,7 @@
         \begin{equation}
             E_{\text{train}-i} = T_i \cdot S_i \cdot c
         \end{equation}
-        where as $c$ is a constant factor that depends on the hardware and the software used, however remains the same across different bit widths of the spike train. 
+        where $c$ is a constant factor that depends on the hardware and the software used, yet remains the same across different bit widths of the spike train. 
     
         As noticed in Section \ref{sec:convergence_accuracy}, one requires fewer iterations to reach a certain accuracy with the multi-bit spike train model. Here we focus on the energy consumption of the 2-bit spike train model, as it does not increase the firing rate as much as the other higher bit width models while still providing a significant improvement in convergence speed and accuracy. 
 
@@ -239,7 +237,7 @@
             \label{fig:training_energy_gpu}
         \end{figure}
 
-        See more in Appendix \ref{appendix:energy_gpu}.
+        More details with other datasets (MNIST, NMNIST, DVS Gesture and CIFAR10) can be found in Appendix \ref{appendix:energy_gpu}.
 
     \subsection{Inference Energy Consumption on Neuromorphic Chips}
     \label{subsec:inference_energy}
@@ -250,14 +248,14 @@
         \end{equation}
         where $F$ is the number of floating point operations required to simulate the network, $fr$ is the firing rate of the input neurons, $E_{\text{AC}}$ is the energy consumption of accumulation, and $T$ is the number of time steps. 
     
-        It is however hard to evaluate the energy consumption of the multi-bit spike train model on neuromorphic chips like Loihi and TrueNorth, as they do not support multi-bit spikes natively. Although it may be possible to encode the multi-bit spikes into multiple spikes with different intensities, the energy consumption of such encoding is very expensive due to the high cost of the synchronization barrier between the time steps. 
+        Despite this, it is difficult to evaluate the energy consumption of the multi-bit spike train model on neuromorphic chips like Loihi and TrueNorth, as they do not support multi-bit spikes natively. Although it may be possible to encode the multi-bit spikes into multiple spikes with different intensities, the energy consumption of such encoding would be very expensive due to the high cost of the synchronization barrier between the time steps. 
 
-        A viable option is to consider hardware like Intel Loihi 2 which supports graded spikes up to 32-bit precision. We consider the case of Intel Loihi 2 and make the following assumptions: 
+        A viable option would be to consider hardware like Intel Loihi 2 which supports graded spikes up to 32-bit precision. We consider the case of Intel Loihi 2 and make the following assumptions: 
         \begin{enumerate}
             \item There is no difference in the energy consumption for the number of bits used to encode the spikes.
             \item The neuromorphic hardware performs add-and-accumulate operations whenever a spike is received. 
         \end{enumerate}
-        Since the payload is not variable in this case, the energy consumption of the multi-bit spike train model is directly proportional to the firing rate given fixed maximum floating point operations and time steps. Analog as the equation \ref{eq:inference_energy_popular}, we have the following estimation for the $i$-bit spike train model:
+        Since the payload is not variable in this case, the energy consumption of the multi-bit spike train model is directly proportional to the firing rate given a fixed maximum number of floating point operations and time steps. Analogously to the equation \ref{eq:inference_energy_popular}, we have the following estimation for the $i$-bit spike train model:
         \begin{equation}
             E_{\text{inference}-i} \approx F \cdot fr_i \cdot E_{\text{AC}} \cdot T_i
         \end{equation}
@@ -277,10 +275,10 @@
             \label{fig:inference_energy_nh}
         \end{figure}
 
-        See more in Appendix \ref{appendix:energy_neuromorphic}.
+        More details with other datasets (MNIST, NMNIST, DVS Gesture and CIFAR10) can be found in Appendix \ref{appendix:energy_neuromorphic}.
         %TODO: Add references to the analysis model
 
-        We consider $E_{\text{AC}}=0.9\text{pJ}$, $E_{\text{MAC}}=4.5\text{pJ}$ \cite{6757323} to estimate the precise energy consumption of the multi-bit spike train model and the ANN for Fashion MNIST dataset (see Figure \ref{fig:energy_ann_vs_snn}). Due to the small network size and the high firing rate, the energy consumption of the multi-bit spike train model is higher than the ANN in some cases.
+        We consider $E_{\text{AC}}=0.9\text{pJ}$, $E_{\text{MAC}}=4.5\text{pJ}$ (energy cost for multiply-and-accumulate operations) \cite{6757323} to estimate the precise energy consumption of the multi-bit spike train model and the ANN for Fashion MNIST dataset (see Figure \ref{fig:energy_ann_vs_snn}). Due to the small network size and the high firing rate, the energy consumption of the multi-bit spike train model is higher than the ANN in some cases.
         \begin{figure}[!htpb]
             \centering
             \includegraphics[width=0.6\textwidth]{../standard/FashionMNIST/plots/fashionmnist_energy_ann_vs_snn.pdf}
@@ -307,9 +305,9 @@
             \label{fig:inference_energy_nh_firerate}
         \end{figure}
 
-        And more interestingly, if one is satisfied with the accuracy of the 1-bit spike train model, then one can choose to train the multi-bit spike train model for fewer time steps. This can enable higher efficiency in both training and inference. 
+        Additionally, if one is satisfied with the accuracy of the 1-bit spike train model, then one can choose to train the multi-bit spike train model for fewer time steps. This can enable higher efficiency in both training and inference. 
 
-        We take again the example of Fashion MNIST dataset, while $T=10$ is a good choice for both the 1-bit and 2-bit spike train model, we can reduce the time steps to $T=4$ for the 2-bit spike train model and still achieve a comparable accuracy (see \ref{fig:inference_energy_nh_timesteps}). 
+        We take again the example of the Fashion MNIST dataset, and while $T=10$ is a good choice for both the 1-bit and 2-bit spike train model, we can reduce the time steps to $T=4$ for the 2-bit spike train model and still achieve a comparable accuracy (see \ref{fig:inference_energy_nh_timesteps}). 
         \begin{figure}[!htpb]
             \centering
             \begin{subfigure}[H]{\textwidth}
@@ -334,7 +332,7 @@
             \label{fig:inference_energy_nh_timesteps}
         \end{figure}
         
-        See more in Appendix \ref{appendix:energy_tradeoff}.
+        More details with additional results on the CIFAR10 dataset can be found in Appendix \ref{appendix:energy_tradeoff}.
 
         The same tradeoffs allow the multi-bit spike train model to be more energy efficient than the ANN also for the Fashion MNIST dataset (see Figure \ref{fig:energy_ann_vs_snn_timesteps}).
         \begin{figure}[H]
@@ -344,10 +342,10 @@
             \label{fig:energy_ann_vs_snn_timesteps}
         \end{figure}
 
-        This can lead to a significant reduction in the energy consumption. It may not be reflected as a direct advantage in the energy consumption model mentioned above \ref{subsec:inference_energy}, but in practice, it should bring significant benefits, as most of the neuromorphic chips are designed to utilize the asynchronous communication via spikes, so they do not have a central clock system to synchronize the time steps very efficiently, and the cost for the synchronization barrier is very high. As reference, the latency per tile hop on Intel Loihi is at most around 6.5 ns where as the latency for the synchronization barrier is from 113-465 ns. 
+        This can lead to a significant reduction in the energy consumption. It may not be reflected as a direct advantage in the energy consumption model mentioned above \ref{subsec:inference_energy}, but in practice, it should bring significant benefits, as most of the neuromorphic chips are designed to utilize the asynchronous communication via spikes, so they do not have a central clock system to synchronize the time steps very efficiently, and the cost for the synchronization barrier is very high. As reference, the latency per tile hop on Intel Loihi is at most around 6.5 ns where as the latency for the synchronization barrier is between 113 to 465 ns. 
 
 \section{Performance}
 \label{sec:performance}
-    In the section \ref{subsec:training_energy}, we claim that the energy consumption on the GPUs are not affected by the firing rate and the bit width of the spike train in theory. However, in practice, with the increase of the bit width of the spike train, the training process slows down. This can be caused by the inefficient implementation of the multi-bit spike train model and the low level optimization on operations of sparse matrix multiplication. 
+    In the section \ref{subsec:training_energy}, we claim that the energy consumption on the GPUs are not affected by the firing rate and the bit width of the spike train in theory. However, in practice, with the increase of the bit width of the spike train, the training process slows down. This could be caused by the inefficient implementation of the multi-bit spike train model and the low level optimization on operations of sparse matrix multiplication. 
 
     There is sufficient room for improvement, e.g. by utilizing the sparsity of the spike trains or completely switching to the vectorized model instead of the temporal model instead, which is shown to be more efficient with learning algorithms like SLAYER and EXODUS. 

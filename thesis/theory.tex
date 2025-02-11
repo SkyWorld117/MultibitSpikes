@@ -39,9 +39,10 @@
 
 \section{Shifted Surrogate Function}
 \label{sec:shifted-surrogate-function}
-    The multi-bit spike train model leads to the problem that the surrogate function no longer approximates the spike function well. One can tell from gap between the multi-bit spike train model and the sigmoid function in Figure \ref{fig:multi-bit-spike_sigmoid} that the gradients derived from the sigmoid function can no longer reflex the gradients of the multi-bit spike train model accurately.
+    The multi-bit spike train model leads to the problem that our chosen surrogate function no longer approximates the spike function well. One can tell from gap between the multi-bit spike train model and the sigmoid function in Figure \ref{fig:multi-bit-spike_sigmoid} that the gradients derived from the sigmoid function can no longer reflex the gradients of the multi-bit spike train model accurately.
     A simple solution is to shift the sigmoid function accordingly. The following equation describes the shifted sigmoid function:
     \begin{equation}
+        \label{eq:shifted_sigmoid}
         S_{\text{out}}'[t] = \frac{1}{1 + \exp(-\alpha \cdot (x + \frac{2^{n-1}-1}{2^n-1}\cdot\theta))}
     \end{equation}
     This technique centers the sigmoid function relatively to the multi-bit spike train model, illustrated in Figure \ref{fig:shifted_sigmoid}. It improves the accuracy of the resulting networks. 
@@ -87,7 +88,7 @@
 \section{Implementation}
 \label{sec:implementation}
 
-    We use the SNN framework SpikingJelly which is based on PyTorch to implement the multi-bit spike train model. The firing mechanism is implemented as a forward path of the surrogate function in SpikingJelly. One just needs to override the Heaviside step function with the multi-bit spike train model. The core implementation is shown in Figure \ref{listing:multi-bit-spike}.
+    We use the PyTorch based SNN framework SpikingJelly to implement the multi-bit spike train model. In SpikingJelly, the firing mechanism is implemented as a forward path of the surrogate function. One just needs to override the Heaviside step function with $S'_{\text{out}}[t]$ in \ref{eq:shifted_sigmoid}. The core implementation is shown in Figure \ref{listing:multi-bit-spike}.
     \begin{figure}[!htpb]
         \centering
         \begin{lstlisting}[language=Python, basicstyle=\small, breaklines=true, numbers=left, stepnumber=1]

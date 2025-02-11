@@ -7,6 +7,7 @@
     $2^n-1$ intervals where $n$ is the number of bits used to encode one single spike. Then once the membrane potential reaches the threshold 
     for a certain interval, the neuron fires a spike with the corresponding intensity described as follows:
     \begin{equation}
+        \label{eq:multi-bit-spike}
         S_{\text{out}}[t] = \begin{cases}
             0               & \text{if } U[t] < \frac{1}{2^n-1}\cdot\theta \\
             \frac{i}{1^n-1} & \text{if } \frac{i}{2^n-1}\cdot\theta \leq U[t] < \frac{i+1}{2^n-1}\cdot\theta,\ i\in [1, 2^n-2]\\
@@ -88,7 +89,7 @@
 \section{Implementation}
 \label{sec:implementation}
 
-    We use the PyTorch based SNN framework SpikingJelly to implement the multi-bit spike train model. In SpikingJelly, the firing mechanism is implemented as a forward path of the surrogate function. One just needs to override the Heaviside step function with $S'_{\text{out}}[t]$ in \ref{eq:shifted_sigmoid}. The core implementation is shown in Figure \ref{listing:multi-bit-spike}.
+    We use the PyTorch based SNN framework SpikingJelly to implement the multi-bit spike train model. In SpikingJelly, the firing mechanism is implemented as a forward path of the surrogate function. One just needs to override the Heaviside step function with $S_{\text{out}}[t]$ in Equation \ref{eq:multi-bit-spike}. The core implementation is shown in Figure \ref{listing:multi-bit-spike}.
     \begin{figure}[!htpb]
         \centering
         \begin{lstlisting}[language=Python, basicstyle=\small, breaklines=true, numbers=left, stepnumber=1]

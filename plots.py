@@ -374,7 +374,7 @@ def plot_iters_test(iters, args, ann=False, horizontal=False):
     if not horizontal:
         ax.bar(x, mean_iters, yerr=std_iters, capsize=5)
         ax.set_xlabel('Bitwidth')
-        ax.set_ylabel('Iterations to Reach Target Testing Accuracy')
+        ax.set_ylabel('Epochs to Reach Target Testing Accuracy')
         ax.set_xticks(x)
         ax.set_xticklabels(labels)
 
@@ -387,7 +387,7 @@ def plot_iters_test(iters, args, ann=False, horizontal=False):
     else:
         ax.barh(x, mean_iters, xerr=std_iters, capsize=5)
         ax.set_ylabel('Bitwidth')
-        ax.set_xlabel('Iterations to Reach Target Testing Accuracy')
+        ax.set_xlabel('Epochs to Reach Target Testing Accuracy')
         ax.set_yticks(x)
         ax.set_yticklabels(labels)
 

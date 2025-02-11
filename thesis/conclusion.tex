@@ -5,6 +5,8 @@
     \label{sec:conclusion}
         In this thesis we have developed a novel spike train model for spiking neural networks (SNNs) that uses multi-bit spikes to encode the information. We implement it using an SNN framework, SpikingJelly, based on PyTorch. And we have shown that the multi-bit spike train model can significantly improve the convergence speed by around 50\% with the 2-bit setup and slightly better accuracy of the network compared to the traditional 1-bit spike train model while preserving other characteristics of the 1-bit spike train model such as high quantizability and low energy consumption. We consider the tradeoffs of  the multi-bit spike train model can bring in terms of energy consumption and performance important for maximizing the efficiency of SNNs on various hardware platforms. Specifically on Fashion MNIST and CIFAR10, we are able to achieve up to 60\% energy consumption reduction on neuromorphic hardware with the 2-bit spike train model compared to the 1-bit spike train model. 
 
+        All the code and experiments are available at \url{github.com/SkyWorld117/MultibitSpikes}.
+
     \section{Future Work}
     \label{sec:future_work}
         The multi-bit spike train model is a promising direction for the development of SNNs. However, there are still many open questions and challenges that need to be addressed in the future. Here we list some of the possible future work:

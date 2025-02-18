@@ -3,7 +3,7 @@
 
 \section{Graded Spikes}
 \label{sec:graded-spikes}
-    Now we consider the firing model with graded spikes, namely our multi-bit spike train model. We divide the range of $[0, \theta]$ into
+    We now introduce our novel firing model with graded spikes, namely our multi-bit spike train model. We divide the range of $[0, \theta]$ into
     $2^n-1$ intervals where $n$ is the number of bits used to encode one single spike. Then once the membrane potential reaches the threshold 
     for a certain interval, the neuron fires a spike with the corresponding intensity described as follows:
     \begin{equation}
@@ -35,12 +35,13 @@
     \end{figure}
 
     Intuitively this firing model enables higher information bandwidth between neurons. Although biologically, neurons can only fire binary encoded spikes, the spike trains can be rate encoding \cite{jphysiol.1962.sp006837} or temporal encoding \cite{doi:10.1073/pnas.0610368104}. The rate encoding is based on the number of spikes in a certain time window, i.e. the neuron fires more spikes when the input is stronger. The temporal encoding is based on the timing of the spikes, i.e. the neuron fires earlier when the input is stronger.
-
     The multi-bit spike train model is a generalization where the graded spikes can be interpreted as rate encoding and their temporal positions can be interpreted as temporal encoding. 
 
 \section{Shifted Surrogate Function}
 \label{sec:shifted-surrogate-function}
-    The multi-bit spike train model leads to the problem that our chosen surrogate function no longer approximates the spike function well. One can tell from gap between the multi-bit spike train model and the sigmoid function in Figure \ref{fig:multi-bit-spike_sigmoid} that the gradients derived from the sigmoid function can no longer reflex the gradients of the multi-bit spike train model accurately.
+    We now present a shifted sigmoid function which essentially serves as a surrogate function for the gradient calculation in backpropagation. 
+
+    The multi-bit spike train model leads to the problem that our chosen surrogate function no longer approximates the spike function well. One can tell from the gap between the multi-bit spike train model and the sigmoid function in Figure \ref{fig:multi-bit-spike_sigmoid} that the gradients derived from the sigmoid function can no longer reflex the gradients of the multi-bit spike train model accurately.
     A simple solution is to shift the sigmoid function accordingly. The following equation describes the shifted sigmoid function:
     \begin{equation}
         \label{eq:shifted_sigmoid}
@@ -92,7 +93,7 @@
     We use the PyTorch based SNN framework SpikingJelly to implement the multi-bit spike train model. In SpikingJelly, the firing mechanism is implemented as a forward path of the surrogate function. One just needs to override the Heaviside step function with $S_{\text{out}}[t]$ in Equation \ref{eq:multi-bit-spike}. The core implementation is shown in Figure \ref{listing:multi-bit-spike}.
     \begin{figure}[!htpb]
         \centering
-        \begin{lstlisting}[language=Python, basicstyle=\small, breaklines=true, numbers=left, stepnumber=1]
+        \begin{lstlisting}[language=Python, basicstyle=\small\ttfamily, breaklines=true, numbers=left, stepnumber=1]
 @torch.jit.script
 def multi_level(x: torch.Tensor, n: int, threshold: float):
     l = int(2**n)-1
@@ -133,4 +134,4 @@ class Sigmoid(SurrogateFunctionBase):
         \label{listing:multi-bit-spike}
     \end{figure}
 
-    Noticing that the input $x$ is already centered to zero by SpikingJelly, so we apply the shift directly to the sigmoid function. 
+    Noticing that the input $x$ is already centered to zero by SpikingJelly, we apply the shift directly to the sigmoid function. 

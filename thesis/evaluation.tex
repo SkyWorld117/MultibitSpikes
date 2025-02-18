@@ -129,7 +129,7 @@
         \label{fig:long_firing_rate}
     \end{figure}
 
-    Towards the end of the training time, the firing rate of the multi-bit spike train model is comparable to the 1-bit spike train model (see Figure \ref{fig:final_firing_rate}).
+    Towards the end of the training time, the firing rate of the multi-bit spike train model is often still higher than the 1-bit spike train model, but sometimes comparable to the 1-bit spike train model (see Figure \ref{fig:final_firing_rate}). 
     \begin{figure}[!htpb]
         \centering
         \includegraphics[width=\textwidth]{../firerate/FashionMNIST/plots/fashionmnist_final_firerate.pdf}
@@ -209,7 +209,7 @@
 
     \subsection{Training Energy Consumption on GPUs}
     \label{subsec:training_energy}
-        On GPUs, low precision spikes are generally not very meaningful, as the hardware is not designed for such level mixed precision operations. Often the spikes are represented as 32-bit floating point numbers, which can be computed with the weights with the same precision. Popular SNN frameworks like snnTorch and SpikingJelly do not utilize the sparsity of spike trains. So in this case, the firing rate and the bit width of the spike train do not affect the energy consumption of the training phase. 
+        Popular SNN frameworks like snnTorch and SpikingJelly do not utilize the low precision of spikes and the sparsity of spike trains. The intermediate results are in practice dense 32-bit matrices. So in this case, the firing rate and the bit width of the spike train do not affect the energy consumption of the training phase. 
     
         The only factors that matter are the number of iterations required to reach a certain accuracy and the number of time steps that the network is simulated, assuming fixed network topology and batch size. 
     
@@ -348,4 +348,6 @@
 \label{sec:performance}
     In the section \ref{subsec:training_energy}, we claim that the energy consumption on the GPUs are not affected by the firing rate and the bit width of the spike train in theory. However, in practice, with the increase of the bit width of the spike train, the training process slows down. This could be caused by the inefficient implementation of the multi-bit spike train model and the low level optimization on operations of sparse matrix multiplication. 
 
-    There is sufficient room for improvement, e.g. by utilizing the sparsity of the spike trains or completely switching to the vectorized model instead of the temporal model instead, which is shown to be more efficient with learning algorithms like SLAYER and EXODUS. 
+    The performance limitation of the current implementation mainly comes from insufficient parallelization due to the time dependency in the temporal model and the lack of low level optimization on operations of low precision and sparse matrices. The temporal model enforces the time dependency in the network, precisely the time dependency of the membrane potential of the neurons. Thus, not only the forward path but also the backward path of the network must be executed sequentially. The frameworks like SpikingJelly and snnTorch, and their backend PyTorch, do not support sparse-dense matrix operations and mixed low precision operations (e.g. \verb|bf16|-\verb|bool| or \verb|bf16|-\verb|int2|). 
+
+    The problems stated above can be considered as sufficient room for further optimization, e.g. utilizing the sparsity of the spike trains, supporting some low precision operations, and completely switching to the vectorized model instead of the temporal model instead, which is shown to be more efficient with learning algorithms like SLAYER and EXODUS. 

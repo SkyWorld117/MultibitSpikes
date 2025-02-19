@@ -26,10 +26,29 @@
 
     \begin{figure}[!htpb]
         \centering
-        \includegraphics[width=\textwidth]{assets/standard/FashionMNIST/snn2.pdf}
-        \caption{The CNN structure used in the experiments with Fashion MNIST dataset}
+        \includegraphics[width=\textwidth]{assets/standard/FashionMNIST/snn3.pdf}
+        \caption{The CNN architecture used in the experiments with Fashion MNIST dataset}
         \label{fig:scnn_structure}
     \end{figure}
+
+    Unless stated otherwise, the experiments with Fashion MNIST are run with a batch size of 128, a learning rate of $2\cdot10^{-3}$, time steps of 10, Adam as the optimizer and a total of 5 epochs. 
+
+    Each dataset mentioned in this thesis is paired with a specific model structure. The model structures are shown in Table \ref{tab:datasets_models}, and they are never changed throughout the experiments.
+    \begin{table}[!htpb]
+        \begin{tabularx}{\textwidth}{|l|X|}
+            \toprule
+            Dataset & Model Structure \\
+            \midrule
+            Fashion MNIST & $28\times 28 - 8c5 - 2a - 16c5 - 2a - 10o$ \\
+            MNIST & $28\times 28 - 8c5 - 2a - 16c5 - 2a - 10o$ \\
+            NMNIST & $34\times 34 - 8c5 - 2a - 16c5 - 2a - 10o$ \\
+            DVS Gesture & $2\times 34\times 34 - 8c5 - 2a - 16c5 - 2a - 10o$ \\
+            CIFAR-10 & $3\times 32\times 32 - 256c3 - 256c3 - 256c3 - 2a - 256c3 - 256c3 - 256c3 - 2a - 2048fc - 100fc - 10a - 10o$ \\
+            \bottomrule
+        \end{tabularx}
+        \caption{The model structures used in the experiments with different datasets}
+        \label{tab:datasets_models}
+    \end{table}
 
 \section{Convergence \& Accuracy}
 \label{sec:convergence_accuracy}
@@ -47,7 +66,7 @@
             \includegraphics[width=\textwidth]{../standard/FashionMNIST/plots/fashionmnist_test_acc.pdf}
             \caption{Test Accuracy}
         \end{subfigure}
-        \caption{Comparison of the Convergence Speed of 1-bit to 8-bit Spike Train Model, repetition of the experiment 10 times}
+        \caption{Comparison of the Convergence Speed of 1-bit to 8-bit Spike Train Model, conducted with 10 different random seeds}
         \label{fig:convergence_speed}
     \end{figure}
 
@@ -67,7 +86,7 @@
             \includegraphics[width=\textwidth]{../standard/FashionMNIST/plots/fashionmnist_test_iters.pdf}
             \caption{Epochs to reach 80\% testing accuracy}
         \end{subfigure}
-        \caption{Comparison of the Training Time of 1-bit to 8-bit Spike Train Model, repetition of the experiment 10 times}
+        \caption{Comparison of the Training Time of 1-bit to 8-bit Spike Train Model, conducted with 10 different random seeds}
         \label{fig:iterations_fixed_accuracy}
     \end{figure}
 
@@ -81,7 +100,7 @@
     \begin{figure}[!htpb]
         \centering
         \includegraphics[width=0.8\textwidth]{../standard/FashionMNIST/plots/fashionmnist_final_acc_horizontal.pdf}
-        \caption{Comparison of the Final Accuracy of 1-bit to 8-bit Spike Train Model after 5 epochs, repetition of the experiment 10 times}
+        \caption{Comparison of the Final Accuracy of 1-bit to 8-bit Spike Train Model after 5 epochs, conducted with 10 different random seeds}
         \label{fig:final_accuracy}
     \end{figure}
 
@@ -89,7 +108,7 @@
 
 \section{Firing Rate}
 \label{sec:firing-rate}
-    SNNs are known for their sparsity in the firing rate of the neurons. Here we notice that the multi-bit spike train model has a higher firing rate than the 1-bit spike train model (see Figure \ref{fig:firing_rate}), as tradeoff for the improvement in convergence speed. 
+    SNNs are known for their sparsity in the firing rate of the neurons. We measure the firing rate of the LIF neuron layers at different positions in the models. Let "nnz[i]" denote the number of non-zero elements in the $i$-th measuring point, corresponding to the position from the inputs to the output layer. Measurement point 1 is always the input data, and the last measurement point is always the output data. Here we notice that the multi-bit spike train model has a higher firing rate than the 1-bit spike train model (see Figure \ref{fig:firing_rate}), as tradeoff for the improvement in convergence speed. 
     \begin{figure}[!htpb]
         \centering
         \begin{subfigure}[H]{0.9\textwidth}
@@ -105,7 +124,7 @@
             \includegraphics[width=\textwidth]{../standard/FashionMNIST/plots/fashionmnist_test_firerate.pdf}
             \caption{Test Firing Rate}
         \end{subfigure}
-        \caption{Comparison of the Firing Rate of 1-bit to 8-bit Spike Train Model: repetition of the experiment 10 times, "nnz[i]" means the number of non-zero elements in the $i$-th measuring point, corresponding to the position from the inputs to the output layer, "nnz1" is the input data}
+        \caption{Comparison of the Firing Rate of 1-bit to 8-bit Spike Train Model, conducted with 10 different random seeds}
         \label{fig:firing_rate}
     \end{figure}
 
@@ -141,11 +160,10 @@
 
 \section{Quantizability}
 \label{sec:quantizability}
-    A common technique to reduce the memory footprint of SNNs without having significant impact on accuracy is quantization \cite{9534087}. There are studies showing that the weights and activations of SNNs can be quantized to 1-bit or 2-bit without significant loss in accuracy \cite{10.1145/3664647.3681186}. Here we show that both the multi-bit spike train model and the 1-bit spike train model can be trained with \verb|bf16| and quantized to \verb|int8| without significant loss in accuracy.
-    % TODO: Add references to the studies showing the quantizability of SNNs
+    A common technique to reduce the memory footprint of SNNs without having significant impact on accuracy is quantization \cite{9534087}. Quantization is the state-of-the-art technique to reduce the model size by using lower precision for parameters like weights and biases. There are studies showing that the weights and activations of SNNs can be quantized to 1-bit or 2-bit without significant loss in accuracy \cite{10.1145/3664647.3681186}. Here we show that both the multi-bit spike train model and the 1-bit spike train model can be trained with \verb|bf16| and quantized to \verb|int8| without significant loss in accuracy.
     \begin{figure}[!htpb]
         \centering
-        \begin{subfigure}[H]{0.89\textwidth}
+        \begin{subfigure}[H]{\textwidth}
             \centering
             \begin{subfigure}[H]{\textwidth}
                 \centering
@@ -160,12 +178,17 @@
             \end{subfigure}
         \end{subfigure}
         \hfill
-        \begin{subfigure}[H]{0.1\textwidth}
+        % \begin{subfigure}[H]{0.1\textwidth}
+        %     \centering
+        %     \includegraphics[width=\textwidth]{../bf16/FashionMNIST/plots/fashionmnist_final_acc.pdf}
+        %     \caption{Final Accuracy with half precision after 5 epochs}
+        % \end{subfigure}
+        \begin{subfigure}[H]{\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{../bf16/FashionMNIST/plots/fashionmnist_final_acc.pdf}
+            \includegraphics[width=\textwidth]{../bf16/FashionMNIST/plots/fashionmnist_final_acc_horizontal.pdf}
             \caption{Final Accuracy with half precision after 5 epochs}
         \end{subfigure}
-        \caption{Comparison of the Convergence Speed of 1-bit to 8-bit Spike Train Model with half precision, repetition of the experiment 10 times}
+        \caption{Comparison of the Convergence Speed of 1-bit to 8-bit Spike Train Model with half precision, conducted with 10 different random seeds}
         \label{fig:half_precision}
     \end{figure}
 
@@ -174,7 +197,7 @@
     Before quantizing the models to \verb|int8|, we first apply quantization-aware training to both SNN models. While regular ANNs may encounter various problems due to the high sensitivity in inputs and parameters, both SNN models here converge well. We also see that the multi-bit spike train model has a faster convergence speed and better accuracy than the 1-bit spike train model (Figure \ref{fig:quantization_aware}). 
     \begin{figure}[!htpb]
         \centering
-        \begin{subfigure}[H]{0.89\textwidth}
+        \begin{subfigure}[H]{\textwidth}
             \centering
             \begin{subfigure}[H]{\textwidth}
                 \centering
@@ -189,17 +212,23 @@
             \end{subfigure}
         \end{subfigure}
         \hfill
-        \begin{subfigure}[H]{0.1\textwidth}
+        % \begin{subfigure}[H]{0.1\textwidth}
+        %     \centering
+        %     \includegraphics[width=\textwidth]{../quantized/FashionMNIST/plots/fashionmnist_final_acc.pdf}
+        %     \caption{Final Accuracy with quantization-aware training after 5 epochs}
+        %     \label{fig:quantization_aware_final_acc}
+        % \end{subfigure}
+        \begin{subfigure}[H]{\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{../quantized/FashionMNIST/plots/fashionmnist_final_acc.pdf}
+            \includegraphics[width=\textwidth]{../quantized/FashionMNIST/plots/fashionmnist_final_acc_horizontal.pdf}
             \caption{Final Accuracy with quantization-aware training after 5 epochs}
             \label{fig:quantization_aware_final_acc}
         \end{subfigure}
-        \caption{Comparison of the Convergence Speed of 1-bit to 8-bit Spike Train Model with quantization-aware training, repetition of the experiment 10 times}
+        \caption{Comparison of the Convergence Speed of 1-bit to 8-bit Spike Train Model with quantization-aware training, conducted with 10 different random seeds}
         \label{fig:quantization_aware}
     \end{figure}
 
-    We then quantize the weights and biases to \verb|int8| using the PyTorch quantization API. The quantization of the LIF layer is not supported at the moment. We evaluate the quantized models on the test set. The final accuracy is barely affected by the quantization (see Figure \ref{fig:quantization_aware_final_acc}). 
+    We then quantize the weights and biases to \verb|int8| using the PyTorch quantization API. The quantization of the LIF layer is not supported at the moment. We evaluate the quantized models on the test set. The final accuracy is barely affected by the quantization (see Figure \ref{fig:quantization_aware_final_acc}). In comparison to the results in Figure \ref{fig:final_accuracy}, the final accuracy of the quantized 2-bit spike train model is dropped by around 0.59\% while reducing the memory footprint by almost 75\%.
 
 \section{Energy Consumption}
 \label{sec:energy-consumption}
@@ -271,7 +300,7 @@
                 \includegraphics[width=\textwidth]{../standard/FashionMNIST/plots/fashionmnist_test_relative_energy_nh.pdf}
                 \caption{Normalized Energy Consumption Estimation Relative to 1-bit Spike Train Model}
             \end{subfigure}
-            \caption{Inference Energy Consumption Estimation on Intel Loihi 2 for Fashion MNIST Dataset}
+            \caption{Inference Energy Consumption Estimation on Intel Loihi 2 for Fashion MNIST Dataset, conducted with 10 different random seeds}
             \label{fig:inference_energy_nh}
         \end{figure}
 
@@ -282,7 +311,7 @@
         \begin{figure}[!htpb]
             \centering
             \includegraphics[width=0.6\textwidth]{../standard/FashionMNIST/plots/fashionmnist_energy_ann_vs_snn.pdf}
-            \caption{Comparison of the Energy Consumption of ANN and Multi-Bit Spike Train Model on Intel Loihi 2 for Fashion MNIST Dataset, from top to bottom: first convolution block, second convolution block, output layer}
+            \caption{Comparison of the Energy Consumption of ANN and Multi-Bit Spike Train Model on Intel Loihi 2 for Fashion MNIST Dataset, conducted with 10 different random seeds, from top to bottom: first convolution block, second convolution block, output layer}
             \label{fig:energy_ann_vs_snn}
         \end{figure}
 
@@ -301,7 +330,7 @@
                 \includegraphics[width=\textwidth]{../firerate/FashionMNIST/plots/fashionmnist_test_relative_energy_nh.pdf}
                 \caption{Normalized Energy Consumption Estimation Relative to 1-bit Spike Train Model}
             \end{subfigure}
-            \caption{Inference Energy Consumption Estimation on Intel Loihi 2 for Fashion MNIST Dataset with 50 Training Epochs}
+            \caption{Inference Energy Consumption Estimation on Intel Loihi 2 for Fashion MNIST Dataset with 50 Training Epochs, conducted with 10 different random seeds}
             \label{fig:inference_energy_nh_firerate}
         \end{figure}
 
@@ -328,7 +357,7 @@
                 \includegraphics[width=\textwidth]{../timesteps/FashionMNIST/plots/fashionmnist_final_acc_horizontal.pdf}
                 \caption{Accuracy Comparison}
             \end{subfigure}
-            \caption{Inference Energy Consumption Estimation on Intel Loihi 2 and Test Accuracy for Fashion MNIST Dataset with 10 Time Steps for 1-bit Spike Train Model and 4 Time Steps for 2-bit Spike Train Model}
+            \caption{Inference Energy Consumption Estimation on Intel Loihi 2 and Test Accuracy for Fashion MNIST Dataset with 10 Time Steps for 1-bit Spike Train Model and 4 Time Steps for 2-bit Spike Train Model, conducted with 10 different random seeds}
             \label{fig:inference_energy_nh_timesteps}
         \end{figure}
         
@@ -348,6 +377,6 @@
 \label{sec:performance}
     In the section \ref{subsec:training_energy}, we claim that the energy consumption on the GPUs are not affected by the firing rate and the bit width of the spike train in theory. However, in practice, with the increase of the bit width of the spike train, the training process slows down. This could be caused by the inefficient implementation of the multi-bit spike train model and the low level optimization on operations of sparse matrix multiplication. 
 
-    The performance limitation of the current implementation mainly comes from insufficient parallelization due to the time dependency in the temporal model and the lack of low level optimization on operations of low precision and sparse matrices. The temporal model enforces the time dependency in the network, precisely the time dependency of the membrane potential of the neurons. Thus, not only the forward path but also the backward path of the network must be executed sequentially. The frameworks like SpikingJelly and snnTorch, and their backend PyTorch, do not support sparse-dense matrix operations and mixed low precision operations (e.g. \verb|bf16|-\verb|bool| or \verb|bf16|-\verb|int2|). 
+    The performance limitation of the current implementation mainly comes from insufficient parallelization due to the time dependency in the temporal model and the lack of low level optimization on operations of low precision and sparse matrices. The temporal model enforces the time dependency in the network, precisely the time dependency of the membrane potential of the neurons. Thus, not only the forward path but also the backward path of the network must be executed sequentially. The frameworks like SpikingJelly and snnTorch, and their backend PyTorch, do not have sufficient support for sparse-dense matrix operations and mixed low precision operations (e.g. \verb|fp8|-\verb|bool| or \verb|fp8|-\verb|int2|). 
 
     The problems stated above can be considered as sufficient room for further optimization, e.g. utilizing the sparsity of the spike trains, supporting some low precision operations, and completely switching to the vectorized model instead of the temporal model instead, which is shown to be more efficient with learning algorithms like SLAYER and EXODUS. 

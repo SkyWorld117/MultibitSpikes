@@ -34,6 +34,8 @@
         \label{fig:multi-bit-spike_sigmoid}
     \end{figure}
 
+    Here we use the linear span of the interval to represent the intensity of the spike, because surrogate functions like sigmoid and atan are almost linear with the input value close to zero, which is the case when the threshold is set to a small value. 
+
     Intuitively this firing model enables higher information bandwidth between neurons. Although biologically, neurons can only fire binary encoded spikes, the spike trains can be rate encoding \cite{jphysiol.1962.sp006837} or temporal encoding \cite{doi:10.1073/pnas.0610368104}. The rate encoding is based on the number of spikes in a certain time window, i.e. the neuron fires more spikes when the input is stronger. The temporal encoding is based on the timing of the spikes, i.e. the neuron fires earlier when the input is stronger.
     The multi-bit spike train model is a generalization where the graded spikes can be interpreted as rate encoding and their temporal positions can be interpreted as temporal encoding. 
 
@@ -90,7 +92,7 @@
 \section{Implementation}
 \label{sec:implementation}
 
-    We use the PyTorch based SNN framework SpikingJelly to implement the multi-bit spike train model. In SpikingJelly, the firing mechanism is implemented as a forward path of the surrogate function. One just needs to override the Heaviside step function with $S_{\text{out}}[t]$ in Equation \ref{eq:multi-bit-spike}. The core implementation is shown in Figure \ref{listing:multi-bit-spike}.
+    We use the PyTorch based SNN framework SpikingJelly \cite{doi:10.1126/sciadv.adi1480} to implement the multi-bit spike train model. In SpikingJelly, the firing mechanism is implemented as a forward path of the surrogate function. One just needs to override the Heaviside step function with $S_{\text{out}}[t]$ in Equation \ref{eq:multi-bit-spike}. The core implementation is shown in Figure \ref{listing:multi-bit-spike}.
     \begin{figure}[!htpb]
         \centering
         \begin{lstlisting}[language=Python, basicstyle=\small\ttfamily, breaklines=true, numbers=left, stepnumber=1]

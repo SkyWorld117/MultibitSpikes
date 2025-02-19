@@ -9,45 +9,45 @@ Warning--entry type for "lenz_2021_5079802" isn't style-file defined
 --line 260 of file refs.bib
 Warning--empty publisher in 6302929
 Warning--empty institution in Krizhevsky2009
-You've used 32 entries,
+You've used 35 entries,
             1791 wiz_defined-function locations,
-            641 strings with 10862 characters,
-and the built_in function-call counts, 9362 in all, are:
-= -- 745
-> -- 597
+            659 strings with 11432 characters,
+and the built_in function-call counts, 10075 in all, are:
+= -- 797
+> -- 644
 < -- 8
-+ -- 211
-- -- 179
-* -- 698
-:= -- 1479
-add.period$ -- 95
-call.type$ -- 32
-change.case$ -- 32
++ -- 228
+- -- 193
+* -- 757
+:= -- 1597
+add.period$ -- 103
+call.type$ -- 35
+change.case$ -- 35
 chr.to.int$ -- 0
-cite$ -- 34
-duplicate$ -- 387
-empty$ -- 812
-format.name$ -- 179
-if$ -- 2097
+cite$ -- 37
+duplicate$ -- 410
+empty$ -- 880
+format.name$ -- 193
+if$ -- 2251
 int.to.chr$ -- 0
-int.to.str$ -- 32
-missing$ -- 27
-newline$ -- 158
-num.names$ -- 34
-pop$ -- 104
+int.to.str$ -- 35
+missing$ -- 29
+newline$ -- 172
+num.names$ -- 37
+pop$ -- 113
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 246
+skip$ -- 256
 stack$ -- 0
-substring$ -- 586
-swap$ -- 134
+substring$ -- 634
+swap$ -- 137
 text.length$ -- 8
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 2
-while$ -- 67
-width$ -- 34
-write$ -- 344
+while$ -- 72
+width$ -- 37
+write$ -- 374
 (There were 4 warnings)

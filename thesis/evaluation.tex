@@ -75,13 +75,13 @@
     Here we set the target accuracy to be 80\%. The training time of the multi-bit spike train model is reduced by around 50\%, shown in Figure \ref{fig:iterations_fixed_accuracy}. 
     \begin{figure}[!htpb]
         \centering
-        \begin{subfigure}[H]{0.45\textwidth}
+        \begin{subfigure}[H]{0.495\textwidth}
             \centering
             \includegraphics[width=\textwidth]{../standard/FashionMNIST/plots/fashionmnist_train_iters.pdf}
             \caption{Iterations to reach 80\% training accuracy}
         \end{subfigure}
         \hfill
-        \begin{subfigure}[H]{0.45\textwidth}
+        \begin{subfigure}[H]{0.495\textwidth}
             \centering
             \includegraphics[width=\textwidth]{../standard/FashionMNIST/plots/fashionmnist_test_iters.pdf}
             \caption{Epochs to reach 80\% testing accuracy}
@@ -183,7 +183,7 @@
         %     \includegraphics[width=\textwidth]{../bf16/FashionMNIST/plots/fashionmnist_final_acc.pdf}
         %     \caption{Final Accuracy with half precision after 5 epochs}
         % \end{subfigure}
-        \begin{subfigure}[H]{\textwidth}
+        \begin{subfigure}[H]{0.8\textwidth}
             \centering
             \includegraphics[width=\textwidth]{../bf16/FashionMNIST/plots/fashionmnist_final_acc_horizontal.pdf}
             \caption{Final Accuracy with half precision after 5 epochs}
@@ -220,7 +220,7 @@
         % \end{subfigure}
         \begin{subfigure}[H]{\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{../quantized/FashionMNIST/plots/fashionmnist_final_acc_horizontal.pdf}
+            \includegraphics[width=0.8\textwidth]{../quantized/FashionMNIST/plots/fashionmnist_final_acc_horizontal.pdf}
             \caption{Final Accuracy with quantization-aware training after 5 epochs}
             \label{fig:quantization_aware_final_acc}
         \end{subfigure}
@@ -253,12 +253,12 @@
         Based on the results in Section \ref{fig:iterations_fixed_accuracy}, we can estimate the energy consumption of the 2-bit spike train model relative to the 1-bit spike train model directly by comparing the number of iterations required to reach a certain accuracy which is around $50.00\pm10.84\%$ in this case (see Figure \ref{fig:training_energy_gpu}). 
         \begin{figure}[!htpb]
             \centering
-            \begin{subfigure}[H]{0.45\textwidth}
+            \begin{subfigure}[H]{0.495\textwidth}
                 \includegraphics[width=\textwidth]{../standard/FashionMNIST/plots/fashionmnist_train_energy_gpu.pdf}
                 \caption{Energy Consumption Estimation, Unit in Constant $c$}
             \end{subfigure}
             \hfill
-            \begin{subfigure}[H]{0.45\textwidth}
+            \begin{subfigure}[H]{0.495\textwidth}
                 \includegraphics[width=\textwidth]{../standard/FashionMNIST/plots/fashionmnist_train_relative_energy_gpu.pdf}
                 \caption{Normalized Energy Consumption Estimation Relative to 1-bit Spike Train Model}
             \end{subfigure}
@@ -291,16 +291,18 @@
         We can estimate the energy consumption of the 2-bit spike train model relative to the 1-bit spike train model by comparing the firing rate of the neurons. As expected, the energy consumption of the multi-bit spike train model is higher than the 1-bit spike train model, as the firing rate of the neurons is higher (see Figure \ref{fig:inference_energy_nh}).
         \begin{figure}[!htpb]
             \centering
-            \begin{subfigure}[H]{0.48\textwidth}
+            \begin{subfigure}[H]{0.7\textwidth}
                 \includegraphics[width=\textwidth]{../standard/FashionMNIST/plots/fashionmnist_test_energy_nh.pdf}
                 \caption{Energy Consumption Estimation, Unit in Parameters $F\cdot E_{\text{AC}}$}
             \end{subfigure}
-            \hfill
-            \begin{subfigure}[H]{0.48\textwidth}
+        \end{figure}
+        \begin{figure}[!htpb]
+            \ContinuedFloat
+            \begin{subfigure}[H]{0.7\textwidth}
                 \includegraphics[width=\textwidth]{../standard/FashionMNIST/plots/fashionmnist_test_relative_energy_nh.pdf}
                 \caption{Normalized Energy Consumption Estimation Relative to 1-bit Spike Train Model}
             \end{subfigure}
-            \caption{Inference Energy Consumption Estimation on Intel Loihi 2 for Fashion MNIST Dataset, conducted with 10 different random seeds}
+            \caption{Inference Energy Consumption Estimation on Intel Loihi 2 for Fashion MNIST Dataset, conducted with 10 different random seeds, from top to bottom: first convolution block, second convolution block, output layer}
             \label{fig:inference_energy_nh}
         \end{figure}
 
@@ -310,7 +312,7 @@
         We consider $E_{\text{AC}}=0.9\text{pJ}$, $E_{\text{MAC}}=4.5\text{pJ}$ (energy cost for multiply-and-accumulate operations) \cite{6757323} to estimate the precise energy consumption of the multi-bit spike train model and the ANN for Fashion MNIST dataset (see Figure \ref{fig:energy_ann_vs_snn}). Due to the small network size and the high firing rate, the energy consumption of the multi-bit spike train model is higher than the ANN in some cases.
         \begin{figure}[!htpb]
             \centering
-            \includegraphics[width=0.6\textwidth]{../standard/FashionMNIST/plots/fashionmnist_energy_ann_vs_snn.pdf}
+            \includegraphics[width=0.9\textwidth]{../standard/FashionMNIST/plots/fashionmnist_energy_ann_vs_snn.pdf}
             \caption{Comparison of the Energy Consumption of ANN and Multi-Bit Spike Train Model on Intel Loihi 2 for Fashion MNIST Dataset, conducted with 10 different random seeds, from top to bottom: first convolution block, second convolution block, output layer}
             \label{fig:energy_ann_vs_snn}
         \end{figure}
@@ -321,12 +323,12 @@
         We consider the energy consumption of the multi-bit spike train model in general as an opportunity to enable tradeoffs. If the inference is not the bottleneck of the application, then one can rely on the fast convergence speed of the multi-bit spike train model during training. If the inference is the bottleneck, then one can choose to train the multi-bit spike train model for longer time to achieve a firing rate that is comparable to the 1-bit spike train model (see Figure \ref{fig:inference_energy_nh_firerate}). Such tradeoffs are not possible with the 1-bit spike train model. 
         \begin{figure}[!htpb]
             \centering
-            \begin{subfigure}[H]{0.48\textwidth}
+            \begin{subfigure}[H]{0.495\textwidth}
                 \includegraphics[width=\textwidth]{../firerate/FashionMNIST/plots/fashionmnist_test_energy_nh.pdf}
                 \caption{Energy Consumption Estimation, Unit in Parameters $F\cdot E_{\text{AC}}$}
             \end{subfigure}
             \hfill
-            \begin{subfigure}[H]{0.48\textwidth}
+            \begin{subfigure}[H]{0.495\textwidth}
                 \includegraphics[width=\textwidth]{../firerate/FashionMNIST/plots/fashionmnist_test_relative_energy_nh.pdf}
                 \caption{Normalized Energy Consumption Estimation Relative to 1-bit Spike Train Model}
             \end{subfigure}
@@ -341,12 +343,12 @@
             \centering
             \begin{subfigure}[H]{\textwidth}
                 \centering
-                \begin{subfigure}[H]{0.49\textwidth}
+                \begin{subfigure}[H]{0.495\textwidth}
                     \includegraphics[width=\textwidth]{../timesteps/FashionMNIST/plots/fashionmnist_test_energy_nh.pdf}
                     \caption{Energy Consumption Estimation, Unit in Parameters $F\cdot E_{\text{AC}}$}
                 \end{subfigure}
                 \hfill
-                \begin{subfigure}[H]{0.49\textwidth}
+                \begin{subfigure}[H]{0.495\textwidth}
                     \includegraphics[width=\textwidth]{../timesteps/FashionMNIST/plots/fashionmnist_test_relative_energy_nh.pdf}
                     \caption{Normalized Energy Consumption Estimation Relative to 1-bit Spike Train Model}
                 \end{subfigure}
@@ -354,7 +356,7 @@
             \hfill
             \begin{subfigure}[H]{\textwidth}
                 \centering
-                \includegraphics[width=\textwidth]{../timesteps/FashionMNIST/plots/fashionmnist_final_acc_horizontal.pdf}
+                \includegraphics[width=0.8\textwidth]{../timesteps/FashionMNIST/plots/fashionmnist_final_acc_horizontal.pdf}
                 \caption{Accuracy Comparison}
             \end{subfigure}
             \caption{Inference Energy Consumption Estimation on Intel Loihi 2 and Test Accuracy for Fashion MNIST Dataset with 10 Time Steps for 1-bit Spike Train Model and 4 Time Steps for 2-bit Spike Train Model, conducted with 10 different random seeds}

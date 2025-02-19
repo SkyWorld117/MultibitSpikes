@@ -51,7 +51,7 @@ def plot_accs_train(accs_train, args, ann=False, ExponentialMovingAverage=True):
     if ExponentialMovingAverage:
         accs_train = np.array([ [numpy_ewma_vectorized_v2(accs_train[i][j], 100) for j in range(accs_train.shape[1])] for i in range(accs_train.shape[0]) ])
 
-    fig, ax = plt.subplots(figsize=(8, 4))
+    fig, ax = plt.subplots(figsize=(6, 3))
 
     if ann:
         mean_accs = [np.mean(accs_train[i], axis=0) for i in range(bits_limit+1)]
@@ -95,7 +95,7 @@ def plot_accs_test(accs_test, args, ann=False):
         accs_test = np.array(accs_test)
         np.save(os.path.join(data_dir, 'accs_test.npy'), accs_test)
 
-    fig, ax = plt.subplots(figsize=(8, 4))
+    fig, ax = plt.subplots(figsize=(6, 3))
 
     if ann:
         mean_accs = [np.mean(accs_test[i], axis=0) for i in range(bits_limit+1)]
@@ -116,7 +116,7 @@ def plot_accs_test(accs_test, args, ann=False):
 
     ax.legend()
     ax.set_xlabel('Epochs')
-    ax.set_ylabel('Testing Accuracy')
+    ax.set_ylabel('Test Accuracy')
     ax.set_ylim(0, 1)
     ax.yaxis.set_major_formatter(mtick.PercentFormatter(1.0))
     ax.grid()
@@ -170,24 +170,24 @@ def plot_accs_final(accs_test, args, ann=False, horizontal=False):
         ax.set_ylim(0, 1)
         ax.yaxis.set_major_formatter(mtick.PercentFormatter(1.0))
         ax.bar(x, mean_accs, yerr=std_accs, capsize=5)
-        ax.set_xlabel('Bitwidth')
+        ax.set_xlabel('Bit width')
         ax.set_ylabel('Test Accuracy')        
 
         for i, v in enumerate(mean_accs):
-            ax.text(i, v - std_accs[i] - 0.05, f'{v*100:.2f}±{std_accs[i]*100:.2f}', ha='right', va='center', rotation=90, rotation_mode='anchor')
+            ax.text(i, v - std_accs[i] - 0.05, f'{v*100:.2f}±{std_accs[i]*100:.2f}', ha='right', va='center', rotation=90, rotation_mode='anchor', color='white')
     else:
         ax.set_yticks(x)
         ax.set_yticklabels(labels)
         ax.set_xlim(0, 1)
         ax.xaxis.set_major_formatter(mtick.PercentFormatter(1.0))
         ax.barh(x, mean_accs, xerr=std_accs, capsize=5)
-        ax.set_ylabel('Bitwidth')
+        ax.set_ylabel('Bit width')
         ax.set_xlabel('Test Accuracy')
 
         for i, v in enumerate(mean_accs):
-            ax.text(v-0.05, i, f'{v*100:.2f}±{std_accs[i]*100:.2f}', ha='right', va='center')
+            ax.text(v-0.05, i, f'{v*100:.2f}±{std_accs[i]*100:.2f}', ha='right', va='center', color='white')
     
-    ax.grid()
+    # ax.grid()
     
     os.makedirs(plots_dir, exist_ok=True)
     plt.tight_layout()
@@ -242,24 +242,24 @@ def plot_accs_quant(accs_test, args, ann=False, horizontal=False):
         ax.set_ylim(0, 1)
         ax.yaxis.set_major_formatter(mtick.PercentFormatter(1.0))
         ax.bar(x, mean_accs, yerr=std_accs, capsize=5)
-        ax.set_xlabel('Bitwidth')
+        ax.set_xlabel('Bit width')
         ax.set_ylabel('Test Accuracy')
 
         for i, v in enumerate(mean_accs):
-            ax.text(i, v + std_accs[i], f'{v*100:.2f}±{std_accs[i]*100:.2f}', ha='center', va='bottom')
+            ax.text(i, v + std_accs[i], f'{v*100:.2f}±{std_accs[i]*100:.2f}', ha='center', va='bottom', color='white')
     else:
         ax.set_yticks(x)
         ax.set_yticklabels(labels)
         ax.set_xlim(0, 1)
         ax.xaxis.set_major_formatter(mtick.PercentFormatter(1.0))
         ax.barh(x, mean_accs, xerr=std_accs, capsize=5)
-        ax.set_ylabel('Bitwidth')
+        ax.set_ylabel('Bit width')
         ax.set_xlabel('Test Accuracy')
 
         for i, v in enumerate(mean_accs):
-            ax.text(v-0.05, i, f'{v*100:.2f}±{std_accs[i]*100:.2f}', ha='right', va='center')
+            ax.text(v-0.05, i, f'{v*100:.2f}±{std_accs[i]*100:.2f}', ha='right', va='center', color='white')
 
-    ax.grid()
+    # ax.grid()
 
     os.makedirs(plots_dir, exist_ok=True)
     plt.tight_layout()
@@ -280,7 +280,7 @@ def plot_iters_train(iters, args, ann=False, horizontal=False):
         np.save(os.path.join(data_dir, 'iters_train.npy'), iters)
 
     if not horizontal:
-        fig, ax = plt.subplots(figsize=(0.2*args.N+1, 5))
+        fig, ax = plt.subplots(figsize=(0.2*args.N+2, 5))
     else:
         fig, ax = plt.subplots(figsize=(5, 0.2*args.N+1))
 
@@ -299,8 +299,8 @@ def plot_iters_train(iters, args, ann=False, horizontal=False):
         labels = [f'{i+1}' for i in range(bits_limit)]
 
     if not horizontal:
-        ax.bar(x, mean_iters, yerr=std_iters, capsize=5)
-        ax.set_xlabel('Bitwidth')
+        ax.bar(x, mean_iters, yerr=std_iters, capsize=5, width=0.6)
+        ax.set_xlabel('Bit width')
         ax.set_ylabel('Iterations to Reach Target Training Accuracy')
         ax.set_xticks(x)
         ax.set_xticklabels(labels)
@@ -308,12 +308,12 @@ def plot_iters_train(iters, args, ann=False, horizontal=False):
         padding = 0.01 * (ax.get_ylim()[1] - ax.get_ylim()[0])
         for i, v in enumerate(mean_iters):
             if ax.get_ylim()[1] - v - std_iters[i] < v - std_iters[i]:
-                ax.text(i, v - std_iters[i] - padding, f'{v:.2f}±{std_iters[i]:.2f}', ha='right', va='center', rotation=90, rotation_mode='anchor')
+                ax.text(i, v - std_iters[i] - padding, f'{v:.2f}±{std_iters[i]:.2f}', ha='right', va='center', rotation=90, rotation_mode='anchor', color='white')
             else:
                 ax.text(i, v + std_iters[i] + padding, f'{v:.2f}±{std_iters[i]:.2f}', ha='left', va='center', rotation=90, rotation_mode='anchor')
     else:
         ax.barh(x, mean_iters, xerr=std_iters, capsize=5)
-        ax.set_ylabel('Bitwidth')
+        ax.set_ylabel('Bit width')
         ax.set_xlabel('Iterations to Reach Target Training Accuracy')
         ax.set_yticks(x)
         ax.set_yticklabels(labels)
@@ -321,11 +321,11 @@ def plot_iters_train(iters, args, ann=False, horizontal=False):
         padding = 0.01 * (ax.get_xlim()[1] - ax.get_xlim()[0])
         for i, v in enumerate(mean_iters):
             if ax.get_xlim()[1] - v - std_iters[i] < v - std_iters[i]:
-                ax.text(v - std_iters[i] - padding, i, f'{v:.2f}±{std_iters[i]:.2f}', ha='right', va='center')
+                ax.text(v - std_iters[i] - padding, i, f'{v:.2f}±{std_iters[i]:.2f}', ha='right', va='center', color='white')
             else:
                 ax.text(v + std_iters[i] + padding, i, f'{v:.2f}±{std_iters[i]:.2f}', ha='left', va='center')
 
-    ax.grid()
+    # ax.grid()
 
     os.makedirs(plots_dir, exist_ok=True)
     plt.tight_layout()
@@ -353,7 +353,7 @@ def plot_iters_test(iters, args, ann=False, horizontal=False):
         np.save(os.path.join(data_dir, 'iters_test.npy'), iters)
 
     if not horizontal:
-        fig, ax = plt.subplots(figsize=(0.2*args.N+1, 5))
+        fig, ax = plt.subplots(figsize=(0.2*args.N+2, 5))
     else:
         fig, ax = plt.subplots(figsize=(5, 0.2*args.N+1))
 
@@ -372,33 +372,33 @@ def plot_iters_test(iters, args, ann=False, horizontal=False):
         labels = [f'{i+1}' for i in range(bits_limit)]
 
     if not horizontal:
-        ax.bar(x, mean_iters, yerr=std_iters, capsize=5)
-        ax.set_xlabel('Bitwidth')
-        ax.set_ylabel('Epochs to Reach Target Testing Accuracy')
+        ax.bar(x, mean_iters, yerr=std_iters, capsize=5, width=0.6)
+        ax.set_xlabel('Bit width')
+        ax.set_ylabel('Epochs to Reach Target Test Accuracy')
         ax.set_xticks(x)
         ax.set_xticklabels(labels)
 
         padding = 0.01 * (ax.get_ylim()[1] - ax.get_ylim()[0])
         for i, v in enumerate(mean_iters):
             if ax.get_ylim()[1] - v - std_iters[i] < v - std_iters[i]:
-                ax.text(i, v - std_iters[i] - padding, f'{v:.2f}±{std_iters[i]:.2f}', ha='right', va='center', rotation=90, rotation_mode='anchor')
+                ax.text(i, v - std_iters[i] - padding, f'{v:.2f}±{std_iters[i]:.2f}', ha='right', va='center', rotation=90, rotation_mode='anchor', color='white')
             else:
                 ax.text(i, v + std_iters[i] + padding, f'{v:.2f}±{std_iters[i]:.2f}', ha='left', va='center', rotation=90, rotation_mode='anchor')
     else:
         ax.barh(x, mean_iters, xerr=std_iters, capsize=5)
-        ax.set_ylabel('Bitwidth')
-        ax.set_xlabel('Epochs to Reach Target Testing Accuracy')
+        ax.set_ylabel('Bit width')
+        ax.set_xlabel('Epochs to Reach Target Test Accuracy')
         ax.set_yticks(x)
         ax.set_yticklabels(labels)
 
         padding = 0.01 * (ax.get_xlim()[1] - ax.get_xlim()[0])
         for i, v in enumerate(mean_iters):
             if ax.get_xlim()[1] - v - std_iters[i] < v - std_iters[i]:
-                ax.text(v - std_iters[i] - padding, i, f'{v:.2f}±{std_iters[i]:.2f}', ha='right', va='center')
+                ax.text(v - std_iters[i] - padding, i, f'{v:.2f}±{std_iters[i]:.2f}', ha='right', va='center', color='white')
             else:
                 ax.text(v + std_iters[i] + padding, i, f'{v:.2f}±{std_iters[i]:.2f}', ha='left', va='center')
 
-    ax.grid()
+    # ax.grid()
 
     os.makedirs(plots_dir, exist_ok=True)
     plt.tight_layout()
@@ -430,7 +430,7 @@ def plot_firerate_train(firerate_train, args):
     mean_firerate_train = [ [np.mean(firerate_train[i][j], axis=0) for j in range(num_spiking+1)] for i in range(bits_limit) ]
     std_firerate_train = [ [np.std(firerate_train[i][j], axis=0) for j in range(num_spiking+1)] for i in range(bits_limit) ]
 
-    fig_train, ax_train = plt.subplots(num_spiking+1,1, figsize=(10, 4*(num_spiking+1)))
+    fig_train, ax_train = plt.subplots(num_spiking+1,1, figsize=(7.5, 3*(num_spiking+1)))
     for i in range(bits_limit):
         for j in range(num_spiking+1):
             ax_train[j].plot(mean_firerate_train[i][j], label=f'{i+1} bit: {np.mean(mean_firerate_train[i][j]):.2f}')
@@ -468,7 +468,7 @@ def plot_firerate_test(firerate_test, args):
     mean_firerate_test = [ [np.mean(firerate_test[i][j], axis=0) for j in range(num_spiking+1)] for i in range(bits_limit) ]
     std_firerate_test = [ [np.std(firerate_test[i][j], axis=0) for j in range(num_spiking+1)] for i in range(bits_limit) ]
 
-    fig_test, ax_test = plt.subplots(num_spiking+1,1, figsize=(10, 4*(num_spiking+1)))
+    fig_test, ax_test = plt.subplots(num_spiking+1,1, figsize=(7.5, 3*(num_spiking+1)))
     for i in range(bits_limit):
         for j in range(num_spiking+1):
             ax_test[j].plot(mean_firerate_test[i][j], label=f'{i+1} bit: {np.mean(mean_firerate_test[i][j]):.2f}')
@@ -527,14 +527,14 @@ def plot_firerate_final(firerate_test, args, horizontal=False):
         ax_test[j].set_xticks(x)
         ax_test[j].set_xticklabels(labels)
         ax_test[j].yaxis.set_major_formatter(mtick.PercentFormatter(1.0))
-        ax_test[j].set_xlabel('Bitwidth')
+        ax_test[j].set_xlabel('Bit width')
         ax_test[j].set_ylabel('Firing Rate')
         ax_test[j].set_ylim(0, 1)
-        ax_test[j].grid()
+        # ax_test[j].grid()
 
         for i, v in enumerate(mean_firerate_test_final[:,j]):
             if ax_test[j].get_ylim()[1] - v - std_firerate_test_final[i][j] < v - std_firerate_test_final[i][j]:
-                ax_test[j].text(i, v - std_firerate_test_final[i][j]-0.01, f'{v:.2f}±{std_firerate_test_final[i][j]:.2f}', ha='right', va='center', rotation=90, rotation_mode='anchor')
+                ax_test[j].text(i, v - std_firerate_test_final[i][j]-0.01, f'{v:.2f}±{std_firerate_test_final[i][j]:.2f}', ha='right', va='center', rotation=90, rotation_mode='anchor', color='white')
             else:
                 ax_test[j].text(i, v + std_firerate_test_final[i][j]+0.01, f'{v:.2f}±{std_firerate_test_final[i][j]:.2f}', ha='left', va='center', rotation=90, rotation_mode='anchor')
 
@@ -575,30 +575,30 @@ def plot_energy_train_gpu(train_iters, args, horizontal=False):
         ax.bar(x, mean_energy_train_gpu, yerr=std_energy_train_gpu, capsize=5)
         ax.set_xticks(x)
         ax.set_xticklabels(labels)
-        ax.set_xlabel('Bitwidth')
+        ax.set_xlabel('Bit width')
         ax.set_ylabel('Energy (GPU)')
 
         padding = 0.01 * (ax.get_ylim()[1] - ax.get_ylim()[0])
         for i, v in enumerate(mean_energy_train_gpu):
             if ax.get_ylim()[1] - v - std_energy_train_gpu[i] < v - std_energy_train_gpu[i]:
-                ax.text(i, v - std_energy_train_gpu[i] - padding, f'{v:.2f}±{std_energy_train_gpu[i]:.2f}', ha='right', va='center', rotation=90, rotation_mode='anchor')
+                ax.text(i, v - std_energy_train_gpu[i] - padding, f'{v:.2f}±{std_energy_train_gpu[i]:.2f}', ha='right', va='center', rotation=90, rotation_mode='anchor', color='white')
             else:
                 ax.text(i, v + std_energy_train_gpu[i] + padding, f'{v:.2f}±{std_energy_train_gpu[i]:.2f}', ha='left', va='center', rotation=90, rotation_mode='anchor')
     else:
         ax.barh(x, mean_energy_train_gpu, xerr=std_energy_train_gpu, capsize=5)
         ax.set_yticks(x)
         ax.set_yticklabels(labels)
-        ax.set_ylabel('Bitwidth')
+        ax.set_ylabel('Bit width')
         ax.set_xlabel('Energy (GPU)')
 
         padding = 0.01 * (ax.get_xlim()[1] - ax.get_xlim()[0])
         for i, v in enumerate(mean_energy_train_gpu):
             if ax.get_xlim()[1] - v - std_energy_train_gpu[i] < v - std_energy_train_gpu[i]:
-                ax.text(v - std_energy_train_gpu[i] - padding, i, f'{v:.2f}±{std_energy_train_gpu[i]:.2f}', ha='right', va='center')
+                ax.text(v - std_energy_train_gpu[i] - padding, i, f'{v:.2f}±{std_energy_train_gpu[i]:.2f}', ha='right', va='center', color='white')
             else:
                 ax.text(v + std_energy_train_gpu[i] + padding, i, f'{v:.2f}±{std_energy_train_gpu[i]:.2f}', ha='left', va='center')
 
-    ax.grid()
+    # ax.grid()
 
     os.makedirs(plots_dir, exist_ok=True)
     plt.tight_layout()
@@ -621,32 +621,32 @@ def plot_energy_train_gpu(train_iters, args, horizontal=False):
         ax.bar(x, mean_relative_energy_train_gpu, yerr=std_relative_energy_train_gpu, capsize=5)
         ax.set_xticks(x)
         ax.set_xticklabels(labels)
-        ax.set_xlabel('Bitwidth')
+        ax.set_xlabel('Bit width')
         ax.set_ylabel('Relative Energy (GPU)')
         ax.yaxis.set_major_formatter(mtick.PercentFormatter(1.0))
 
         padding = 0.01 * (ax.get_ylim()[1] - ax.get_ylim()[0])
         for i, v in enumerate(mean_relative_energy_train_gpu):
             if ax.get_ylim()[1] - v - std_relative_energy_train_gpu[i] < v - std_relative_energy_train_gpu[i]:
-                ax.text(i, v - std_relative_energy_train_gpu[i] - padding, f'{v*100:.2f}±{std_relative_energy_train_gpu[i]*100:.2f}', ha='right', va='center', rotation=90, rotation_mode='anchor')
+                ax.text(i, v - std_relative_energy_train_gpu[i] - padding, f'{v*100:.2f}±{std_relative_energy_train_gpu[i]*100:.2f}', ha='right', va='center', rotation=90, rotation_mode='anchor', color='white')
             else:
                 ax.text(i, v + std_relative_energy_train_gpu[i] + padding, f'{v*100:.2f}±{std_relative_energy_train_gpu[i]*100:.2f}', ha='left', va='center', rotation=90, rotation_mode='anchor')
     else:
         ax.barh(x, mean_relative_energy_train_gpu, xerr=std_relative_energy_train_gpu, capsize=5)
         ax.set_yticks(x)
         ax.set_yticklabels(labels)
-        ax.set_ylabel('Bitwidth')
+        ax.set_ylabel('Bit width')
         ax.set_xlabel('Relative Energy (GPU)')
         ax.xaxis.set_major_formatter(mtick.PercentFormatter(1.0))
 
         padding = 0.01 * (ax.get_xlim()[1] - ax.get_xlim()[0])
         for i, v in enumerate(mean_relative_energy_train_gpu):
             if ax.get_xlim()[1] - v - std_relative_energy_train_gpu[i] < v - std_relative_energy_train_gpu[i]:
-                ax.text(v - std_relative_energy_train_gpu[i] - padding, i, f'{v*100:.2f}±{std_relative_energy_train_gpu[i]*100:.2f}', ha='right', va='center')
+                ax.text(v - std_relative_energy_train_gpu[i] - padding, i, f'{v*100:.2f}±{std_relative_energy_train_gpu[i]*100:.2f}', ha='right', va='center', color='white')
             else:
                 ax.text(v + std_relative_energy_train_gpu[i] + padding, i, f'{v*100:.2f}±{std_relative_energy_train_gpu[i]*100:.2f}', ha='left', va='center')
 
-    ax.grid()
+    # ax.grid()
 
     os.makedirs(plots_dir, exist_ok=True)
     plt.tight_layout()
@@ -699,14 +699,14 @@ def plot_energy_test_nh(firerate_test, args, horizontal=False):
         for j in range(num_spiking+1):
             ax_test[j].set_yticks(x)
             ax_test[j].set_yticklabels(labels)
-            ax_test[j].set_ylabel('Bitwidth')
+            ax_test[j].set_ylabel('Bit width')
             ax_test[j].set_xlabel('Energy (NH)')
             # ax_test[j].grid()
 
             padding = 0.01 * (ax_test[j].get_xlim()[1] - ax_test[j].get_xlim()[0])
             for i, v in enumerate(mean_energy_test_nh[:,j]):
                 if ax_test[j].get_xlim()[1] - v - std_energy_test_nh[i][j] < v - std_energy_test_nh[i][j]:
-                    ax_test[j].text(v - std_energy_test_nh[i][j] - padding, i, f'{v:.2f}±{std_energy_test_nh[i][j]:.2f}', ha='right', va='center')
+                    ax_test[j].text(v - std_energy_test_nh[i][j] - padding, i, f'{v:.2f}±{std_energy_test_nh[i][j]:.2f}', ha='right', va='center', color='white')
                 else:
                     ax_test[j].text(v + std_energy_test_nh[i][j] + padding, i, f'{v:.2f}±{std_energy_test_nh[i][j]:.2f}', ha='left', va='center')
     else:
@@ -718,7 +718,7 @@ def plot_energy_test_nh(firerate_test, args, horizontal=False):
             ax_test[j].set_title(f'nnz{j+1}')
             ax_test[j].set_xticks(x)
             ax_test[j].set_xticklabels(labels)
-            ax_test[j].set_xlabel('Bitwidth')
+            ax_test[j].set_xlabel('Bit width')
             ax_test[j].set_ylabel('Energy (NH)')
             # ax_test[j].grid()
 
@@ -756,7 +756,7 @@ def plot_energy_test_nh(firerate_test, args, horizontal=False):
         for j in range(num_spiking+1):
             ax[j].set_yticks(x)
             ax[j].set_yticklabels(labels)
-            ax[j].set_ylabel('Bitwidth')
+            ax[j].set_ylabel('Bit width')
             ax[j].set_xlabel('Relative Energy (NH)')
             ax[j].xaxis.set_major_formatter(mtick.PercentFormatter(1.0))
             # ax[j].grid()
@@ -764,7 +764,7 @@ def plot_energy_test_nh(firerate_test, args, horizontal=False):
             padding = 0.01 * (ax[j].get_ylim()[1] - ax[j].get_ylim()[0])
             for i, v in enumerate(mean_relative_energy_test_nh[:,j]):
                 if ax[j].get_xlim()[1] - v - std_relative_energy_test_nh[i][j] < v - std_relative_energy_test_nh[i][j]:
-                    ax[j].text(v - std_relative_energy_test_nh[i][j] - padding, i, f'{v*100:.2f}±{std_relative_energy_test_nh[i][j]*100:.2f}', ha='right', va='center')
+                    ax[j].text(v - std_relative_energy_test_nh[i][j] - padding, i, f'{v*100:.2f}±{std_relative_energy_test_nh[i][j]*100:.2f}', ha='right', va='center', color='white')
                 else:
                     ax[j].text(v + std_relative_energy_test_nh[i][j] + padding, i, f'{v*100:.2f}±{std_relative_energy_test_nh[i][j]*100:.2f}', ha='left', va='center')
 
@@ -776,7 +776,7 @@ def plot_energy_test_nh(firerate_test, args, horizontal=False):
         for j in range(num_spiking+1):
             ax[j].set_xticks(x)
             ax[j].set_xticklabels(labels)
-            ax[j].set_xlabel('Bitwidth')
+            ax[j].set_xlabel('Bit width')
             ax[j].set_ylabel('Relative Energy (NH)')
             ax[j].yaxis.set_major_formatter(mtick.PercentFormatter(1.0))
             ax[j].set_title(f'nnz{j+1}')
@@ -852,15 +852,15 @@ def plot_energy_nh_ann_snn(firerate_test, args, horizontal=False):
         for j in range(num_spiking):
             ax_test[j].set_yticks(x)
             ax_test[j].set_yticklabels(labels)
-            ax_test[j].set_ylabel('Bitwidth')
+            ax_test[j].set_ylabel('Bit width')
             ax_test[j].set_xlabel('Energy (J)')
             # ax_test[j].grid()
 
             padding = 0.01 * (ax_test[j].get_xlim()[1] - ax_test[j].get_xlim()[0])
-            ax_test[j].text(energy_ann[j] - padding, 0, f'{energy_ann[j]*1e8:.2f}'+r'$\cdot 10^{-8}$', ha='right', va='center')
+            ax_test[j].text(energy_ann[j] - padding, 0, f'{energy_ann[j]*1e8:.2f}'+r'$\cdot 10^{-8}$', ha='right', va='center', color='white')
             for i, v in enumerate(mean_energy_test_nh[:,j]):
                 if ax_test[j].get_xlim()[1] - v - std_energy_test_nh[i][j] < v - std_energy_test_nh[i][j]:
-                    ax_test[j].text(v - std_energy_test_nh[i][j] - padding, i+1, f'({v*1e8:.2f}±{std_energy_test_nh[i][j]*1e8:.2f})'+r'$\cdot 10^{-8}$', ha='right', va='center')
+                    ax_test[j].text(v - std_energy_test_nh[i][j] - padding, i+1, f'({v*1e8:.2f}±{std_energy_test_nh[i][j]*1e8:.2f})'+r'$\cdot 10^{-8}$', ha='right', va='center', color='white')
                 else:
                     ax_test[j].text(v + std_energy_test_nh[i][j] + padding, i+1, f'({v*1e8:.2f}±{std_energy_test_nh[i][j]*1e8:.2f})'+r'$\cdot 10^{-8}$', ha='left', va='center')
     else:
@@ -874,15 +874,15 @@ def plot_energy_nh_ann_snn(firerate_test, args, horizontal=False):
             ax_test[j].set_title(f'nnz{j+1}')
             ax_test[j].set_xticks(x)
             ax_test[j].set_xticklabels(labels)
-            ax_test[j].set_xlabel('Bitwidth')
+            ax_test[j].set_xlabel('Bit width')
             ax_test[j].set_ylabel('Energy (J)')
             # ax_test[j].grid()
 
             padding = 0.01 * (ax_test[j].get_ylim()[1] - ax_test[j].get_ylim()[0])
-            ax_test[j].text(0, energy_ann[j] - padding, f'{energy_ann[j]*1e12:.2f}e-12', ha='right', va='center', rotation=90, rotation_mode='anchor')
+            ax_test[j].text(0, energy_ann[j] - padding, f'{energy_ann[j]*1e12:.2f}e-12', ha='right', va='center', rotation=90, rotation_mode='anchor', color='white')
             for i, v in enumerate(mean_energy_test_nh[:,j]):
                 if ax_test[j].get_ylim()[1] - v - std_energy_test_nh[i][j] < v - std_energy_test_nh[i][j]:
-                    ax_test[j].text(i+1, v - std_energy_test_nh[i][j] - padding, f'({v*1e12:.2f}±{std_energy_test_nh[i][j]*1e12:.2f})e-12', ha='right', va='center')
+                    ax_test[j].text(i+1, v - std_energy_test_nh[i][j] - padding, f'({v*1e12:.2f}±{std_energy_test_nh[i][j]*1e12:.2f})e-12', ha='right', va='center', color='white')
                 else:
                     ax_test[j].text(i+1, v + std_energy_test_nh[i][j] + padding, f'({v*1e12:.2f}±{std_energy_test_nh[i][j]*1e12:.2f})e-12', ha='left', va='center')
 

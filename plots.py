@@ -564,7 +564,7 @@ def plot_energy_train_gpu(train_iters, args, horizontal=False):
     std_energy_train_gpu = np.std(energy_train_gpu, axis=1)
 
     if not horizontal:
-        fig, ax = plt.subplots(figsize=(0.2*args.N+1, 5))
+        fig, ax = plt.subplots(figsize=(0.2*args.N+2, 5))
     else:
         fig, ax = plt.subplots(figsize=(5, 0.2*args.N+1))
 
@@ -572,7 +572,7 @@ def plot_energy_train_gpu(train_iters, args, horizontal=False):
     labels = [f'{i+1}' for i in range(bits_limit)]
 
     if not horizontal:
-        ax.bar(x, mean_energy_train_gpu, yerr=std_energy_train_gpu, capsize=5)
+        ax.bar(x, mean_energy_train_gpu, yerr=std_energy_train_gpu, capsize=5, width=0.6)
         ax.set_xticks(x)
         ax.set_xticklabels(labels)
         ax.set_xlabel('Bit width')
@@ -613,12 +613,12 @@ def plot_energy_train_gpu(train_iters, args, horizontal=False):
     std_relative_energy_train_gpu = np.std(relative_energy_train_gpu, axis=1)
 
     if not horizontal:
-        fig, ax = plt.subplots(figsize=(0.2*args.N+1, 5))
+        fig, ax = plt.subplots(figsize=(0.2*args.N+2, 5))
     else:
         fig, ax = plt.subplots(figsize=(5, 0.2*args.N+1))
 
     if not horizontal:
-        ax.bar(x, mean_relative_energy_train_gpu, yerr=std_relative_energy_train_gpu, capsize=5)
+        ax.bar(x, mean_relative_energy_train_gpu, yerr=std_relative_energy_train_gpu, capsize=5, width=0.6)
         ax.set_xticks(x)
         ax.set_xticklabels(labels)
         ax.set_xlabel('Bit width')
@@ -675,28 +675,28 @@ def plot_energy_test_nh(firerate_test, args, horizontal=False):
 
     dataset_len = firerate_test.shape[-1] // args.epochs
 
-    mean_energy_test_nh = np.empty((bits_limit, num_spiking+1))
-    std_energy_test_nh = np.empty((bits_limit, num_spiking+1))
+    mean_energy_test_nh = np.empty((bits_limit, num_spiking))
+    std_energy_test_nh = np.empty((bits_limit, num_spiking))
     for i in range(bits_limit):
-        for j in range(num_spiking+1):
+        for j in range(num_spiking):
             tmp = firerate_test[i][j][:,-dataset_len:].flatten() * args.T[i]
             mean_energy_test_nh[i][j] = np.mean(tmp)
             std_energy_test_nh[i][j] = np.std(tmp)
 
     if not horizontal:
-        fig_test, ax_test = plt.subplots(num_spiking+1,1, figsize=(4, 0.2*args.N*(num_spiking+1)+3))
+        fig_test, ax_test = plt.subplots(num_spiking,1, figsize=(4, 0.2*args.N*(num_spiking)+3))
     else:
-        fig_test, ax_test = plt.subplots(1, num_spiking+1, figsize=(0.2*args.N*(num_spiking+1)+3, 5))
+        fig_test, ax_test = plt.subplots(1, num_spiking, figsize=(0.2*args.N*(num_spiking)+3, 5))
 
     x = np.arange(0, bits_limit)
     labels = [f'{i+1} bit' for i in range(bits_limit)]
 
     if not horizontal:
         for i in range(bits_limit):
-            for j in range(num_spiking+1):
+            for j in range(num_spiking):
                 ax_test[j].barh(i, mean_energy_test_nh[i][j], xerr=std_energy_test_nh[i][j], capsize=5, label=f'{i+1} bit: {mean_energy_test_nh[i][j]:.2f}±{std_energy_test_nh[i][j]:.2f}')
 
-        for j in range(num_spiking+1):
+        for j in range(num_spiking):
             ax_test[j].set_yticks(x)
             ax_test[j].set_yticklabels(labels)
             ax_test[j].set_ylabel('Bit width')
@@ -711,10 +711,10 @@ def plot_energy_test_nh(firerate_test, args, horizontal=False):
                     ax_test[j].text(v + std_energy_test_nh[i][j] + padding, i, f'{v:.2f}±{std_energy_test_nh[i][j]:.2f}', ha='left', va='center')
     else:
         for i in range(bits_limit):
-            for j in range(num_spiking+1):
+            for j in range(num_spiking):
                 ax_test[j].bar(i, mean_energy_test_nh[i][j], yerr=std_energy_test_nh[i][j], capsize=5, label=f'{i+1} bit: {mean_energy_test_nh[i][j]:.2f}±{std_energy_test_nh[i][j]:.2f}')
 
-        for j in range(num_spiking+1):
+        for j in range(num_spiking):
             ax_test[j].set_title(f'nnz{j+1}')
             ax_test[j].set_xticks(x)
             ax_test[j].set_xticklabels(labels)
@@ -730,30 +730,30 @@ def plot_energy_test_nh(firerate_test, args, horizontal=False):
     plt.tight_layout()
     fig_test.savefig(os.path.join(plots_dir, f'{dataset_name.lower()}_test_energy_nh.pdf'))
 
-    mean_relative_energy_test_nh = np.empty((bits_limit, num_spiking+1))
-    std_relative_energy_test_nh = np.empty((bits_limit, num_spiking+1))
+    mean_relative_energy_test_nh = np.empty((bits_limit, num_spiking))
+    std_relative_energy_test_nh = np.empty((bits_limit, num_spiking))
 
     for i in range(bits_limit):
-        for j in range(num_spiking+1):
+        for j in range(num_spiking):
             tmp = firerate_test[i][j][:,-dataset_len:].flatten() * args.T[i]
             relative_tmp = tmp / mean_energy_test_nh[0][j]
             mean_relative_energy_test_nh[i][j] = np.mean(relative_tmp)
             std_relative_energy_test_nh[i][j] = np.std(relative_tmp)
 
     if not horizontal:
-        fig, ax = plt.subplots(num_spiking+1, 1, figsize=(4, 0.2*args.N*(num_spiking+1)+3))
+        fig, ax = plt.subplots(num_spiking, 1, figsize=(4, 0.2*args.N*(num_spiking)+3))
     else:
-        fig, ax = plt.subplots(1, num_spiking+1, figsize=(0.2*args.N*(num_spiking+1)+3, 5))
+        fig, ax = plt.subplots(1, num_spiking, figsize=(0.2*args.N*(num_spiking)+3, 5))
 
     x = np.arange(0, bits_limit)
     labels = [f'{i+1} bit' for i in range(bits_limit)]
 
     if not horizontal:
         for i in range(bits_limit):
-            for j in range(num_spiking+1):
+            for j in range(num_spiking):
                 ax[j].barh(i, mean_relative_energy_test_nh[i][j], xerr=std_relative_energy_test_nh[i][j], capsize=5, label=f'{i+1} bit: {mean_relative_energy_test_nh[i][j]:.2f}±{std_relative_energy_test_nh[i][j]:.2f}')
 
-        for j in range(num_spiking+1):
+        for j in range(num_spiking):
             ax[j].set_yticks(x)
             ax[j].set_yticklabels(labels)
             ax[j].set_ylabel('Bit width')
@@ -770,10 +770,10 @@ def plot_energy_test_nh(firerate_test, args, horizontal=False):
 
     else:
         for i in range(bits_limit):
-            for j in range(num_spiking+1):
+            for j in range(num_spiking):
                 ax[j].bar(i, mean_relative_energy_test_nh[i][j], yerr=std_relative_energy_test_nh[i][j], capsize=5, label=f'{i+1} bit: {mean_relative_energy_test_nh[i][j]:.2f}±{std_relative_energy_test_nh[i][j]:.2f}')
 
-        for j in range(num_spiking+1):
+        for j in range(num_spiking):
             ax[j].set_xticks(x)
             ax[j].set_xticklabels(labels)
             ax[j].set_xlabel('Bit width')

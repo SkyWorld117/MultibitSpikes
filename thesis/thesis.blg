@@ -9,45 +9,45 @@ Warning--entry type for "lenz_2021_5079802" isn't style-file defined
 --line 260 of file refs.bib
 Warning--empty publisher in 6302929
 Warning--empty institution in Krizhevsky2009
-You've used 35 entries,
+You've used 36 entries,
             1791 wiz_defined-function locations,
-            659 strings with 11432 characters,
-and the built_in function-call counts, 10075 in all, are:
-= -- 797
-> -- 644
+            662 strings with 11480 characters,
+and the built_in function-call counts, 10175 in all, are:
+= -- 805
+> -- 645
 < -- 8
-+ -- 228
++ -- 229
 - -- 193
 * -- 757
-:= -- 1597
-add.period$ -- 103
-call.type$ -- 35
-change.case$ -- 35
+:= -- 1606
+add.period$ -- 105
+call.type$ -- 36
+change.case$ -- 36
 chr.to.int$ -- 0
-cite$ -- 37
-duplicate$ -- 410
-empty$ -- 880
+cite$ -- 38
+duplicate$ -- 415
+empty$ -- 898
 format.name$ -- 193
-if$ -- 2251
+if$ -- 2278
 int.to.chr$ -- 0
-int.to.str$ -- 35
+int.to.str$ -- 36
 missing$ -- 29
-newline$ -- 172
+newline$ -- 176
 num.names$ -- 37
-pop$ -- 113
+pop$ -- 119
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 256
+skip$ -- 262
 stack$ -- 0
 substring$ -- 634
-swap$ -- 137
+swap$ -- 138
 text.length$ -- 8
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 2
 while$ -- 72
-width$ -- 37
-write$ -- 374
+width$ -- 38
+write$ -- 381
 (There were 4 warnings)

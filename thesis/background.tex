@@ -75,7 +75,9 @@
 
         Backpropagation through time (BPTT) is a method used to train recurrent neural networks (RNNs) \cite{6302929} by unfolding the network in time and applying backpropagation. The same method can be applied to train SNNs, as they are very similar to RNNs. 
 
-        There are also other methods to train SNNs, like SLAYER \cite{Shrestha2018} and EXODUS \cite{bauer2022exodus} which utilize the vectorized model of the SNNs. They introduce a new way to calculate the gradients that approximate the gradients calculated by BPTT. Since we are more interested in the performance of the multi-bit spike train model in convergence and firing rate, we will focus on the temporal model of the SNNs in this thesis. 
+        There are also other methods to train SNNs, like SLAYER \cite{Shrestha2018} and EXODUS \cite{bauer2022exodus} which utilize the vectorized model of the SNNs. They introduce a new way to calculate the gradients that approximate the gradients calculated by BPTT. The vectorized model calculates the intermediate matrices are results of convolution operations, which leads to non-sparse matrices. Thus, the memory footprint of the vectorized model is much larger than the temporal model.
+
+        Since we are more interested in the performance of the multi-bit spike train model in convergence and firing rate, we will focus on the temporal model of the SNNs in this thesis. 
 
     \subsection{Surrogate Gradient}
     \label{subsec:lif_surrogate}
